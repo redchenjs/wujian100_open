@@ -9,9 +9,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 */
 module Standard_Cell_CLK_GATE(
-Q, 
-CK, 
-EN, 
+Q,
+CK,
+EN,
 SE
 );
    output Q;
@@ -19,26 +19,30 @@ SE
    input EN;
    input SE;
 
-wire	E;
-reg	q_tmp;
-assign E = SE | EN;
+// wire	E;
+// reg	q_tmp;
+// assign E = SE | EN;
 
-always @(E or CK)
-begin 
-    if(!CK)
-	q_tmp = E;
-end
+// always @(E or CK)
+// begin
+//     if(!CK)
+// 	q_tmp = E;
+// end
 
-assign Q = q_tmp & CK;
+// assign Q = q_tmp & CK;
 
+BUFG BUFG_inst (
+   .O(Q),   // 1-bit output: Clock output
+   .I(CK)   // 1-bit input: Clock input
+);
 
 endmodule
 
 
 module Standard_Cell_CLK_MUX2(
-X, 
-S, 
-D0, 
+X,
+S,
+D0,
 D1
 );
    output X;
@@ -46,7 +50,14 @@ D1
    input D0;
    input D1;
 
-assign X = S ? D1 : D0;
+// assign X = S ? D1 : D0;
+
+BUFGMUX BUFGMUX_inst (
+   .O(X),   // 1-bit output: Clock output
+   .I0(D0), // 1-bit input: Clock input (S=0)
+   .I1(D1), // 1-bit input: Clock input (S=1)
+   .S(S)    // 1-bit input: Clock select
+);
 
 endmodule
 

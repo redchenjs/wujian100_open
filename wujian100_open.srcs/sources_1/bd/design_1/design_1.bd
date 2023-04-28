@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xD5B52CB2BBF241D2",
+      "boundary_crc": "0x3ABEBA10D4B6926E",
       "device": "xc7z020clg400-3",
       "gen_directory": "../../../../wujian100_open.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -12,8 +12,8 @@
     },
     "design_tree": {
       "processing_system7_0": "",
-      "wujian100_open_top_0": "",
-      "xlconstant_0": ""
+      "clk_wiz_0": "",
+      "wujian100_open_top_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -186,9 +186,6 @@
       }
     },
     "ports": {
-      "PAD_JTAG_TCLK_0": {
-        "direction": "IO"
-      },
       "PAD_JTAG_TMS_0": {
         "direction": "IO"
       },
@@ -218,6 +215,77 @@
       },
       "PAD_USI2_SD1_0": {
         "direction": "IO"
+      },
+      "PIN_EHS_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "design_1_PIN_EHS_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "50000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "PIN_ELS_0": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "CLK_DOMAIN": {
+            "value": "design_1_PIN_ELS_0",
+            "value_src": "default"
+          },
+          "FREQ_HZ": {
+            "value": "32768"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
+      },
+      "PAD_JTAG_TCLK_0": {
+        "type": "clk",
+        "direction": "IO",
+        "parameters": {
+          "FREQ_HZ": {
+            "value": "8000000"
+          },
+          "FREQ_TOLERANCE_HZ": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "INSERT_VIP": {
+            "value": "0",
+            "value_src": "default"
+          },
+          "PHASE": {
+            "value": "0.0",
+            "value_src": "default"
+          }
+        }
       }
     },
     "components": {
@@ -243,7 +311,7 @@
             "value": "10.000000"
           },
           "PCW_ACT_FPGA0_PERIPHERAL_FREQMHZ": {
-            "value": "20.000000"
+            "value": "10.000000"
           },
           "PCW_ACT_FPGA1_PERIPHERAL_FREQMHZ": {
             "value": "10.000000"
@@ -300,7 +368,7 @@
             "value": "867"
           },
           "PCW_CLK0_FREQ": {
-            "value": "20000000"
+            "value": "10000000"
           },
           "PCW_CLK1_FREQ": {
             "value": "10000000"
@@ -313,6 +381,9 @@
           },
           "PCW_DDR_RAM_HIGHADDR": {
             "value": "0x3FFFFFFF"
+          },
+          "PCW_EN_CLK0_PORT": {
+            "value": "0"
           },
           "PCW_EN_CLK1_PORT": {
             "value": "0"
@@ -336,13 +407,10 @@
             "value": "IO PLL"
           },
           "PCW_FPGA0_PERIPHERAL_FREQMHZ": {
-            "value": "20"
+            "value": "50"
           },
           "PCW_FPGA1_PERIPHERAL_FREQMHZ": {
             "value": "50"
-          },
-          "PCW_FPGA_FCLK0_ENABLE": {
-            "value": "1"
           },
           "PCW_MIO_10_IOTYPE": {
             "value": "LVCMOS 3.3V"
@@ -463,6 +531,74 @@
           },
           "PCW_USE_M_AXI_GP0": {
             "value": "0"
+          }
+        }
+      },
+      "clk_wiz_0": {
+        "vlnv": "xilinx.com:ip:clk_wiz:6.0",
+        "xci_name": "design_1_clk_wiz_0_0",
+        "xci_path": "ip\\design_1_clk_wiz_0_0\\design_1_clk_wiz_0_0.xci",
+        "inst_hier_path": "clk_wiz_0",
+        "parameters": {
+          "CLKOUT1_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT1_JITTER": {
+            "value": "249.363"
+          },
+          "CLKOUT1_PHASE_ERROR": {
+            "value": "164.985"
+          },
+          "CLKOUT1_REQUESTED_OUT_FREQ": {
+            "value": "20.000"
+          },
+          "CLKOUT2_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT3_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT4_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT5_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT6_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT7_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "FEEDBACK_SOURCE": {
+            "value": "FDBK_AUTO"
+          },
+          "MMCM_BANDWIDTH": {
+            "value": "OPTIMIZED"
+          },
+          "MMCM_CLKFBOUT_MULT_F": {
+            "value": "20.000"
+          },
+          "MMCM_CLKIN2_PERIOD": {
+            "value": "10.0"
+          },
+          "MMCM_CLKOUT0_DIVIDE_F": {
+            "value": "50.000"
+          },
+          "MMCM_COMPENSATION": {
+            "value": "ZHOLD"
+          },
+          "PRIMITIVE": {
+            "value": "MMCM"
+          },
+          "USE_LOCKED": {
+            "value": "false"
+          },
+          "USE_RESET": {
+            "value": "false"
+          },
+          "USE_SAFE_CLOCK_STARTUP": {
+            "value": "true"
           }
         }
       },
@@ -662,15 +798,15 @@
             "parameters": {
               "FREQ_HZ": {
                 "value": "20000000",
-                "value_src": "user_prop"
+                "value_src": "ip_prop"
               },
               "PHASE": {
                 "value": "0.0",
-                "value_src": "default_prop"
+                "value_src": "ip_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_processing_system7_0_0_FCLK_CLK0",
-                "value_src": "default_prop"
+                "value": "/clk_wiz_0_clk_out1",
+                "value_src": "ip_prop"
               }
             }
           },
@@ -678,7 +814,7 @@
             "direction": "I",
             "parameters": {
               "FREQ_HZ": {
-                "value": "201562",
+                "value": "32768",
                 "value_src": "user_prop"
               },
               "PHASE": {
@@ -686,7 +822,7 @@
                 "value_src": "default_prop"
               },
               "CLK_DOMAIN": {
-                "value": "design_1_processing_system7_0_0_FCLK_CLK1",
+                "value": "design_1_PIN_ELS_0",
                 "value_src": "default_prop"
               }
             }
@@ -696,17 +832,6 @@
           },
           "POUT_ELS": {
             "direction": "O"
-          }
-        }
-      },
-      "xlconstant_0": {
-        "vlnv": "xilinx.com:ip:xlconstant:1.1",
-        "xci_name": "design_1_xlconstant_0_0",
-        "xci_path": "ip\\design_1_xlconstant_0_0\\design_1_xlconstant_0_0.xci",
-        "inst_hier_path": "xlconstant_0",
-        "parameters": {
-          "CONST_VAL": {
-            "value": "0"
           }
         }
       }
@@ -750,7 +875,7 @@
           "wujian100_open_top_0/PAD_USI2_SD1"
         ]
       },
-      "Net32": {
+      "Net4": {
         "ports": [
           "PAD_JTAG_TCLK_0",
           "wujian100_open_top_0/PAD_JTAG_TCLK"
@@ -792,16 +917,22 @@
           "wujian100_open_top_0/PAD_USI0_SD1"
         ]
       },
-      "processing_system7_0_FCLK_CLK0": {
+      "PIN_EHS_0_1": {
         "ports": [
-          "processing_system7_0/FCLK_CLK0",
-          "wujian100_open_top_0/PIN_EHS"
+          "PIN_EHS_0",
+          "clk_wiz_0/clk_in1"
         ]
       },
-      "xlconstant_0_dout": {
+      "PIN_ELS_0_1": {
         "ports": [
-          "xlconstant_0/dout",
+          "PIN_ELS_0",
           "wujian100_open_top_0/PIN_ELS"
+        ]
+      },
+      "clk_wiz_0_clk_out1": {
+        "ports": [
+          "clk_wiz_0/clk_out1",
+          "wujian100_open_top_0/PIN_EHS"
         ]
       }
     }

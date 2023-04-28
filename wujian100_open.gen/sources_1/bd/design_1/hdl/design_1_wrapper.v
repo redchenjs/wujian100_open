@@ -1,7 +1,7 @@
 //Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2022.2.2 (win64) Build 3788238 Tue Feb 21 20:00:34 MST 2023
-//Date        : Fri Apr 28 23:41:00 2023
+//Date        : Sat Apr 29 04:58:05 2023
 //Host        : ThinPC running 64-bit major release  (build 9200)
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
@@ -41,7 +41,9 @@ module design_1_wrapper
     PAD_USI1_SD0_0,
     PAD_USI1_SD1_0,
     PAD_USI2_SD0_0,
-    PAD_USI2_SD1_0);
+    PAD_USI2_SD1_0,
+    PIN_EHS_0,
+    PIN_ELS_0);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -74,6 +76,8 @@ module design_1_wrapper
   inout PAD_USI1_SD1_0;
   inout PAD_USI2_SD0_0;
   inout PAD_USI2_SD1_0;
+  input PIN_EHS_0;
+  input PIN_ELS_0;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -107,6 +111,8 @@ module design_1_wrapper
   wire PAD_USI1_SD1_0;
   wire PAD_USI2_SD0_0;
   wire PAD_USI2_SD1_0;
+  wire PIN_EHS_0;
+  wire PIN_ELS_0;
 
   design_1 design_1_i
        (.DDR_addr(DDR_addr),
@@ -140,5 +146,7 @@ module design_1_wrapper
         .PAD_USI1_SD0_0(PAD_USI1_SD0_0),
         .PAD_USI1_SD1_0(PAD_USI1_SD1_0),
         .PAD_USI2_SD0_0(PAD_USI2_SD0_0),
-        .PAD_USI2_SD1_0(PAD_USI2_SD1_0));
+        .PAD_USI2_SD1_0(PAD_USI2_SD1_0),
+        .PIN_EHS_0(PIN_EHS_0),
+        .PIN_ELS_0(PIN_ELS_0));
 endmodule

@@ -20,7 +20,19 @@ input    XOSC_IN;
 output   XOSC_OUT;
 output   CLK;
 
-assign CLK = EN ? XOSC_IN : 1'b0;
-assign XOSC_OUT = EN ? XOSC_IN : 1'b0;
+// assign CLK = EN ? XOSC_IN : 1'b0;
+// assign XOSC_OUT = EN ? XOSC_IN : 1'b0;
+
+BUFGCE BUFGCE_inst (
+    .O(CLK),        // 1-bit output: Clock output
+    .CE(EN),        // 1-bit input: Clock enable input for I0
+    .I(XOSC_IN)     // 1-bit input: Primary clock
+);
+
+OBUFT OBUFT_inst (
+    .O(XOSC_OUT),   // Buffer output (connect directly to top-level port)
+    .I(XOSC_IN),    // Buffer input
+    .T(EN)          // 3-state enable input
+);
 
 endmodule

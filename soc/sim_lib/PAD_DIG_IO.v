@@ -25,6 +25,11 @@ inout   PAD;
 // assign PAD = OEN ? 1'bz : OD;
 // assign ID = IEN ? 1'bz : PAD;
 
-IOBUF iobuf(.O(ID), .IO(PAD), .I(OD), .T(OEN &~ IEN));
+IOBUF IOBUF_inst (
+    .O(ID),         // Buffer output
+    .IO(PAD),       // Buffer inout port (connect directly to top-level port)
+    .I(OD),         // Buffer input
+    .T(OEN &~ IEN)  // 3-state enable input, high=input, low=output
+);
 
 endmodule

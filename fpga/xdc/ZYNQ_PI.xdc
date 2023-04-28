@@ -1,4 +1,8 @@
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets PAD_JTAG_TCLK_0]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {PIN_ELS_0}]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {PAD_JTAG_TCLK_0}]
+
+set_property -dict {PACKAGE_PIN K17 IOSTANDARD LVCMOS33} [get_ports {PIN_EHS_0}]
+set_property -dict {PACKAGE_PIN N17 IOSTANDARD LVCMOS33} [get_ports {PIN_ELS_0}]
 
 set_property -dict {PACKAGE_PIN T11 IOSTANDARD LVCMOS33} [get_ports {PAD_MCURST_0}]
 
