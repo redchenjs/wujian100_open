@@ -22,7 +22,9 @@ output  ID;
 input   OD;
 inout   PAD;
 
-assign ID = IEN ? 1'bz : PAD;
-assign PAD = OEN ? 1'bz : OD;
+// assign PAD = OEN ? 1'bz : OD;
+// assign ID = IEN ? 1'bz : PAD;
+
+IOBUF iobuf(.O(ID), .IO(PAD), .I(OD), .T(OEN &~ IEN));
 
 endmodule
