@@ -112,7 +112,7 @@ inout           PAD_GPIO_8;
 inout           PAD_GPIO_9;            
 inout           PAD_JTAG_TCLK;         
 inout           PAD_JTAG_TMS;          
-inout           PAD_MCURST;            
+input           PAD_MCURST;            
 inout           PAD_PWM_CH0;           
 inout           PAD_PWM_CH1;           
 inout           PAD_PWM_CH10;          
@@ -1130,13 +1130,14 @@ PAD_OSC_IO  x_PAD_EHS (
 //   .XOSC_OUT    (POUT_ELS   )
 // );
 assign els_pmu_clk = PIN_ELS;
-PAD_DIG_IO  x_PAD_MCURST (
-  .ID           (pad_mcurst_b),
-  .IEN          (1'b0        ),
-  .OD           (1'b0        ),
-  .OEN          (1'b1        ),
-  .PAD          (PAD_MCURST  )
-);
+// PAD_DIG_IO  x_PAD_MCURST (
+//   .ID           (pad_mcurst_b),
+//   .IEN          (1'b0        ),
+//   .OD           (1'b0        ),
+//   .OEN          (1'b1        ),
+//   .PAD          (PAD_MCURST  )
+// );
+assign pad_mcurst_b = PAD_MCURST;
 assign cpu_padmux_jtg_tms_oen = ~cpu_padmux_jtg_tms_oe;
 assign cpu_padmux_jtg_tms_ien = cpu_padmux_jtg_tms_oe;
 PAD_DIG_IO  x_PAD_JTAG_TMS (
@@ -1154,13 +1155,13 @@ PAD_DIG_IO  x_PAD_JTAG_TMS (
 //   .PAD                 (PAD_JTAG_TCLK      )
 // );
 assign padmux_cpu_jtg_tclk = PAD_JTAG_TCLK;
-// PAD_DIG_IO  x_PAD_GPIO_0 (
-//   .ID                      (ioctl_gpio_ext_porta[0]),
-//   .IEN                     (pad_gpio_ien[0]        ),
-//   .OD                      (gpio_ioctl_porta_dr[0] ),
-//   .OEN                     (pad_gpio_oen[0]        ),
-//   .PAD                     (PAD_GPIO_0             )
-// );
+PAD_DIG_IO  x_PAD_GPIO_0 (
+  .ID                      (ioctl_gpio_ext_porta[0]),
+  .IEN                     (pad_gpio_ien[0]        ),
+  .OD                      (gpio_ioctl_porta_dr[0] ),
+  .OEN                     (pad_gpio_oen[0]        ),
+  .PAD                     (PAD_GPIO_0             )
+);
 // PAD_DIG_IO  x_PAD_GPIO_1 (
 //   .ID                      (ioctl_gpio_ext_porta[1]),
 //   .IEN                     (pad_gpio_ien[1]        ),
@@ -1397,13 +1398,13 @@ assign pwm_ioctl_ch11_ie_n = ~pwm_ioctl_ch11_oe_n;
 //   .OEN             (1'b1           ),
 //   .PAD             (PAD_PWM_FAULT  )
 // );
-// PAD_DIG_IO  x_PAD_PWM_CH0 (
-//   .ID                 (ioctl_pwm_cap0    ),
-//   .IEN                (pwm_ioctl_ch0_ie_n),
-//   .OD                 (pwm_ioctl_ch0     ),
-//   .OEN                (pwm_ioctl_ch0_oe_n),
-//   .PAD                (PAD_PWM_CH0       )
-// );
+PAD_DIG_IO  x_PAD_PWM_CH0 (
+  .ID                 (ioctl_pwm_cap0    ),
+  .IEN                (pwm_ioctl_ch0_ie_n),
+  .OD                 (pwm_ioctl_ch0     ),
+  .OEN                (pwm_ioctl_ch0_oe_n),
+  .PAD                (PAD_PWM_CH0       )
+);
 // PAD_DIG_IO  x_PAD_PWM_CH1 (
 //   .ID                 (pwm_indata1       ),
 //   .IEN                (pwm_ioctl_ch1_ie_n),
@@ -1481,13 +1482,13 @@ assign pwm_ioctl_ch11_ie_n = ~pwm_ioctl_ch11_oe_n;
 //   .OEN                 (pwm_ioctl_ch11_oe_n),
 //   .PAD                 (PAD_PWM_CH11       )
 // );
-PAD_DIG_IO  x_PAD_USI0_SCLK (
-  .ID                   (ioctl_usi0_sclk_in  ),
-  .IEN                  (usi0_ioctl_sclk_ie_n),
-  .OD                   (usi0_ioctl_sclk_out ),
-  .OEN                  (usi0_ioctl_sclk_oe_n),
-  .PAD                  (PAD_USI0_SCLK       )
-);
+// PAD_DIG_IO  x_PAD_USI0_SCLK (
+//   .ID                   (ioctl_usi0_sclk_in  ),
+//   .IEN                  (usi0_ioctl_sclk_ie_n),
+//   .OD                   (usi0_ioctl_sclk_out ),
+//   .OEN                  (usi0_ioctl_sclk_oe_n),
+//   .PAD                  (PAD_USI0_SCLK       )
+// );
 PAD_DIG_IO  x_PAD_USI0_SD0 (
   .ID                  (ioctl_usi0_sd0_in  ),
   .IEN                 (usi0_ioctl_sd0_ie_n),
@@ -1502,13 +1503,13 @@ PAD_DIG_IO  x_PAD_USI0_SD1 (
   .OEN                 (usi0_ioctl_sd1_oe_n),
   .PAD                 (PAD_USI0_SD1       )
 );
-PAD_DIG_IO  x_PAD_USI0_NSS (
-  .ID                  (ioctl_usi0_nss_in  ),
-  .IEN                 (usi0_ioctl_nss_ie_n),
-  .OD                  (usi0_ioctl_nss_out ),
-  .OEN                 (usi0_ioctl_nss_oe_n),
-  .PAD                 (PAD_USI0_NSS       )
-);
+// PAD_DIG_IO  x_PAD_USI0_NSS (
+//   .ID                  (ioctl_usi0_nss_in  ),
+//   .IEN                 (usi0_ioctl_nss_ie_n),
+//   .OD                  (usi0_ioctl_nss_out ),
+//   .OEN                 (usi0_ioctl_nss_oe_n),
+//   .PAD                 (PAD_USI0_NSS       )
+// );
 // PAD_DIG_IO  x_PAD_USI1_SCLK (
 //   .ID                   (ioctl_usi1_sclk_in  ),
 //   .IEN                  (usi1_ioctl_sclk_ie_n),
@@ -1537,13 +1538,13 @@ PAD_DIG_IO  x_PAD_USI1_SD1 (
 //   .OEN                 (usi1_ioctl_nss_oe_n),
 //   .PAD                 (PAD_USI1_NSS       )
 // );
-// PAD_DIG_IO  x_PAD_USI2_SCLK (
-//   .ID                   (ioctl_usi2_sclk_in  ),
-//   .IEN                  (usi2_ioctl_sclk_ie_n),
-//   .OD                   (usi2_ioctl_sclk_out ),
-//   .OEN                  (usi2_ioctl_sclk_oe_n),
-//   .PAD                  (PAD_USI2_SCLK       )
-// );
+PAD_DIG_IO  x_PAD_USI2_SCLK (
+  .ID                   (ioctl_usi2_sclk_in  ),
+  .IEN                  (usi2_ioctl_sclk_ie_n),
+  .OD                   (usi2_ioctl_sclk_out ),
+  .OEN                  (usi2_ioctl_sclk_oe_n),
+  .PAD                  (PAD_USI2_SCLK       )
+);
 PAD_DIG_IO  x_PAD_USI2_SD0 (
   .ID                  (ioctl_usi2_sd0_in  ),
   .IEN                 (usi2_ioctl_sd0_ie_n),
@@ -1558,13 +1559,13 @@ PAD_DIG_IO  x_PAD_USI2_SD1 (
   .OEN                 (usi2_ioctl_sd1_oe_n),
   .PAD                 (PAD_USI2_SD1       )
 );
-// PAD_DIG_IO  x_PAD_USI2_NSS (
-//   .ID                  (ioctl_usi2_nss_in  ),
-//   .IEN                 (usi2_ioctl_nss_ie_n),
-//   .OD                  (usi2_ioctl_nss_out ),
-//   .OEN                 (usi2_ioctl_nss_oe_n),
-//   .PAD                 (PAD_USI2_NSS       )
-// );
+PAD_DIG_IO  x_PAD_USI2_NSS (
+  .ID                  (ioctl_usi2_nss_in  ),
+  .IEN                 (usi2_ioctl_nss_ie_n),
+  .OD                  (usi2_ioctl_nss_out ),
+  .OEN                 (usi2_ioctl_nss_oe_n),
+  .PAD                 (PAD_USI2_NSS       )
+);
 assign bist0_mode = 1'b0;
 assign scan_en = 1'b0;
 assign scan_mode = 1'b0;

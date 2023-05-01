@@ -1,46 +1,64 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.542985",
-   "Default View_TopLeft":"-403,562",
+   "Default View_ScaleFactor":"2.15103",
+   "Default View_TopLeft":"-51,788",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:10.0 non-TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -lvl 3 -x 520 -y 60 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -lvl 3 -x 520 -y 80 -defaultsOSRD
-preplace port port-id_PAD_JTAG_TMS_0 -pg 1 -lvl 3 -x 520 -y 840 -defaultsOSRD
-preplace port port-id_PAD_MCURST_0 -pg 1 -lvl 3 -x 520 -y 860 -defaultsOSRD
-preplace port port-id_PAD_USI0_NSS_0 -pg 1 -lvl 3 -x 520 -y 1140 -defaultsOSRD
-preplace port port-id_PAD_USI0_SCLK_0 -pg 1 -lvl 3 -x 520 -y 1160 -defaultsOSRD
-preplace port port-id_PAD_USI0_SD0_0 -pg 1 -lvl 3 -x 520 -y 1180 -defaultsOSRD
-preplace port port-id_PAD_USI0_SD1_0 -pg 1 -lvl 3 -x 520 -y 1200 -defaultsOSRD
-preplace port port-id_PAD_USI1_SD1_0 -pg 1 -lvl 3 -x 520 -y 1280 -defaultsOSRD
-preplace port port-id_PAD_USI1_SD0_0 -pg 1 -lvl 3 -x 520 -y 1260 -defaultsOSRD
-preplace port port-id_PAD_USI2_SD0_0 -pg 1 -lvl 3 -x 520 -y 1340 -defaultsOSRD
-preplace port port-id_PAD_USI2_SD1_0 -pg 1 -lvl 3 -x 520 -y 1360 -defaultsOSRD
-preplace port port-id_PIN_EHS_0 -pg 1 -lvl 0 -x -10 -y 740 -defaultsOSRD
-preplace port port-id_PIN_ELS_0 -pg 1 -lvl 0 -x -10 -y 800 -defaultsOSRD
-preplace port port-id_PAD_JTAG_TCLK_0 -pg 1 -lvl 3 -x 520 -y 820 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 2 -x 350 -y 70 -defaultsOSRD
-preplace inst clk_wiz_0 -pg 1 -lvl 1 -x 110 -y 740 -defaultsOSRD
-preplace inst wujian100_open_top_0 -pg 1 -lvl 2 -x 350 -y 790 -defaultsOSRD
-preplace netloc Net 1 2 1 NJ 1280
-preplace netloc Net1 1 2 1 NJ 1260
-preplace netloc Net2 1 2 1 NJ 1340
-preplace netloc Net3 1 2 1 NJ 1360
-preplace netloc Net4 1 2 1 NJ 820
-preplace netloc Net33 1 2 1 NJ 840
-preplace netloc Net34 1 2 1 NJ 860
-preplace netloc Net48 1 2 1 NJ 1140
-preplace netloc Net49 1 2 1 NJ 1160
-preplace netloc Net50 1 2 1 NJ 1180
-preplace netloc Net51 1 2 1 NJ 1200
-preplace netloc PIN_EHS_0_1 1 0 1 NJ 740
-preplace netloc PIN_ELS_0_1 1 0 2 NJ 800 NJ
-preplace netloc clk_wiz_0_clk_out1 1 1 1 200J 740n
+preplace port DDR -pg 1 -lvl 3 -x 670 -y 60 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -lvl 3 -x 670 -y 80 -defaultsOSRD
+preplace port port-id_PL_CLK_50M -pg 1 -lvl 0 -x 0 -y 860 -defaultsOSRD
+preplace port port-id_EXT_KEY_1 -pg 1 -lvl 0 -x 0 -y 180 -defaultsOSRD
+preplace port port-id_EXT_KEY_2 -pg 1 -lvl 0 -x 0 -y 980 -defaultsOSRD
+preplace port port-id_EXT_MCU_NRST_0 -pg 1 -lvl 0 -x 0 -y 1000 -defaultsOSRD
+preplace port port-id_EXT_MCU_NRST_1 -pg 1 -lvl 0 -x 0 -y 200 -defaultsOSRD
+preplace port port-id_EXT_JTAG_TCK_0 -pg 1 -lvl 3 -x 670 -y 940 -defaultsOSRD
+preplace port port-id_EXT_JTAG_TMS_0 -pg 1 -lvl 3 -x 670 -y 960 -defaultsOSRD
+preplace port port-id_EXT_JTAG_TCK_1 -pg 1 -lvl 3 -x 670 -y 20 -defaultsOSRD
+preplace port port-id_EXT_JTAG_TMS_1 -pg 1 -lvl 3 -x 670 -y 40 -defaultsOSRD
+preplace port port-id_EXT_FLASH_NSS -pg 1 -lvl 3 -x 670 -y 1400 -defaultsOSRD
+preplace port port-id_EXT_FLASH_SCK -pg 1 -lvl 3 -x 670 -y 1420 -defaultsOSRD
+preplace port port-id_EXT_FLASH_SDO -pg 1 -lvl 3 -x 670 -y 1440 -defaultsOSRD
+preplace port port-id_EXT_FLASH_SDI -pg 1 -lvl 3 -x 670 -y 1460 -defaultsOSRD
+preplace port port-id_EXT_UART_TXD_0 -pg 1 -lvl 3 -x 670 -y 1280 -defaultsOSRD
+preplace port port-id_EXT_UART_RXD_0 -pg 1 -lvl 3 -x 670 -y 1300 -defaultsOSRD
+preplace port port-id_EXT_UART_TXD_1 -pg 1 -lvl 3 -x 670 -y 1360 -defaultsOSRD
+preplace port port-id_EXT_UART_RXD_1 -pg 1 -lvl 3 -x 670 -y 1380 -defaultsOSRD
+preplace port port-id_EXT_LED_2 -pg 1 -lvl 3 -x 670 -y 980 -defaultsOSRD
+preplace port port-id_EXT_LED_4 -pg 1 -lvl 3 -x 670 -y 300 -defaultsOSRD
+preplace port port-id_PL_CLK_32K -pg 1 -lvl 0 -x 0 -y 920 -defaultsOSRD
+preplace portBus EXT_LED_1 -pg 1 -lvl 3 -x 670 -y 1560 -defaultsOSRD
+preplace portBus EXT_LED_3 -pg 1 -lvl 3 -x 670 -y 190 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 1 -x 170 -y 860 -defaultsOSRD
+preplace inst util_vector_logic_1 -pg 1 -lvl 1 -x 170 -y 990 -defaultsOSRD
+preplace inst util_vector_logic_2 -pg 1 -lvl 2 -x 490 -y 190 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 2 -x 490 -y 70 -defaultsOSRD
+preplace inst wujian100_open_top_0 -pg 1 -lvl 2 -x 490 -y 900 -defaultsOSRD
+preplace netloc EXT_KEY_1_1 1 0 2 NJ 180 NJ
+preplace netloc EXT_KEY_2_1 1 0 1 NJ 980
+preplace netloc EXT_MCU_NRST_0_1 1 0 1 NJ 1000
+preplace netloc EXT_MCU_NRST_1_1 1 0 2 NJ 200 NJ
+preplace netloc Net 1 2 1 NJ 1420
+preplace netloc Net1 1 2 1 NJ 1460
+preplace netloc Net2 1 2 1 NJ 1400
+preplace netloc Net3 1 2 1 NJ 1440
+preplace netloc Net4 1 2 1 NJ 940
+preplace netloc Net5 1 2 1 NJ 960
+preplace netloc Net6 1 2 1 NJ 1280
+preplace netloc Net7 1 2 1 NJ 1360
+preplace netloc Net8 1 2 1 NJ 1380
+preplace netloc Net9 1 2 1 NJ 1300
+preplace netloc Net10 1 2 1 NJ 300
+preplace netloc Net11 1 2 1 NJ 980
+preplace netloc PL_CLK_50M_1 1 0 1 NJ 860
+preplace netloc clk_wiz_0_clk_out1 1 1 1 320J 860n
+preplace netloc util_vector_logic_1_Res 1 1 2 330 1560 NJ
+preplace netloc util_vector_logic_2_Res 1 2 1 NJ 190
+preplace netloc PL_CLK_32K_1 1 0 2 NJ 920 NJ
 preplace netloc processing_system7_0_DDR 1 2 1 NJ 60
 preplace netloc processing_system7_0_FIXED_IO 1 2 1 NJ 80
-levelinfo -pg 1 -10 110 350 520
-pagesize -pg 1 -db -bbox -sgen -140 0 710 1460
+levelinfo -pg 1 0 170 490 670
+pagesize -pg 1 -db -bbox -sgen -180 0 850 1580
 "
 }
 {

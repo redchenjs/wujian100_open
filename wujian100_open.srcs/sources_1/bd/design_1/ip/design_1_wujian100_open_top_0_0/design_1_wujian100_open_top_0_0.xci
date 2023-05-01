@@ -72,7 +72,7 @@
         "PAD_GPIO_9": [ { "direction": "inout" } ],
         "PAD_JTAG_TCLK": [ { "direction": "inout" } ],
         "PAD_JTAG_TMS": [ { "direction": "inout" } ],
-        "PAD_MCURST": [ { "direction": "inout" } ],
+        "PAD_MCURST": [ { "direction": "in" } ],
         "PAD_PWM_CH0": [ { "direction": "inout" } ],
         "PAD_PWM_CH1": [ { "direction": "inout" } ],
         "PAD_PWM_CH10": [ { "direction": "inout" } ],

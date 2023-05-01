@@ -31,10 +31,7 @@ SE
 
 // assign Q = q_tmp & CK;
 
-BUFG BUFG_inst (
-   .O(Q),   // 1-bit output: Clock output
-   .I(CK)   // 1-bit input: Clock input
-);
+assign Q = CK;
 
 endmodule
 
