@@ -506,7 +506,7 @@
         "inst_hier_path": "processing_system7_0",
         "parameters": {
           "PCW_ACT_APU_PERIPHERAL_FREQMHZ": {
-            "value": "866.666687"
+            "value": "800.000000"
           },
           "PCW_ACT_CAN0_PERIPHERAL_FREQMHZ": {
             "value": "23.8095"
@@ -518,7 +518,7 @@
             "value": "10.000000"
           },
           "PCW_ACT_DCI_PERIPHERAL_FREQMHZ": {
-            "value": "10.158730"
+            "value": "10.204082"
           },
           "PCW_ACT_ENET0_PERIPHERAL_FREQMHZ": {
             "value": "10.000000"
@@ -560,22 +560,22 @@
             "value": "200.000000"
           },
           "PCW_ACT_TTC0_CLK0_PERIPHERAL_FREQMHZ": {
-            "value": "144.444443"
+            "value": "133.333344"
           },
           "PCW_ACT_TTC0_CLK1_PERIPHERAL_FREQMHZ": {
-            "value": "144.444443"
+            "value": "133.333344"
           },
           "PCW_ACT_TTC0_CLK2_PERIPHERAL_FREQMHZ": {
-            "value": "144.444443"
+            "value": "133.333344"
           },
           "PCW_ACT_TTC1_CLK0_PERIPHERAL_FREQMHZ": {
-            "value": "144.444443"
+            "value": "133.333344"
           },
           "PCW_ACT_TTC1_CLK1_PERIPHERAL_FREQMHZ": {
-            "value": "144.444443"
+            "value": "133.333344"
           },
           "PCW_ACT_TTC1_CLK2_PERIPHERAL_FREQMHZ": {
-            "value": "144.444443"
+            "value": "133.333344"
           },
           "PCW_ACT_TTC_PERIPHERAL_FREQMHZ": {
             "value": "50"
@@ -590,13 +590,13 @@
             "value": "60"
           },
           "PCW_ACT_WDT_PERIPHERAL_FREQMHZ": {
-            "value": "144.444443"
+            "value": "133.333344"
           },
           "PCW_APU_CLK_RATIO_ENABLE": {
             "value": "6:2:1"
           },
           "PCW_APU_PERIPHERAL_FREQMHZ": {
-            "value": "867"
+            "value": "800"
           },
           "PCW_CAN0_PERIPHERAL_CLKSRC": {
             "value": "External"
@@ -1332,7 +1332,7 @@
             "value": "1"
           },
           "PCW_UIPARAM_ACT_DDR_FREQ_MHZ": {
-            "value": "533.333374"
+            "value": "500.000000"
           },
           "PCW_UIPARAM_DDR_ADV_ENABLE": {
             "value": "0"
@@ -1485,7 +1485,7 @@
             "value": "1"
           },
           "PCW_UIPARAM_DDR_FREQ_MHZ": {
-            "value": "534"
+            "value": "500"
           },
           "PCW_UIPARAM_DDR_HIGH_TEMP": {
             "value": "Normal (0-85)"
