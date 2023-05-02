@@ -313,7 +313,9 @@
           <FileOption/>
         </File>
       </VirtualDirectory>
-      <File Name="../board/gcc_csky_flash.ld"/>
+      <File Name="../board/gcc_csky_flash.ld">
+        <FileOption/>
+      </File>
     </VirtualDirectory>
   </VirtualDirectory>
   <VendorInfo>

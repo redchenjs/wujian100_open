@@ -92,14 +92,14 @@ int main(void)
 {
     int loop_count = 1;
 
+    printf("(%u) app0: started.\n", get_timestamp());
+
     pwm_init();
-    gpio_init();
 
     do {
-        printf("(%u) core 0: loop count: %d\n", get_timestamp(), loop_count++);
+        printf("(%u) app0: loop count: %d\n", get_timestamp(), loop_count++);
 
         pwm_test();
-        gpio_toggle();
 
         delay_ms(1000);
     } while (1);
