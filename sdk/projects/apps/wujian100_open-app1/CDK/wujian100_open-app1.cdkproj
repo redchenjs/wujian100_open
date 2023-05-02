@@ -331,6 +331,16 @@
   <MonitorProgress>
     <DebugLaunch>40</DebugLaunch>
   </MonitorProgress>
+  <DebugSessions>
+    <watchExpressions/>
+    <memoryExpressions>;;;</memoryExpressions>
+    <statistics>;;32;;MHZ;</statistics>
+    <peripheralTabs/>
+    <WatchDisplayFormat>1</WatchDisplayFormat>
+    <LocalDisplayFormat>1</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+  </DebugSessions>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -405,7 +415,7 @@
         <OutputName>$(ProjectName)</OutputName>
         <Type>Executable</Type>
         <CreateHexFile>no</CreateHexFile>
-        <CreateBinFile>no</CreateBinFile>
+        <CreateBinFile>yes</CreateBinFile>
         <Preprocessor>no</Preprocessor>
         <Disassmeble>yes</Disassmeble>
         <CallGraph>no</CallGraph>
@@ -541,14 +551,4 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
-  <DebugSessions>
-    <watchExpressions/>
-    <memoryExpressions>;;;</memoryExpressions>
-    <statistics>;;32;;MHZ;</statistics>
-    <peripheralTabs/>
-    <WatchDisplayFormat>1</WatchDisplayFormat>
-    <LocalDisplayFormat>1</LocalDisplayFormat>
-    <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-  </DebugSessions>
 </Project>

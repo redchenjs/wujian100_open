@@ -405,7 +405,7 @@
         <OutputName>$(ProjectName)</OutputName>
         <Type>Executable</Type>
         <CreateHexFile>no</CreateHexFile>
-        <CreateBinFile>no</CreateBinFile>
+        <CreateBinFile>yes</CreateBinFile>
         <Preprocessor>no</Preprocessor>
         <Disassmeble>yes</Disassmeble>
         <CallGraph>no</CallGraph>
