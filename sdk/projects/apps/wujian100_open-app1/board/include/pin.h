@@ -26,7 +26,7 @@ extern "C" {
 
 #define CONSOLE_TXD     PAD_UART2_SIN
 #define CONSOLE_RXD     PAD_UART2_SOUT
-#define CONSOLE_IDX     0
+#define CONSOLE_IDX     1
 
 /* example pin manager */
 #define EXAMPLE_USART_IDX       0

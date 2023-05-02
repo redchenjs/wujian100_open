@@ -11,7 +11,7 @@
  ******************************************************************************/
 MEMORY
 {
-    I-SRAM : ORIGIN = 0x00000000 , LENGTH = 0x00010000   /* I-SRAM  64KB */
+    I-SRAM : ORIGIN = 0x10000000 , LENGTH = 0x00010000   /* on-chip IROM 64KB */
     SRAM   : ORIGIN = 0x20010000,  LENGTH = 0x00010000   /* on-chip SRAM 64KB */
 }
 

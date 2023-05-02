@@ -302,13 +302,18 @@
       </File>
     </VirtualDirectory>
     <VirtualDirectory Name="board">
-      <File Name="../board/board_init.c"/>
-      <File Name="../board/gcc_csky.ld"/>
+      <File Name="../board/board_init.c">
+        <FileOption/>
+      </File>
+      <File Name="../board/gcc_csky.ld">
+        <FileOption/>
+      </File>
       <VirtualDirectory Name="include">
-        <File Name="../board/include/pin.h"/>
-        <File Name="../board/include/test_driver_config.h"/>
-        <File Name="../board/include/test_kernel_config.h"/>
+        <File Name="../board/include/pin.h">
+          <FileOption/>
+        </File>
       </VirtualDirectory>
+      <File Name="../board/gcc_csky_flash.ld"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VendorInfo>
@@ -324,16 +329,6 @@
   <MonitorProgress>
     <DebugLaunch>40</DebugLaunch>
   </MonitorProgress>
-  <DebugSessions>
-    <watchExpressions/>
-    <memoryExpressions>;;;</memoryExpressions>
-    <statistics>;;32;;MHZ;</statistics>
-    <peripheralTabs/>
-    <WatchDisplayFormat>1</WatchDisplayFormat>
-    <LocalDisplayFormat>1</LocalDisplayFormat>
-    <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-  </DebugSessions>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -544,4 +539,14 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
+  <DebugSessions>
+    <watchExpressions/>
+    <memoryExpressions>;;;</memoryExpressions>
+    <statistics>;;32;;MHZ;</statistics>
+    <peripheralTabs/>
+    <WatchDisplayFormat>1</WatchDisplayFormat>
+    <LocalDisplayFormat>1</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+  </DebugSessions>
 </Project>

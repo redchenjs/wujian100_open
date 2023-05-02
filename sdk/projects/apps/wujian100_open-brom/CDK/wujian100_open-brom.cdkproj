@@ -312,13 +312,8 @@
         <File Name="../board/include/pin.h">
           <FileOption/>
         </File>
-        <File Name="../board/include/test_driver_config.h">
-          <FileOption/>
-        </File>
-        <File Name="../board/include/test_kernel_config.h">
-          <FileOption/>
-        </File>
       </VirtualDirectory>
+      <File Name="../board/gcc_csky_irom.ld"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VendorInfo>

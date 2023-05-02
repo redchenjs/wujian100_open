@@ -11,8 +11,8 @@
  ******************************************************************************/
 MEMORY
 {
-    I-SRAM : ORIGIN = 0x00000000 , LENGTH = 0x00010000   /* I-SRAM  64KB */
-    SRAM   : ORIGIN = 0x20010000,  LENGTH = 0x00010000   /* on-chip SRAM 64KB */
+    I-SRAM : ORIGIN = 0x80020000 , LENGTH = 0x00010000   /* NOR FLASH 64KB */
+    SRAM   : ORIGIN = 0x20020000,  LENGTH = 0x00010000   /* on-chip SRAM 64KB */
 }
 
 __min_heap_size = 0x200;
