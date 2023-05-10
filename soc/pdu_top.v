@@ -102,6 +102,13 @@ module pdu_top(
   hmain0_ismc_s0_htrans,
   hmain0_ismc_s0_hwdata,
   hmain0_ismc_s0_hwrite,
+  hmain0_ismc_s1_haddr,
+  hmain0_ismc_s1_hprot,
+  hmain0_ismc_s1_hsel,
+  hmain0_ismc_s1_hsize,
+  hmain0_ismc_s1_htrans,
+  hmain0_ismc_s1_hwdata,
+  hmain0_ismc_s1_hwrite,
   hmain0_smc_s2_haddr,
   hmain0_smc_s2_hprot,
   hmain0_smc_s2_hsel,
@@ -145,6 +152,9 @@ module pdu_top(
   ismc_hmain0_s0_hrdata,
   ismc_hmain0_s0_hready,
   ismc_hmain0_s0_hresp,
+  ismc_hmain0_s1_hrdata,
+  ismc_hmain0_s1_hready,
+  ismc_hmain0_s1_hresp,
   lsbus_dummy0_intr,
   lsbus_dummy1_intr,
   lsbus_dummy2_intr,
@@ -405,7 +415,10 @@ input           ioctl_usi2_sd0_in;
 input           ioctl_usi2_sd1_in;      
 input   [31:0]  ismc_hmain0_s0_hrdata;  
 input           ismc_hmain0_s0_hready;  
-input   [1 :0]  ismc_hmain0_s0_hresp;   
+input   [1 :0]  ismc_hmain0_s0_hresp;
+input   [31:0]  ismc_hmain0_s1_hrdata;  
+input           ismc_hmain0_s1_hready;  
+input   [1 :0]  ismc_hmain0_s1_hresp;   
 input           pmu_apb0_pclk_en;       
 input           pmu_apb0_s3clk;         
 input           pmu_apb0_s3rst_b;       
@@ -566,7 +579,14 @@ output          hmain0_ismc_s0_hsel;
 output  [2 :0]  hmain0_ismc_s0_hsize;   
 output  [1 :0]  hmain0_ismc_s0_htrans;  
 output  [31:0]  hmain0_ismc_s0_hwdata;  
-output          hmain0_ismc_s0_hwrite;  
+output          hmain0_ismc_s0_hwrite;
+output  [31:0]  hmain0_ismc_s1_haddr;   
+output  [3 :0]  hmain0_ismc_s1_hprot;   
+output          hmain0_ismc_s1_hsel;    
+output  [2 :0]  hmain0_ismc_s1_hsize;   
+output  [1 :0]  hmain0_ismc_s1_htrans;  
+output  [31:0]  hmain0_ismc_s1_hwdata;  
+output          hmain0_ismc_s1_hwrite;  
 output  [31:0]  hmain0_smc_s2_haddr;    
 output  [3 :0]  hmain0_smc_s2_hprot;    
 output          hmain0_smc_s2_hsel;     
@@ -770,7 +790,14 @@ wire            hmain0_ismc_s0_hsel;
 wire    [2 :0]  hmain0_ismc_s0_hsize;   
 wire    [1 :0]  hmain0_ismc_s0_htrans;  
 wire    [31:0]  hmain0_ismc_s0_hwdata;  
-wire            hmain0_ismc_s0_hwrite;  
+wire            hmain0_ismc_s0_hwrite;
+wire    [31:0]  hmain0_ismc_s1_haddr;   
+wire    [3 :0]  hmain0_ismc_s1_hprot;   
+wire            hmain0_ismc_s1_hsel;    
+wire    [2 :0]  hmain0_ismc_s1_hsize;   
+wire    [1 :0]  hmain0_ismc_s1_htrans;  
+wire    [31:0]  hmain0_ismc_s1_hwdata;  
+wire            hmain0_ismc_s1_hwrite;  
 wire    [31:0]  hmain0_lsbus_s10_haddr; 
 wire    [2 :0]  hmain0_lsbus_s10_hburst; 
 wire    [3 :0]  hmain0_lsbus_s10_hprot; 
@@ -821,7 +848,10 @@ wire            ioctl_usi2_sd0_in;
 wire            ioctl_usi2_sd1_in;      
 wire    [31:0]  ismc_hmain0_s0_hrdata;  
 wire            ismc_hmain0_s0_hready;  
-wire    [1 :0]  ismc_hmain0_s0_hresp;   
+wire    [1 :0]  ismc_hmain0_s0_hresp;
+wire    [31:0]  ismc_hmain0_s1_hrdata;  
+wire            ismc_hmain0_s1_hready;  
+wire    [1 :0]  ismc_hmain0_s1_hresp;   
 wire    [31:0]  lsbus_apb0_s2_haddr;    
 wire    [2 :0]  lsbus_apb0_s2_hburst;   
 wire    [3 :0]  lsbus_apb0_s2_hprot;    
@@ -1105,6 +1135,13 @@ ahb_matrix_top  x_main_bus_top (
   .hmain0_ismc_s0_htrans   (hmain0_ismc_s0_htrans  ),
   .hmain0_ismc_s0_hwdata   (hmain0_ismc_s0_hwdata  ),
   .hmain0_ismc_s0_hwrite   (hmain0_ismc_s0_hwrite  ),
+  .hmain0_ismc_s1_haddr    (hmain0_ismc_s1_haddr   ),
+  .hmain0_ismc_s1_hprot    (hmain0_ismc_s1_hprot   ),
+  .hmain0_ismc_s1_hsel     (hmain0_ismc_s1_hsel    ),
+  .hmain0_ismc_s1_hsize    (hmain0_ismc_s1_hsize   ),
+  .hmain0_ismc_s1_htrans   (hmain0_ismc_s1_htrans  ),
+  .hmain0_ismc_s1_hwdata   (hmain0_ismc_s1_hwdata  ),
+  .hmain0_ismc_s1_hwrite   (hmain0_ismc_s1_hwrite  ),
   .hmain0_lsbus_s10_haddr  (hmain0_lsbus_s10_haddr ),
   .hmain0_lsbus_s10_hburst (hmain0_lsbus_s10_hburst),
   .hmain0_lsbus_s10_hprot  (hmain0_lsbus_s10_hprot ),
@@ -1137,6 +1174,9 @@ ahb_matrix_top  x_main_bus_top (
   .ismc_hmain0_s0_hrdata   (ismc_hmain0_s0_hrdata  ),
   .ismc_hmain0_s0_hready   (ismc_hmain0_s0_hready  ),
   .ismc_hmain0_s0_hresp    (ismc_hmain0_s0_hresp   ),
+  .ismc_hmain0_s1_hrdata   (ismc_hmain0_s1_hrdata  ),
+  .ismc_hmain0_s1_hready   (ismc_hmain0_s1_hready  ),
+  .ismc_hmain0_s1_hresp    (ismc_hmain0_s1_hresp   ),
   .lsbus_hmain0_s10_hrdata (lsbus_hmain0_s10_hrdata),
   .lsbus_hmain0_s10_hready (lsbus_hmain0_s10_hready),
   .lsbus_hmain0_s10_hresp  (lsbus_hmain0_s10_hresp ),

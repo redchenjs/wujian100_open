@@ -16,6 +16,13 @@ module retu_top(
   hmain0_ismc_s0_htrans,
   hmain0_ismc_s0_hwdata,
   hmain0_ismc_s0_hwrite,
+  hmain0_ismc_s1_haddr,
+  hmain0_ismc_s1_hprot,
+  hmain0_ismc_s1_hsel,
+  hmain0_ismc_s1_hsize,
+  hmain0_ismc_s1_htrans,
+  hmain0_ismc_s1_hwdata,
+  hmain0_ismc_s1_hwrite,
   hmain0_smc_s2_haddr,
   hmain0_smc_s2_hprot,
   hmain0_smc_s2_hsel,
@@ -40,6 +47,9 @@ module retu_top(
   ismc_hmain0_s0_hrdata,
   ismc_hmain0_s0_hready,
   ismc_hmain0_s0_hresp,
+  ismc_hmain0_s1_hrdata,
+  ismc_hmain0_s1_hready,
+  ismc_hmain0_s1_hresp,
   pmu_smc_hclk,
   pmu_smc_hrst_b,
   smc_hmain0_s2_hrdata,
@@ -59,6 +69,13 @@ input   [2 :0]  hmain0_ismc_s0_hsize;
 input   [1 :0]  hmain0_ismc_s0_htrans; 
 input   [31:0]  hmain0_ismc_s0_hwdata; 
 input           hmain0_ismc_s0_hwrite; 
+input   [31:0]  hmain0_ismc_s1_haddr; 
+input   [3 :0]  hmain0_ismc_s1_hprot; 
+input           hmain0_ismc_s1_hsel;  
+input   [2 :0]  hmain0_ismc_s1_hsize; 
+input   [1 :0]  hmain0_ismc_s1_htrans; 
+input   [31:0]  hmain0_ismc_s1_hwdata; 
+input           hmain0_ismc_s1_hwrite; 
 input   [31:0]  hmain0_smc_s2_haddr;  
 input   [3 :0]  hmain0_smc_s2_hprot;  
 input           hmain0_smc_s2_hsel;   
@@ -85,6 +102,9 @@ input           pmu_smc_hrst_b;
 output  [31:0]  ismc_hmain0_s0_hrdata; 
 output          ismc_hmain0_s0_hready; 
 output  [1 :0]  ismc_hmain0_s0_hresp; 
+output  [31:0]  ismc_hmain0_s1_hrdata; 
+output          ismc_hmain0_s1_hready; 
+output  [1 :0]  ismc_hmain0_s1_hresp;
 output  [31:0]  smc_hmain0_s2_hrdata; 
 output          smc_hmain0_s2_hready; 
 output  [1 :0]  smc_hmain0_s2_hresp;  
@@ -100,7 +120,14 @@ wire            hmain0_ismc_s0_hsel;
 wire    [2 :0]  hmain0_ismc_s0_hsize; 
 wire    [1 :0]  hmain0_ismc_s0_htrans; 
 wire    [31:0]  hmain0_ismc_s0_hwdata; 
-wire            hmain0_ismc_s0_hwrite; 
+wire            hmain0_ismc_s0_hwrite;
+wire    [31:0]  hmain0_ismc_s1_haddr; 
+wire    [3 :0]  hmain0_ismc_s1_hprot; 
+wire            hmain0_ismc_s1_hsel;  
+wire    [2 :0]  hmain0_ismc_s1_hsize; 
+wire    [1 :0]  hmain0_ismc_s1_htrans; 
+wire    [31:0]  hmain0_ismc_s1_hwdata; 
+wire            hmain0_ismc_s1_hwrite; 
 wire    [31:0]  hmain0_smc_s2_haddr;  
 wire    [3 :0]  hmain0_smc_s2_hprot;  
 wire            hmain0_smc_s2_hsel;   
@@ -124,7 +151,10 @@ wire    [31:0]  hmain0_smc_s4_hwdata;
 wire            hmain0_smc_s4_hwrite; 
 wire    [31:0]  ismc_hmain0_s0_hrdata; 
 wire            ismc_hmain0_s0_hready; 
-wire    [1 :0]  ismc_hmain0_s0_hresp; 
+wire    [1 :0]  ismc_hmain0_s0_hresp;
+wire    [31:0]  ismc_hmain0_s1_hrdata; 
+wire            ismc_hmain0_s1_hready; 
+wire    [1 :0]  ismc_hmain0_s1_hresp; 
 wire            pmu_smc_hclk;         
 wire            pmu_smc_hrst_b;       
 wire    [31:0]  smc_hmain0_s2_hrdata; 
@@ -144,6 +174,13 @@ smu_top  x_smu_top (
   .hmain0_ismc_s0_htrans (hmain0_ismc_s0_htrans),
   .hmain0_ismc_s0_hwdata (hmain0_ismc_s0_hwdata),
   .hmain0_ismc_s0_hwrite (hmain0_ismc_s0_hwrite),
+  .hmain0_ismc_s1_haddr  (hmain0_ismc_s1_haddr ),
+  .hmain0_ismc_s1_hprot  (hmain0_ismc_s1_hprot ),
+  .hmain0_ismc_s1_hsel   (hmain0_ismc_s1_hsel  ),
+  .hmain0_ismc_s1_hsize  (hmain0_ismc_s1_hsize ),
+  .hmain0_ismc_s1_htrans (hmain0_ismc_s1_htrans),
+  .hmain0_ismc_s1_hwdata (hmain0_ismc_s1_hwdata),
+  .hmain0_ismc_s1_hwrite (hmain0_ismc_s1_hwrite),
   .hmain0_smc_s2_haddr   (hmain0_smc_s2_haddr  ),
   .hmain0_smc_s2_hprot   (hmain0_smc_s2_hprot  ),
   .hmain0_smc_s2_hsel    (hmain0_smc_s2_hsel   ),
@@ -168,6 +205,9 @@ smu_top  x_smu_top (
   .ismc_hmain0_s0_hrdata (ismc_hmain0_s0_hrdata),
   .ismc_hmain0_s0_hready (ismc_hmain0_s0_hready),
   .ismc_hmain0_s0_hresp  (ismc_hmain0_s0_hresp ),
+  .ismc_hmain0_s1_hrdata (ismc_hmain0_s1_hrdata),
+  .ismc_hmain0_s1_hready (ismc_hmain0_s1_hready),
+  .ismc_hmain0_s1_hresp  (ismc_hmain0_s1_hresp ),
   .pmu_smc_hclk          (pmu_smc_hclk         ),
   .pmu_smc_hrst_b        (pmu_smc_hrst_b       ),
   .smc_hmain0_s2_hrdata  (smc_hmain0_s2_hrdata ),

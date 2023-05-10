@@ -3487,7 +3487,9 @@ cr_rst_top  x_cr_rst_top (
   .trst_b             (trst_b            )
 );
 endmodule
-module cr_core(
+module cr_core #(
+  parameter RESET_VECTOR = 32'h0000_0000
+) (
   bmu_lsu_acc_err,
   bmu_lsu_bstack_chk_fail,
   bmu_lsu_data,
@@ -3998,7 +4000,9 @@ wire    [1 :0]  sysio_cp0_sys_view_lpmd_b;
 wire            vector_cp0_vec_err;                   
 wire    [29:0]  vector_cp0_vec_err_epc;               
 wire            vector_cp0_vec_succeed;               
-cr_ifu_top  x_cr_ifu_top (
+cr_ifu_top #(
+  .RESET_VECTOR(RESET_VECTOR)
+) x_cr_ifu_top (
   .bmu_xx_ibus_acc_err                   (bmu_xx_ibus_acc_err                  ),
   .bmu_xx_ibus_data                      (bmu_xx_ibus_data                     ),
   .bmu_xx_ibus_grnt                      (bmu_xx_ibus_grnt                     ),
@@ -4066,7 +4070,9 @@ cr_ifu_top  x_cr_ifu_top (
   .split_ifctrl_hs_stall                 (split_ifctrl_hs_stall                ),
   .split_ifctrl_hs_stall_part            (split_ifctrl_hs_stall_part           )
 );
-cr_iu_top  x_cr_iu_top (
+cr_iu_top #(
+  .RESET_VECTOR(RESET_VECTOR)
+) x_cr_iu_top (
   .bmu_xx_ibus_acc_err                   (bmu_xx_ibus_acc_err                  ),
   .bmu_xx_ibus_data_vld                  (bmu_xx_ibus_data_vld                 ),
   .bmu_xx_ibus_grnt                      (bmu_xx_ibus_grnt                     ),
@@ -4436,7 +4442,9 @@ cr_cp0_top  x_cr_cp0_top (
   .vector_cp0_vec_succeed         (vector_cp0_vec_succeed        )
 );
 endmodule
-module cr_core_top(
+module cr_core_top #(
+  parameter RESET_VECTOR = 32'h0000_0000
+) (
   biu_pad_haddr,
   biu_pad_hburst,
   biu_pad_hprot,
@@ -4958,7 +4966,9 @@ wire    [31:0]  tcipif_bmu_ibus_data;
 wire            tcipif_bmu_ibus_data_vld;            
 wire            tcipif_bmu_ibus_grnt;                
 wire            tcipif_bmu_ibus_trans_cmplt;         
-cr_core  x_cr_core (
+cr_core #(
+  .RESET_VECTOR(RESET_VECTOR)
+) x_cr_core (
   .bmu_lsu_acc_err                      (bmu_lsu_acc_err                     ),
   .bmu_lsu_bstack_chk_fail              (bmu_lsu_bstack_chk_fail             ),
   .bmu_lsu_data                         (bmu_lsu_data                        ),
@@ -7530,7 +7540,9 @@ cr_cp0_randclk  x_cr_cp0_randclk (
   .randclk_psr_mod_en_w13 (randclk_psr_mod_en_w13)
 );
 endmodule
-module E902_20191018(
+module E902_20191018 #(
+  parameter RESET_VECTOR = 32'h0000_0000
+) (
   biu_pad_haddr,
   biu_pad_hburst,
   biu_pad_hprot,
@@ -7832,7 +7844,9 @@ wire            tcipif_had_sel;
 wire    [31:0]  tcipif_had_wdata;                    
 wire            tcipif_had_write;                    
 wire            trst_b;                              
-cr_core_top  x_cr_core_top (
+cr_core_top #(
+  .RESET_VECTOR(RESET_VECTOR)
+) x_cr_core_top (
   .biu_pad_haddr                        (biu_pad_haddr                       ),
   .biu_pad_hburst                       (biu_pad_hburst                      ),
   .biu_pad_hprot                        (biu_pad_hprot                       ),
@@ -9356,7 +9370,9 @@ begin
     entry_acc_err <= entry_acc_err;
 end
 endmodule
-module cr_ifu_ibusif(
+module cr_ifu_ibusif #(
+  parameter RESET_VECTOR = 32'h0000_0000
+) (
   bmu_xx_ibus_acc_err,
   bmu_xx_ibus_data,
   bmu_xx_ibus_grnt,
@@ -9582,7 +9598,7 @@ assign addr_cnt_low_upd_en  = addr_cnt_upd_en;
 always @(posedge addr_cnt_low_upd_clk or negedge cpurst_b)
 begin
   if(!cpurst_b)
-    addr_cnt[9:0] <= 10'b0;
+    addr_cnt[9:0] <= RESET_VECTOR[11:2];
   else if(addr_cnt_low_upd_en)
     addr_cnt[9:0] <= inc_addr[9:0];
 end
@@ -9590,7 +9606,7 @@ assign addr_cnt_high_upd_en_local = 1'b0;
 always @(posedge addr_cnt_high_upd_clk or negedge cpurst_b)
 begin
   if(!cpurst_b)
-    addr_cnt[29:10] <= 20'b0;
+    addr_cnt[29:10] <= RESET_VECTOR[31:12];
   else if(addr_cnt_high_upd_en)
     addr_cnt[29:10] <= inc_addr[29:10];
 end
@@ -10055,7 +10071,9 @@ assign randclk_ibuf_push_mod_en_w3             = 1'b0;
 assign randclk_ibuf_pop_mod_en_w3              = 1'b0;
 assign randclk_ibuf_entry_data_mod_en_w16[3:0] = 4'b0;
 endmodule
-module cr_ifu_top(
+module cr_ifu_top #(
+  parameter RESET_VECTOR = 32'h0000_0000
+) (
   bmu_xx_ibus_acc_err,
   bmu_xx_ibus_data,
   bmu_xx_ibus_grnt,
@@ -10304,7 +10322,9 @@ gated_clk_cell  x_entry_ifu_misc_clkhdr (
 );
 assign ifu_misc_upd_en = ibuf_top_clk_en
                       || ibusif_top_clk_en;
-cr_ifu_ibusif  x_ibusif (
+cr_ifu_ibusif #(
+  .RESET_VECTOR(RESET_VECTOR)
+) x_ibusif (
   .bmu_xx_ibus_acc_err           (bmu_xx_ibus_acc_err          ),
   .bmu_xx_ibus_data              (bmu_xx_ibus_data             ),
   .bmu_xx_ibus_grnt              (bmu_xx_ibus_grnt             ),
@@ -14037,7 +14057,9 @@ begin
 end
 assign inst_read_data1[31:0] = gpr_read_data1[31:0];
 endmodule
-module cr_iu_pcgen(
+module cr_iu_pcgen #(
+  parameter RESET_VECTOR = 32'h0000_0000
+) (
   branch_pcgen_add_pc,
   branch_pcgen_br_chgflw_vld,
   branch_pcgen_br_chgflw_vld_for_data,
@@ -14434,14 +14456,14 @@ assign pcgen_cur_pc_updt_vld = pcgen_cur_pc_updt_vld_not_by_inst
 always @(posedge curpc_10_0_clk or negedge cpurst_b)
 begin
   if(!cpurst_b)
-    pcgen_cur_pc[10:0] <= 11'b0;
+    pcgen_cur_pc[10:0] <= RESET_VECTOR[11:1];
   else
     pcgen_cur_pc[10:0] <= pcgen_cur_pc_next_val[10:0];
 end
 always @(posedge curpc_30_11_clk or negedge cpurst_b)
 begin
   if(!cpurst_b)
-    pcgen_cur_pc[30:11] <= 20'b0;
+    pcgen_cur_pc[30:11] <= RESET_VECTOR[31:12];
   else
     pcgen_cur_pc[30:11] <= pcgen_cur_pc_next_val[30:11];
 end
@@ -15610,7 +15632,9 @@ assign special_rbus_expt_vld      = ctrl_special_expt_vld;
 assign special_rbus_expt_vec[4:0] = ctrl_special_expt_vec[4:0];
 assign special_retire_inst_wsc = 1'b0;
 endmodule
-module cr_iu_top(
+module cr_iu_top #(
+  parameter RESET_VECTOR = 32'h0000_0000
+) (
   bmu_xx_ibus_acc_err,
   bmu_xx_ibus_data_vld,
   bmu_xx_ibus_grnt,
@@ -16961,7 +16985,9 @@ cr_iu_wb  x_cr_iu_wb (
   .wb_xx_acc_err_after_retire        (wb_xx_acc_err_after_retire       ),
   .wb_xx_lsu_check_fail_after_retire (wb_xx_lsu_check_fail_after_retire)
 );
-cr_iu_pcgen  x_cr_iu_pcgen (
+cr_iu_pcgen #(
+  .RESET_VECTOR(RESET_VECTOR)
+) x_cr_iu_pcgen (
   .branch_pcgen_add_pc                     (branch_pcgen_add_pc                    ),
   .branch_pcgen_br_chgflw_vld              (branch_pcgen_br_chgflw_vld             ),
   .branch_pcgen_br_chgflw_vld_for_data     (branch_pcgen_br_chgflw_vld_for_data    ),

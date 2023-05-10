@@ -16,6 +16,13 @@ module smu_top(
   hmain0_ismc_s0_htrans,
   hmain0_ismc_s0_hwdata,
   hmain0_ismc_s0_hwrite,
+  hmain0_ismc_s1_haddr,
+  hmain0_ismc_s1_hprot,
+  hmain0_ismc_s1_hsel,
+  hmain0_ismc_s1_hsize,
+  hmain0_ismc_s1_htrans,
+  hmain0_ismc_s1_hwdata,
+  hmain0_ismc_s1_hwrite,
   hmain0_smc_s2_haddr,
   hmain0_smc_s2_hprot,
   hmain0_smc_s2_hsel,
@@ -40,6 +47,9 @@ module smu_top(
   ismc_hmain0_s0_hrdata,
   ismc_hmain0_s0_hready,
   ismc_hmain0_s0_hresp,
+  ismc_hmain0_s1_hrdata,
+  ismc_hmain0_s1_hready,
+  ismc_hmain0_s1_hresp,
   pmu_smc_hclk,
   pmu_smc_hrst_b,
   smc_hmain0_s2_hrdata,
@@ -58,7 +68,14 @@ input           hmain0_ismc_s0_hsel;
 input   [2 :0]  hmain0_ismc_s0_hsize; 
 input   [1 :0]  hmain0_ismc_s0_htrans; 
 input   [31:0]  hmain0_ismc_s0_hwdata; 
-input           hmain0_ismc_s0_hwrite; 
+input           hmain0_ismc_s0_hwrite;
+input   [31:0]  hmain0_ismc_s1_haddr; 
+input   [3 :0]  hmain0_ismc_s1_hprot; 
+input           hmain0_ismc_s1_hsel;  
+input   [2 :0]  hmain0_ismc_s1_hsize; 
+input   [1 :0]  hmain0_ismc_s1_htrans; 
+input   [31:0]  hmain0_ismc_s1_hwdata; 
+input           hmain0_ismc_s1_hwrite; 
 input   [31:0]  hmain0_smc_s2_haddr;  
 input   [3 :0]  hmain0_smc_s2_hprot;  
 input           hmain0_smc_s2_hsel;   
@@ -84,7 +101,10 @@ input           pmu_smc_hclk;
 input           pmu_smc_hrst_b;       
 output  [31:0]  ismc_hmain0_s0_hrdata; 
 output          ismc_hmain0_s0_hready; 
-output  [1 :0]  ismc_hmain0_s0_hresp; 
+output  [1 :0]  ismc_hmain0_s0_hresp;
+output  [31:0]  ismc_hmain0_s1_hrdata; 
+output          ismc_hmain0_s1_hready; 
+output  [1 :0]  ismc_hmain0_s1_hresp; 
 output  [31:0]  smc_hmain0_s2_hrdata; 
 output          smc_hmain0_s2_hready; 
 output  [1 :0]  smc_hmain0_s2_hresp;  
@@ -100,7 +120,14 @@ wire            hmain0_ismc_s0_hsel;
 wire    [2 :0]  hmain0_ismc_s0_hsize; 
 wire    [1 :0]  hmain0_ismc_s0_htrans; 
 wire    [31:0]  hmain0_ismc_s0_hwdata; 
-wire            hmain0_ismc_s0_hwrite; 
+wire            hmain0_ismc_s0_hwrite;
+wire    [31:0]  hmain0_ismc_s1_haddr; 
+wire    [3 :0]  hmain0_ismc_s1_hprot; 
+wire            hmain0_ismc_s1_hsel;  
+wire    [2 :0]  hmain0_ismc_s1_hsize; 
+wire    [1 :0]  hmain0_ismc_s1_htrans; 
+wire    [31:0]  hmain0_ismc_s1_hwdata; 
+wire            hmain0_ismc_s1_hwrite; 
 wire    [31:0]  hmain0_smc_s2_haddr;  
 wire    [3 :0]  hmain0_smc_s2_hprot;  
 wire            hmain0_smc_s2_hsel;   
@@ -124,7 +151,10 @@ wire    [31:0]  hmain0_smc_s4_hwdata;
 wire            hmain0_smc_s4_hwrite; 
 wire    [31:0]  ismc_hmain0_s0_hrdata; 
 wire            ismc_hmain0_s0_hready; 
-wire    [1 :0]  ismc_hmain0_s0_hresp; 
+wire    [1 :0]  ismc_hmain0_s0_hresp;
+wire    [31:0]  ismc_hmain0_s1_hrdata; 
+wire            ismc_hmain0_s1_hready; 
+wire    [1 :0]  ismc_hmain0_s1_hresp; 
 wire            pmu_smc_hclk;         
 wire            pmu_smc_hrst_b;       
 wire    [31:0]  smc_hmain0_s2_hrdata; 
@@ -140,6 +170,7 @@ wire            sms0_idle;
 wire            sms1_idle;            
 wire            sms2_idle;            
 wire            sms3_idle;            
+wire            sms4_idle;
 wire            sms_big_endian_b;     
 sms_top  x_sms_top (
   .ahb_sms0_haddr        (hmain0_smc_s2_haddr  ),
@@ -170,6 +201,13 @@ sms_top  x_sms_top (
   .ahb_sms3_htrans       (hmain0_ismc_s0_htrans),
   .ahb_sms3_hwdata       (hmain0_ismc_s0_hwdata),
   .ahb_sms3_hwrite       (hmain0_ismc_s0_hwrite),
+  .ahb_sms4_haddr        (hmain0_ismc_s1_haddr ),
+  .ahb_sms4_hprot        (hmain0_ismc_s1_hprot ),
+  .ahb_sms4_hsel         (hmain0_ismc_s1_hsel  ),
+  .ahb_sms4_hsize        (hmain0_ismc_s1_hsize ),
+  .ahb_sms4_htrans       (hmain0_ismc_s1_htrans),
+  .ahb_sms4_hwdata       (hmain0_ismc_s1_hwdata),
+  .ahb_sms4_hwrite       (hmain0_ismc_s1_hwrite),
   .pmu_sms_hclk          (pmu_smc_hclk         ),
   .pmu_sms_hrst_b        (pmu_smc_hrst_b       ),
   .sms0_ahb_hrdata       (smc_hmain0_s2_hrdata ),
@@ -188,6 +226,10 @@ sms_top  x_sms_top (
   .sms3_ahb_hready       (ismc_hmain0_s0_hready),
   .sms3_ahb_hresp        (ismc_hmain0_s0_hresp ),
   .sms3_idle             (sms3_idle            ),
+  .sms4_ahb_hrdata       (ismc_hmain0_s1_hrdata),
+  .sms4_ahb_hready       (ismc_hmain0_s1_hready),
+  .sms4_ahb_hresp        (ismc_hmain0_s1_hresp ),
+  .sms4_idle             (sms4_idle            ),
   .sms_big_endian_b      (sms_big_endian_b     )
 );
 assign sms_big_endian_b = 1'b1;

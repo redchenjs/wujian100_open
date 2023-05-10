@@ -319,7 +319,14 @@ wire            hmain0_ismc_s0_hsel;
 wire    [2 :0]  hmain0_ismc_s0_hsize;  
 wire    [1 :0]  hmain0_ismc_s0_htrans; 
 wire    [31:0]  hmain0_ismc_s0_hwdata; 
-wire            hmain0_ismc_s0_hwrite; 
+wire            hmain0_ismc_s0_hwrite;
+wire    [31:0]  hmain0_ismc_s1_haddr;  
+wire    [3 :0]  hmain0_ismc_s1_hprot;  
+wire            hmain0_ismc_s1_hsel;   
+wire    [2 :0]  hmain0_ismc_s1_hsize;  
+wire    [1 :0]  hmain0_ismc_s1_htrans; 
+wire    [31:0]  hmain0_ismc_s1_hwdata; 
+wire            hmain0_ismc_s1_hwrite;  
 wire    [31:0]  hmain0_smc_s2_haddr;   
 wire    [3 :0]  hmain0_smc_s2_hprot;   
 wire            hmain0_smc_s2_hsel;    
@@ -363,7 +370,10 @@ wire            ioctl_usi2_sd0_in;
 wire            ioctl_usi2_sd1_in;     
 wire    [31:0]  ismc_hmain0_s0_hrdata; 
 wire            ismc_hmain0_s0_hready; 
-wire    [1 :0]  ismc_hmain0_s0_hresp;  
+wire    [1 :0]  ismc_hmain0_s0_hresp;
+wire    [31:0]  ismc_hmain0_s1_hrdata; 
+wire            ismc_hmain0_s1_hready; 
+wire    [1 :0]  ismc_hmain0_s1_hresp;  
 wire            lsbus_dummy0_intr;     
 wire            lsbus_dummy1_intr;     
 wire            lsbus_dummy2_intr;     
@@ -823,6 +833,13 @@ pdu_top  x_pdu_top (
   .hmain0_ismc_s0_htrans (hmain0_ismc_s0_htrans),
   .hmain0_ismc_s0_hwdata (hmain0_ismc_s0_hwdata),
   .hmain0_ismc_s0_hwrite (hmain0_ismc_s0_hwrite),
+  .hmain0_ismc_s1_haddr  (hmain0_ismc_s1_haddr ),
+  .hmain0_ismc_s1_hprot  (hmain0_ismc_s1_hprot ),
+  .hmain0_ismc_s1_hsel   (hmain0_ismc_s1_hsel  ),
+  .hmain0_ismc_s1_hsize  (hmain0_ismc_s1_hsize ),
+  .hmain0_ismc_s1_htrans (hmain0_ismc_s1_htrans),
+  .hmain0_ismc_s1_hwdata (hmain0_ismc_s1_hwdata),
+  .hmain0_ismc_s1_hwrite (hmain0_ismc_s1_hwrite),
   .hmain0_smc_s2_haddr   (hmain0_smc_s2_haddr  ),
   .hmain0_smc_s2_hprot   (hmain0_smc_s2_hprot  ),
   .hmain0_smc_s2_hsel    (hmain0_smc_s2_hsel   ),
@@ -866,6 +883,9 @@ pdu_top  x_pdu_top (
   .ismc_hmain0_s0_hrdata (ismc_hmain0_s0_hrdata),
   .ismc_hmain0_s0_hready (ismc_hmain0_s0_hready),
   .ismc_hmain0_s0_hresp  (ismc_hmain0_s0_hresp ),
+  .ismc_hmain0_s1_hrdata (ismc_hmain0_s1_hrdata),
+  .ismc_hmain0_s1_hready (ismc_hmain0_s1_hready),
+  .ismc_hmain0_s1_hresp  (ismc_hmain0_s1_hresp ),
   .lsbus_dummy0_intr     (lsbus_dummy0_intr    ),
   .lsbus_dummy1_intr     (lsbus_dummy1_intr    ),
   .lsbus_dummy2_intr     (lsbus_dummy2_intr    ),
@@ -1064,7 +1084,8 @@ pdu_top  x_pdu_top (
 );
 core_top #(
   .IBUS_BASE(12'h000),
-  .IBUS_MASK(12'he00)
+  .IBUS_MASK(12'he00),
+  .RESET_VECTOR(32'h1000_0000)
 ) x_cpu_top (
   .apb0_dummy1_intr      (apb0_dummy1_intr     ),
   .apb0_dummy2_intr      (apb0_dummy2_intr     ),
@@ -1157,7 +1178,8 @@ core_top #(
 );
 core_top #(
   .IBUS_BASE(12'h200),
-  .IBUS_MASK(12'hd00)
+  .IBUS_MASK(12'hd00),
+  .RESET_VECTOR(32'h2000_0000)
 ) x_cpu_top_1 (
   .apb0_dummy1_intr      (apb0_dummy1_intr     ),
   .apb0_dummy2_intr      (apb0_dummy2_intr     ),
@@ -1256,6 +1278,13 @@ retu_top  x_retu_top (
   .hmain0_ismc_s0_htrans (hmain0_ismc_s0_htrans),
   .hmain0_ismc_s0_hwdata (hmain0_ismc_s0_hwdata),
   .hmain0_ismc_s0_hwrite (hmain0_ismc_s0_hwrite),
+  .hmain0_ismc_s1_haddr  (hmain0_ismc_s1_haddr ),
+  .hmain0_ismc_s1_hprot  (hmain0_ismc_s1_hprot ),
+  .hmain0_ismc_s1_hsel   (hmain0_ismc_s1_hsel  ),
+  .hmain0_ismc_s1_hsize  (hmain0_ismc_s1_hsize ),
+  .hmain0_ismc_s1_htrans (hmain0_ismc_s1_htrans),
+  .hmain0_ismc_s1_hwdata (hmain0_ismc_s1_hwdata),
+  .hmain0_ismc_s1_hwrite (hmain0_ismc_s1_hwrite),
   .hmain0_smc_s2_haddr   (hmain0_smc_s2_haddr  ),
   .hmain0_smc_s2_hprot   (hmain0_smc_s2_hprot  ),
   .hmain0_smc_s2_hsel    (hmain0_smc_s2_hsel   ),
@@ -1280,6 +1309,9 @@ retu_top  x_retu_top (
   .ismc_hmain0_s0_hrdata (ismc_hmain0_s0_hrdata),
   .ismc_hmain0_s0_hready (ismc_hmain0_s0_hready),
   .ismc_hmain0_s0_hresp  (ismc_hmain0_s0_hresp ),
+  .ismc_hmain0_s1_hrdata (ismc_hmain0_s1_hrdata),
+  .ismc_hmain0_s1_hready (ismc_hmain0_s1_hready),
+  .ismc_hmain0_s1_hresp  (ismc_hmain0_s1_hresp ),
   .pmu_smc_hclk          (pmu_smc_hclk         ),
   .pmu_smc_hrst_b        (pmu_smc_hrst_b       ),
   .smc_hmain0_s2_hrdata  (smc_hmain0_s2_hrdata ),

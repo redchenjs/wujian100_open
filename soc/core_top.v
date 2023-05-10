@@ -10,7 +10,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 module core_top #(
   parameter IBUS_BASE = 12'h000,
-  parameter IBUS_MASK = 12'he00
+  parameter IBUS_MASK = 12'h000,
+  parameter RESET_VECTOR = 32'h0000_0000
 ) (
   apb0_dummy1_intr,
   apb0_dummy2_intr,
@@ -380,7 +381,9 @@ wire            wdt_wic_intr;
 assign dlite_clk_en = 1'b1;
 assign ilite_clk_en = 1'b1;
 assign pad_core_jtg_tclk = test_mode ? dft_clk : padmux_cpu_jtg_tclk;
-E902_20191018  CPU (
+E902_20191018 #(
+  .RESET_VECTOR(RESET_VECTOR)
+) CPU (
   .biu_pad_haddr        (biu_pad_haddr       ),
   .biu_pad_hburst       (biu_pad_hburst      ),
   .biu_pad_hprot        (biu_pad_hprot       ),
