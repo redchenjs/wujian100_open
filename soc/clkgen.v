@@ -17,7 +17,9 @@ module pmu_dummy_top(
   pad_core_clk,
   pad_core_ctim_refclk,
   pad_core_rst_b,
+  pad_core_rst_b_1,
   pad_mcurst_b,
+  pad_mcurst_b_1,
   paddr,
   penable,
   pmu_apb0_pclk_en,
@@ -138,7 +140,8 @@ input           cpu_pmu_dfs_ack;
 input           cpu_pmu_sleep_b;      
 input           ehs_pmu_clk;          
 input           els_pmu_clk;          
-input           pad_mcurst_b;         
+input           pad_mcurst_b; 
+input           pad_mcurst_b_1;        
 input   [31:0]  paddr;                
 input           penable;              
 input   [2 :0]  pprot;                
@@ -149,7 +152,8 @@ input           wdt_pmu_rst_b;
 output          dft_clk;              
 output          pad_core_clk;         
 output          pad_core_ctim_refclk; 
-output          pad_core_rst_b;       
+output          pad_core_rst_b;
+output          pad_core_rst_b_1;       
 output          pmu_apb0_pclk_en;     
 output          pmu_apb0_s3clk;       
 output          pmu_apb0_s3rst_b;     
@@ -263,8 +267,10 @@ wire            ehs_pmu_clk;
 wire            els_pmu_clk;          
 wire            pad_core_clk;         
 wire            pad_core_ctim_refclk; 
-wire            pad_core_rst_b;       
-wire            pad_mcurst_b;         
+wire            pad_core_rst_b;
+wire            pad_core_rst_b_1;       
+wire            pad_mcurst_b;
+wire            pad_mcurst_b_1;         
 wire            pmu_apb0_pclk_en;     
 wire            pmu_apb0_s3clk;       
 wire            pmu_apb0_s3rst_b;     
@@ -395,7 +401,9 @@ assign  soc_p1clk = ehs_pmu_clk;
 assign  soc_s3clk = ehs_pmu_clk;
 assign  dft_clk = ehs_pmu_clk;
 assign sys_rst_b = pad_mcurst_b & wdt_pmu_rst_b;
+assign sys_rst_b_1 = pad_mcurst_b_1 & wdt_pmu_rst_b;
 assign  soc_hrst_b  = sys_rst_b;
+assign  soc_hrst_b_1  = sys_rst_b_1;
 assign  soc_p0rst_b = sys_rst_b;
 assign  soc_p1rst_b = sys_rst_b;
 assign  soc_s3rst_b = sys_rst_b;
@@ -453,6 +461,7 @@ assign  pmu_dummy6_p1clk = soc_p1clk;
 assign  pmu_dummy7_p1clk = soc_p1clk;
 assign  pmu_dummy8_p1clk = soc_p1clk;
 assign  pad_core_rst_b = soc_hrst_b;
+assign  pad_core_rst_b_1 = soc_hrst_b_1;
 assign  pmu_dmac0_hrst_b = soc_hrst_b;
 assign  pmu_imemdummy0_hrst_b = soc_hrst_b;
 assign  pmu_dmemdummy0_hrst_b = soc_hrst_b;

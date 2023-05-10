@@ -8,7 +8,10 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
-module core_top(
+module core_top #(
+  parameter IBUS_BASE = 12'h000,
+  parameter IBUS_MASK = 12'he00
+) (
   apb0_dummy1_intr,
   apb0_dummy2_intr,
   apb0_dummy3_intr,
@@ -473,8 +476,8 @@ end
 assign pll_core_cpuclk             = pll_cpu_clk;
 assign pad_cpu_rst_b               = pad_core_rst_b;
 assign clk_en                      = 1'b1;
-assign pad_bmu_iahbl_base[11:0]    = 12'h000;
-assign pad_bmu_iahbl_mask[11:0]    = 12'he00;
+assign pad_bmu_iahbl_base[11:0]    = IBUS_BASE;
+assign pad_bmu_iahbl_mask[11:0]    = IBUS_MASK;
 assign cpu_wic_ctim_int_vld        = ctim_pad_int_vld;
 assign cpu_pmu_sleep_b	   	   = & sysio_pad_lpmd_b[1:0];
 assign pad_vic_int_cfg[63:0]       = ip_cpu_int_cfg[63:0];

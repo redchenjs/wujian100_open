@@ -44,6 +44,9 @@ module wujian100_open_top(
   PAD_JTAG_TCLK,
   PAD_JTAG_TMS,
   PAD_MCURST,
+  PAD_JTAG_TCLK_1,
+  PAD_JTAG_TMS_1,
+  PAD_MCURST_1,
   PAD_PWM_CH0,
   PAD_PWM_CH1,
   PAD_PWM_CH10,
@@ -113,6 +116,9 @@ inout           PAD_GPIO_9;
 inout           PAD_JTAG_TCLK;         
 inout           PAD_JTAG_TMS;          
 input           PAD_MCURST;            
+inout           PAD_JTAG_TCLK_1;         
+inout           PAD_JTAG_TMS_1;          
+input           PAD_MCURST_1;   
 inout           PAD_PWM_CH0;           
 inout           PAD_PWM_CH1;           
 inout           PAD_PWM_CH10;          
@@ -173,6 +179,9 @@ wire            PAD_GPIO_9;
 wire            PAD_JTAG_TCLK;         
 wire            PAD_JTAG_TMS;          
 wire            PAD_MCURST;            
+wire            PAD_JTAG_TCLK_1;         
+wire            PAD_JTAG_TMS_1;          
+wire            PAD_MCURST_1;
 wire            PAD_PWM_CH0;           
 wire            PAD_PWM_CH1;           
 wire            PAD_PWM_CH10;          
@@ -252,6 +261,31 @@ wire            cpu_padmux_jtg_tms_ien;
 wire            cpu_padmux_jtg_tms_o;  
 wire            cpu_padmux_jtg_tms_oe; 
 wire            cpu_padmux_jtg_tms_oen; 
+wire    [31:0]  cpu_hmain0_m4_haddr;   
+wire    [2 :0]  cpu_hmain0_m4_hburst;  
+wire    [3 :0]  cpu_hmain0_m4_hprot;   
+wire    [2 :0]  cpu_hmain0_m4_hsize;   
+wire    [1 :0]  cpu_hmain0_m4_htrans;  
+wire    [31:0]  cpu_hmain0_m4_hwdata;  
+wire            cpu_hmain0_m4_hwrite;  
+wire    [31:0]  cpu_hmain0_m5_haddr;   
+wire    [2 :0]  cpu_hmain0_m5_hburst;  
+wire    [3 :0]  cpu_hmain0_m5_hprot;   
+wire    [2 :0]  cpu_hmain0_m5_hsize;   
+wire    [1 :0]  cpu_hmain0_m5_htrans;  
+wire    [31:0]  cpu_hmain0_m5_hwdata;  
+wire            cpu_hmain0_m5_hwrite;  
+wire    [31:0]  cpu_hmain0_m6_haddr;   
+wire    [2 :0]  cpu_hmain0_m6_hburst;  
+wire    [3 :0]  cpu_hmain0_m6_hprot;   
+wire    [2 :0]  cpu_hmain0_m6_hsize;   
+wire    [1 :0]  cpu_hmain0_m6_htrans;  
+wire    [31:0]  cpu_hmain0_m6_hwdata;  
+wire            cpu_hmain0_m6_hwrite;
+wire            cpu_padmux_jtg_tms_ien_1; 
+wire            cpu_padmux_jtg_tms_o_1;  
+wire            cpu_padmux_jtg_tms_oe_1; 
+wire            cpu_padmux_jtg_tms_oen_1; 
 wire            cpu_pmu_dfs_ack;       
 wire            cpu_pmu_sleep_b;       
 wire            dft_clk;               
@@ -269,7 +303,16 @@ wire            hmain0_cpu_m1_hready;
 wire    [1 :0]  hmain0_cpu_m1_hresp;   
 wire    [31:0]  hmain0_cpu_m2_hrdata;  
 wire            hmain0_cpu_m2_hready;  
-wire    [1 :0]  hmain0_cpu_m2_hresp;   
+wire    [1 :0]  hmain0_cpu_m2_hresp;
+wire    [31:0]  hmain0_cpu_m4_hrdata;  
+wire            hmain0_cpu_m4_hready;  
+wire    [1 :0]  hmain0_cpu_m4_hresp;   
+wire    [31:0]  hmain0_cpu_m5_hrdata;  
+wire            hmain0_cpu_m5_hready;  
+wire    [1 :0]  hmain0_cpu_m5_hresp;   
+wire    [31:0]  hmain0_cpu_m6_hrdata;  
+wire            hmain0_cpu_m6_hready;  
+wire    [1 :0]  hmain0_cpu_m6_hresp_1;   
 wire    [31:0]  hmain0_ismc_s0_haddr;  
 wire    [3 :0]  hmain0_ismc_s0_hprot;  
 wire            hmain0_ismc_s0_hsel;   
@@ -334,11 +377,15 @@ wire            main_imemdummy0_intr;
 wire            pad_core_clk;          
 wire            pad_core_ctim_refclk;  
 wire            pad_core_rst_b;        
+wire            pad_core_rst_b_1;
 wire    [31:0]  pad_gpio_ien;          
 wire    [31:0]  pad_gpio_oen;          
 wire            pad_mcurst_b;          
 wire            padmux_cpu_jtg_tclk;   
 wire            padmux_cpu_jtg_tms_i;  
+wire            pad_mcurst_b_1;          
+wire            padmux_cpu_jtg_tclk_1;   
+wire            padmux_cpu_jtg_tms_i_1;  
 wire            pmu_apb0_pclk_en;      
 wire            pmu_apb0_s3clk;        
 wire            pmu_apb0_s3rst_b;      
@@ -569,9 +616,11 @@ aou_top  x_aou_top (
   .pad_core_clk          (pad_core_clk         ),
   .pad_core_ctim_refclk  (pad_core_ctim_refclk ),
   .pad_core_rst_b        (pad_core_rst_b       ),
+  .pad_core_rst_b_1      (pad_core_rst_b_1     ),
   .pad_gpio_ien          (pad_gpio_ien         ),
   .pad_gpio_oen          (pad_gpio_oen         ),
   .pad_mcurst_b          (pad_mcurst_b         ),
+  .pad_mcurst_b_1        (pad_mcurst_b_1       ),
   .pmu_apb0_pclk_en      (pmu_apb0_pclk_en     ),
   .pmu_apb0_s3clk        (pmu_apb0_s3clk       ),
   .pmu_apb0_s3rst_b      (pmu_apb0_s3rst_b     ),
@@ -726,6 +775,27 @@ pdu_top  x_pdu_top (
   .cpu_hmain0_m2_htrans  (cpu_hmain0_m2_htrans ),
   .cpu_hmain0_m2_hwdata  (cpu_hmain0_m2_hwdata ),
   .cpu_hmain0_m2_hwrite  (cpu_hmain0_m2_hwrite ),
+  .cpu_hmain0_m4_haddr   (cpu_hmain0_m4_haddr  ),
+  .cpu_hmain0_m4_hburst  (cpu_hmain0_m4_hburst ),
+  .cpu_hmain0_m4_hprot   (cpu_hmain0_m4_hprot  ),
+  .cpu_hmain0_m4_hsize   (cpu_hmain0_m4_hsize  ),
+  .cpu_hmain0_m4_htrans  (cpu_hmain0_m4_htrans ),
+  .cpu_hmain0_m4_hwdata  (cpu_hmain0_m4_hwdata ),
+  .cpu_hmain0_m4_hwrite  (cpu_hmain0_m4_hwrite ),
+  .cpu_hmain0_m5_haddr   (cpu_hmain0_m5_haddr  ),
+  .cpu_hmain0_m5_hburst  (cpu_hmain0_m5_hburst ),
+  .cpu_hmain0_m5_hprot   (cpu_hmain0_m5_hprot  ),
+  .cpu_hmain0_m5_hsize   (cpu_hmain0_m5_hsize  ),
+  .cpu_hmain0_m5_htrans  (cpu_hmain0_m5_htrans ),
+  .cpu_hmain0_m5_hwdata  (cpu_hmain0_m5_hwdata ),
+  .cpu_hmain0_m5_hwrite  (cpu_hmain0_m5_hwrite ),
+  .cpu_hmain0_m6_haddr   (cpu_hmain0_m6_haddr  ),
+  .cpu_hmain0_m6_hburst  (cpu_hmain0_m6_hburst ),
+  .cpu_hmain0_m6_hprot   (cpu_hmain0_m6_hprot  ),
+  .cpu_hmain0_m6_hsize   (cpu_hmain0_m6_hsize  ),
+  .cpu_hmain0_m6_htrans  (cpu_hmain0_m6_htrans ),
+  .cpu_hmain0_m6_hwdata  (cpu_hmain0_m6_hwdata ),
+  .cpu_hmain0_m6_hwrite  (cpu_hmain0_m6_hwrite ),
   .dmac0_wic_intr        (dmac0_wic_intr       ),
   .gpio_apb1_prdata      (gpio_apb1_prdata     ),
   .hmain0_cpu_m0_hrdata  (hmain0_cpu_m0_hrdata ),
@@ -737,6 +807,15 @@ pdu_top  x_pdu_top (
   .hmain0_cpu_m2_hrdata  (hmain0_cpu_m2_hrdata ),
   .hmain0_cpu_m2_hready  (hmain0_cpu_m2_hready ),
   .hmain0_cpu_m2_hresp   (hmain0_cpu_m2_hresp  ),
+  .hmain0_cpu_m4_hrdata  (hmain0_cpu_m4_hrdata ),
+  .hmain0_cpu_m4_hready  (hmain0_cpu_m4_hready ),
+  .hmain0_cpu_m4_hresp   (hmain0_cpu_m4_hresp  ),
+  .hmain0_cpu_m5_hrdata  (hmain0_cpu_m5_hrdata ),
+  .hmain0_cpu_m5_hready  (hmain0_cpu_m5_hready ),
+  .hmain0_cpu_m5_hresp   (hmain0_cpu_m5_hresp  ),
+  .hmain0_cpu_m6_hrdata  (hmain0_cpu_m6_hrdata ),
+  .hmain0_cpu_m6_hready  (hmain0_cpu_m6_hready ),
+  .hmain0_cpu_m6_hresp   (hmain0_cpu_m6_hresp  ),
   .hmain0_ismc_s0_haddr  (hmain0_ismc_s0_haddr ),
   .hmain0_ismc_s0_hprot  (hmain0_ismc_s0_hprot ),
   .hmain0_ismc_s0_hsel   (hmain0_ismc_s0_hsel  ),
@@ -983,7 +1062,10 @@ pdu_top  x_pdu_top (
   .wdt_pmu_rst_b         (wdt_pmu_rst_b        ),
   .wdt_wic_intr          (wdt_wic_intr         )
 );
-core_top  x_cpu_top (
+core_top #(
+  .IBUS_BASE(12'h000),
+  .IBUS_MASK(12'he00)
+) x_cpu_top (
   .apb0_dummy1_intr      (apb0_dummy1_intr     ),
   .apb0_dummy2_intr      (apb0_dummy2_intr     ),
   .apb0_dummy3_intr      (apb0_dummy3_intr     ),
@@ -1028,7 +1110,7 @@ core_top  x_cpu_top (
   .cpu_pmu_sleep_b       (cpu_pmu_sleep_b      ),
   .dft_clk               (dft_clk              ),
   .dmac0_wic_intr        (dmac0_wic_intr       ),
-  .gpio_wic_intr         (gpio_wic_intr        ),
+  .gpio_wic_intr         ('b0),
   .hmain0_cpu_m0_hrdata  (hmain0_cpu_m0_hrdata ),
   .hmain0_cpu_m0_hready  (hmain0_cpu_m0_hready ),
   .hmain0_cpu_m0_hresp   (hmain0_cpu_m0_hresp  ),
@@ -1061,17 +1143,110 @@ core_top  x_cpu_top (
   .scan_mode             (scan_mode            ),
   .test_mode             (test_mode            ),
   .tim0_wic_intr         (tim0_wic_intr        ),
-  .tim1_wic_intr         (tim1_wic_intr        ),
+  .tim1_wic_intr         ('b0),
   .tim2_wic_intr         (tim2_wic_intr        ),
-  .tim3_wic_intr         (tim3_wic_intr        ),
+  .tim3_wic_intr         ('b0),
   .tim4_wic_intr         (tim4_wic_intr        ),
-  .tim5_wic_intr         (tim5_wic_intr        ),
+  .tim5_wic_intr         ('b0),
   .tim6_wic_intr         (tim6_wic_intr        ),
-  .tim7_wic_intr         (tim7_wic_intr        ),
+  .tim7_wic_intr         ('b0),
   .usi0_wic_intr         (usi0_wic_intr        ),
-  .usi1_wic_intr         (usi1_wic_intr        ),
+  .usi1_wic_intr         ('b0),
   .usi2_wic_intr         (usi2_wic_intr        ),
   .wdt_wic_intr          (wdt_wic_intr         )
+);
+core_top #(
+  .IBUS_BASE(12'h200),
+  .IBUS_MASK(12'hd00)
+) x_cpu_top_1 (
+  .apb0_dummy1_intr      (apb0_dummy1_intr     ),
+  .apb0_dummy2_intr      (apb0_dummy2_intr     ),
+  .apb0_dummy3_intr      (apb0_dummy3_intr     ),
+  .apb0_dummy4_intr      (apb0_dummy4_intr     ),
+  .apb0_dummy5_intr      (apb0_dummy5_intr     ),
+  .apb0_dummy7_intr      (apb0_dummy7_intr     ),
+  .apb0_dummy8_intr      (apb0_dummy8_intr     ),
+  .apb0_dummy9_intr      (apb0_dummy9_intr     ),
+  .apb1_dummy1_intr      (apb1_dummy1_intr     ),
+  .apb1_dummy2_intr      (apb1_dummy2_intr     ),
+  .apb1_dummy3_intr      (apb1_dummy3_intr     ),
+  .apb1_dummy4_intr      (apb1_dummy4_intr     ),
+  .apb1_dummy5_intr      (apb1_dummy5_intr     ),
+  .apb1_dummy6_intr      (apb1_dummy6_intr     ),
+  .apb1_dummy7_intr      (apb1_dummy7_intr     ),
+  .apb1_dummy8_intr      (apb1_dummy8_intr     ),
+  .bist0_mode            (bist0_mode           ),
+  .cpu_hmain0_m0_haddr   (cpu_hmain0_m4_haddr  ),
+  .cpu_hmain0_m0_hburst  (cpu_hmain0_m4_hburst ),
+  .cpu_hmain0_m0_hprot   (cpu_hmain0_m4_hprot  ),
+  .cpu_hmain0_m0_hsize   (cpu_hmain0_m4_hsize  ),
+  .cpu_hmain0_m0_htrans  (cpu_hmain0_m4_htrans ),
+  .cpu_hmain0_m0_hwdata  (cpu_hmain0_m4_hwdata ),
+  .cpu_hmain0_m0_hwrite  (cpu_hmain0_m4_hwrite ),
+  .cpu_hmain0_m1_haddr   (cpu_hmain0_m5_haddr  ),
+  .cpu_hmain0_m1_hburst  (cpu_hmain0_m5_hburst ),
+  .cpu_hmain0_m1_hprot   (cpu_hmain0_m5_hprot  ),
+  .cpu_hmain0_m1_hsize   (cpu_hmain0_m5_hsize  ),
+  .cpu_hmain0_m1_htrans  (cpu_hmain0_m5_htrans ),
+  .cpu_hmain0_m1_hwdata  (cpu_hmain0_m5_hwdata ),
+  .cpu_hmain0_m1_hwrite  (cpu_hmain0_m5_hwrite ),
+  .cpu_hmain0_m2_haddr   (cpu_hmain0_m6_haddr  ),
+  .cpu_hmain0_m2_hburst  (cpu_hmain0_m6_hburst ),
+  .cpu_hmain0_m2_hprot   (cpu_hmain0_m6_hprot  ),
+  .cpu_hmain0_m2_hsize   (cpu_hmain0_m6_hsize  ),
+  .cpu_hmain0_m2_htrans  (cpu_hmain0_m6_htrans ),
+  .cpu_hmain0_m2_hwdata  (cpu_hmain0_m6_hwdata ),
+  .cpu_hmain0_m2_hwrite  (cpu_hmain0_m6_hwrite ),
+  .cpu_padmux_jtg_tms_o  (cpu_padmux_jtg_tms_o_1 ),
+  .cpu_padmux_jtg_tms_oe (cpu_padmux_jtg_tms_oe_1),
+  .cpu_pmu_dfs_ack       (cpu_pmu_dfs_ack      ),
+  .cpu_pmu_sleep_b       (cpu_pmu_sleep_b      ),
+  .dft_clk               (dft_clk              ),
+  .dmac0_wic_intr        ('b0),
+  .gpio_wic_intr         (gpio_wic_intr        ),
+  .hmain0_cpu_m0_hrdata  (hmain0_cpu_m4_hrdata ),
+  .hmain0_cpu_m0_hready  (hmain0_cpu_m4_hready ),
+  .hmain0_cpu_m0_hresp   (hmain0_cpu_m4_hresp  ),
+  .hmain0_cpu_m1_hrdata  (hmain0_cpu_m5_hrdata ),
+  .hmain0_cpu_m1_hready  (hmain0_cpu_m5_hready ),
+  .hmain0_cpu_m1_hresp   (hmain0_cpu_m5_hresp  ),
+  .hmain0_cpu_m2_hrdata  (hmain0_cpu_m6_hrdata ),
+  .hmain0_cpu_m2_hready  (hmain0_cpu_m6_hready ),
+  .hmain0_cpu_m2_hresp   (hmain0_cpu_m6_hresp  ),
+  .lsbus_dummy0_intr     (lsbus_dummy0_intr    ),
+  .lsbus_dummy1_intr     (lsbus_dummy1_intr    ),
+  .lsbus_dummy2_intr     (lsbus_dummy2_intr    ),
+  .lsbus_dummy3_intr     (lsbus_dummy3_intr    ),
+  .main_dmemdummy0_intr  (main_dmemdummy0_intr ),
+  .main_dummy0_intr      (main_dummy0_intr     ),
+  .main_dummy1_intr      (main_dummy1_intr     ),
+  .main_dummy2_intr      (main_dummy2_intr     ),
+  .main_dummy3_intr      (main_dummy3_intr     ),
+  .main_imemdummy0_intr  (main_imemdummy0_intr ),
+  .pad_core_clk          (pad_core_clk         ),
+  .pad_core_ctim_refclk  (pad_core_ctim_refclk ),
+  .pad_core_rst_b        (pad_core_rst_b_1       ),
+  .padmux_cpu_jtg_tclk   (padmux_cpu_jtg_tclk_1  ),
+  .padmux_cpu_jtg_tms_i  (padmux_cpu_jtg_tms_i_1 ),
+  .pmu_cpu_dfs_req       (pmu_cpu_dfs_req      ),
+  .pmu_wic_intr          ('b0),
+  .pwm_wic_intr          ('b0),
+  .rtc_wic_intr          ('b0),
+  .scan_en               (scan_en              ),
+  .scan_mode             (scan_mode            ),
+  .test_mode             (test_mode            ),
+  .tim0_wic_intr         ('b0),
+  .tim1_wic_intr         (tim1_wic_intr        ),
+  .tim2_wic_intr         ('b0),
+  .tim3_wic_intr         (tim3_wic_intr        ),
+  .tim4_wic_intr         ('b0),
+  .tim5_wic_intr         (tim5_wic_intr        ),
+  .tim6_wic_intr         ('b0),
+  .tim7_wic_intr         (tim7_wic_intr        ),
+  .usi0_wic_intr         ('b0),
+  .usi1_wic_intr         (usi1_wic_intr        ),
+  .usi2_wic_intr         ('b0),
+  .wdt_wic_intr          ('b0)
 );
 retu_top  x_retu_top (
   .hmain0_ismc_s0_haddr  (hmain0_ismc_s0_haddr ),
@@ -1155,6 +1330,31 @@ PAD_DIG_IO  x_PAD_JTAG_TMS (
 //   .PAD                 (PAD_JTAG_TCLK      )
 // );
 assign padmux_cpu_jtg_tclk = PAD_JTAG_TCLK;
+// PAD_DIG_IO  x_PAD_MCURST_1 (
+//   .ID           (pad_mcurst_b_1),
+//   .IEN          (1'b0          ),
+//   .OD           (1'b0          ),
+//   .OEN          (1'b1          ),
+//   .PAD          (PAD_MCURST_1  )
+// );
+assign pad_mcurst_b_1 = PAD_MCURST_1;
+assign cpu_padmux_jtg_tms_oen_1 = ~cpu_padmux_jtg_tms_oe_1;
+assign cpu_padmux_jtg_tms_ien_1 = cpu_padmux_jtg_tms_oe_1;
+PAD_DIG_IO  x_PAD_JTAG_TMS_1 (
+  .ID                     (padmux_cpu_jtg_tms_i_1  ),
+  .IEN                    (cpu_padmux_jtg_tms_ien_1),
+  .OD                     (cpu_padmux_jtg_tms_o_1  ),
+  .OEN                    (cpu_padmux_jtg_tms_oen_1),
+  .PAD                    (PAD_JTAG_TMS_1          )
+);
+// PAD_DIG_IO  x_PAD_JTAG_TCLK_1 (
+//   .ID                  (padmux_cpu_jtg_tclk_1),
+//   .IEN                 (1'b0                 ),
+//   .OD                  (1'b0                 ),
+//   .OEN                 (1'b1                 ),
+//   .PAD                 (PAD_JTAG_TCLK_1      )
+// );
+assign padmux_cpu_jtg_tclk_1 = PAD_JTAG_TCLK_1;
 PAD_DIG_IO  x_PAD_GPIO_0 (
   .ID                      (ioctl_gpio_ext_porta[0]),
   .IEN                     (pad_gpio_ien[0]        ),

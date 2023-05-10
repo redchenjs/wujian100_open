@@ -1,0 +1,3 @@
+[submodule "soc/utils"]
+	path = soc/utils
+	url = https://github.com/redchenjs/hdl_utils.git

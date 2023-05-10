@@ -29,9 +29,11 @@ module aou_top(
   pad_core_clk,
   pad_core_ctim_refclk,
   pad_core_rst_b,
+  pad_core_rst_b_1,
   pad_gpio_ien,
   pad_gpio_oen,
   pad_mcurst_b,
+  pad_mcurst_b_1,
   pmu_apb0_pclk_en,
   pmu_apb0_s3clk,
   pmu_apb0_s3rst_b,
@@ -153,7 +155,8 @@ input           cpu_pmu_sleep_b;
 input           ehs_pmu_clk;          
 input           els_pmu_clk;          
 input   [31:0]  ioctl_gpio_ext_porta; 
-input           pad_mcurst_b;         
+input           pad_mcurst_b;
+input           pad_mcurst_b_1;         
 input           test_mode;            
 input           wdt_pmu_rst_b;        
 output          dft_clk;              
@@ -162,7 +165,8 @@ output  [31:0]  gpio_ioctl_porta_dr;
 output          gpio_wic_intr;        
 output          pad_core_clk;         
 output          pad_core_ctim_refclk; 
-output          pad_core_rst_b;       
+output          pad_core_rst_b;
+output          pad_core_rst_b_1;       
 output  [31:0]  pad_gpio_ien;         
 output  [31:0]  pad_gpio_oen;         
 output          pmu_apb0_pclk_en;     
@@ -304,10 +308,12 @@ wire            gpio_wic_intr;
 wire    [31:0]  ioctl_gpio_ext_porta; 
 wire            pad_core_clk;         
 wire            pad_core_ctim_refclk; 
-wire            pad_core_rst_b;       
+wire            pad_core_rst_b;  
+wire            pad_core_rst_b_1;     
 wire    [31:0]  pad_gpio_ien;         
 wire    [31:0]  pad_gpio_oen;         
-wire            pad_mcurst_b;         
+wire            pad_mcurst_b;
+wire            pad_mcurst_b_1;         
 wire            pmu_apb0_pclk_en;     
 wire            pmu_apb0_s3clk;       
 wire            pmu_apb0_s3rst_b;     
@@ -432,7 +438,9 @@ pmu_dummy_top  x_pmu_top (
   .pad_core_clk          (pad_core_clk         ),
   .pad_core_ctim_refclk  (pad_core_ctim_refclk ),
   .pad_core_rst_b        (pad_core_rst_b       ),
+  .pad_core_rst_b_1      (pad_core_rst_b_1     ),
   .pad_mcurst_b          (pad_mcurst_b         ),
+  .pad_mcurst_b_1        (pad_mcurst_b_1       ),
   .paddr                 (apb1_pmu_paddr       ),
   .penable               (apb1_pmu_penable     ),
   .pmu_apb0_pclk_en      (pmu_apb0_pclk_en     ),

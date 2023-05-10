@@ -30,6 +30,27 @@ module ahb_matrix_top(
   cpu_hmain0_m2_htrans,
   cpu_hmain0_m2_hwdata,
   cpu_hmain0_m2_hwrite,
+  cpu_hmain0_m4_haddr,
+  cpu_hmain0_m4_hburst,
+  cpu_hmain0_m4_hprot,
+  cpu_hmain0_m4_hsize,
+  cpu_hmain0_m4_htrans,
+  cpu_hmain0_m4_hwdata,
+  cpu_hmain0_m4_hwrite,
+  cpu_hmain0_m5_haddr,
+  cpu_hmain0_m5_hburst,
+  cpu_hmain0_m5_hprot,
+  cpu_hmain0_m5_hsize,
+  cpu_hmain0_m5_htrans,
+  cpu_hmain0_m5_hwdata,
+  cpu_hmain0_m5_hwrite,
+  cpu_hmain0_m6_haddr,
+  cpu_hmain0_m6_hburst,
+  cpu_hmain0_m6_hprot,
+  cpu_hmain0_m6_hsize,
+  cpu_hmain0_m6_htrans,
+  cpu_hmain0_m6_hwdata,
+  cpu_hmain0_m6_hwrite,
   dmac0_wic_intr,
   hmain0_cpu_m0_hrdata,
   hmain0_cpu_m0_hready,
@@ -40,6 +61,15 @@ module ahb_matrix_top(
   hmain0_cpu_m2_hrdata,
   hmain0_cpu_m2_hready,
   hmain0_cpu_m2_hresp,
+  hmain0_cpu_m4_hrdata,
+  hmain0_cpu_m4_hready,
+  hmain0_cpu_m4_hresp,
+  hmain0_cpu_m5_hrdata,
+  hmain0_cpu_m5_hready,
+  hmain0_cpu_m5_hresp,
+  hmain0_cpu_m6_hrdata,
+  hmain0_cpu_m6_hready,
+  hmain0_cpu_m6_hresp,
   hmain0_ismc_s0_haddr,
   hmain0_ismc_s0_hprot,
   hmain0_ismc_s0_hsel,
@@ -140,7 +170,28 @@ input   [3 :0]  cpu_hmain0_m2_hprot;
 input   [2 :0]  cpu_hmain0_m2_hsize;        
 input   [1 :0]  cpu_hmain0_m2_htrans;       
 input   [31:0]  cpu_hmain0_m2_hwdata;       
-input           cpu_hmain0_m2_hwrite;       
+input           cpu_hmain0_m2_hwrite;
+input   [31:0]  cpu_hmain0_m4_haddr;        
+input   [2 :0]  cpu_hmain0_m4_hburst;       
+input   [3 :0]  cpu_hmain0_m4_hprot;        
+input   [2 :0]  cpu_hmain0_m4_hsize;        
+input   [1 :0]  cpu_hmain0_m4_htrans;       
+input   [31:0]  cpu_hmain0_m4_hwdata;       
+input           cpu_hmain0_m4_hwrite;       
+input   [31:0]  cpu_hmain0_m5_haddr;        
+input   [2 :0]  cpu_hmain0_m5_hburst;       
+input   [3 :0]  cpu_hmain0_m5_hprot;        
+input   [2 :0]  cpu_hmain0_m5_hsize;        
+input   [1 :0]  cpu_hmain0_m5_htrans;       
+input   [31:0]  cpu_hmain0_m5_hwdata;       
+input           cpu_hmain0_m5_hwrite;       
+input   [31:0]  cpu_hmain0_m6_haddr;        
+input   [2 :0]  cpu_hmain0_m6_hburst;       
+input   [3 :0]  cpu_hmain0_m6_hprot;        
+input   [2 :0]  cpu_hmain0_m6_hsize;        
+input   [1 :0]  cpu_hmain0_m6_htrans;       
+input   [31:0]  cpu_hmain0_m6_hwdata;       
+input           cpu_hmain0_m6_hwrite;       
 input   [31:0]  ismc_hmain0_s0_hrdata;      
 input           ismc_hmain0_s0_hready;      
 input   [1 :0]  ismc_hmain0_s0_hresp;       
@@ -187,7 +238,16 @@ output          hmain0_cpu_m1_hready;
 output  [1 :0]  hmain0_cpu_m1_hresp;        
 output  [31:0]  hmain0_cpu_m2_hrdata;       
 output          hmain0_cpu_m2_hready;       
-output  [1 :0]  hmain0_cpu_m2_hresp;        
+output  [1 :0]  hmain0_cpu_m2_hresp;
+output  [31:0]  hmain0_cpu_m4_hrdata;       
+output          hmain0_cpu_m4_hready;       
+output  [1 :0]  hmain0_cpu_m4_hresp;        
+output  [31:0]  hmain0_cpu_m5_hrdata;       
+output          hmain0_cpu_m5_hready;       
+output  [1 :0]  hmain0_cpu_m5_hresp;        
+output  [31:0]  hmain0_cpu_m6_hrdata;       
+output          hmain0_cpu_m6_hready;       
+output  [1 :0]  hmain0_cpu_m6_hresp;        
 output  [31:0]  hmain0_ismc_s0_haddr;       
 output  [3 :0]  hmain0_ismc_s0_hprot;       
 output          hmain0_ismc_s0_hsel;        
@@ -302,6 +362,30 @@ wire    [2 :0]  cpu_hmain0_m2_hsize;
 wire    [1 :0]  cpu_hmain0_m2_htrans;       
 wire    [31:0]  cpu_hmain0_m2_hwdata;       
 wire            cpu_hmain0_m2_hwrite;       
+wire    [31:0]  cpu_hmain0_m4_haddr;        
+wire    [2 :0]  cpu_hmain0_m4_hburst;       
+wire    [3 :0]  cpu_hmain0_m4_hprot;        
+wire    [3 :0]  cpu_hmain0_m4_hprot_tmp;    
+wire    [2 :0]  cpu_hmain0_m4_hsize;        
+wire    [1 :0]  cpu_hmain0_m4_htrans;       
+wire    [31:0]  cpu_hmain0_m4_hwdata;       
+wire            cpu_hmain0_m4_hwrite;       
+wire    [31:0]  cpu_hmain0_m5_haddr;        
+wire    [2 :0]  cpu_hmain0_m5_hburst;       
+wire    [3 :0]  cpu_hmain0_m5_hprot;        
+wire    [3 :0]  cpu_hmain0_m5_hprot_tmp;    
+wire    [2 :0]  cpu_hmain0_m5_hsize;        
+wire    [1 :0]  cpu_hmain0_m5_htrans;       
+wire    [31:0]  cpu_hmain0_m5_hwdata;       
+wire            cpu_hmain0_m5_hwrite;       
+wire    [31:0]  cpu_hmain0_m6_haddr;        
+wire    [2 :0]  cpu_hmain0_m6_hburst;       
+wire    [3 :0]  cpu_hmain0_m6_hprot;        
+wire    [3 :0]  cpu_hmain0_m6_hprot_tmp;    
+wire    [2 :0]  cpu_hmain0_m6_hsize;        
+wire    [1 :0]  cpu_hmain0_m6_htrans;       
+wire    [31:0]  cpu_hmain0_m6_hwdata;       
+wire            cpu_hmain0_m6_hwrite;
 wire    [31:0]  dmac0_hmain0_m3_haddr;      
 wire    [2 :0]  dmac0_hmain0_m3_hburst;     
 wire            dmac0_hmain0_m3_hbusreq;    
@@ -374,7 +458,19 @@ wire    [1 :0]  hmain0_cpu_m1_hresp;
 wire            hmain0_cpu_m2_hgrant;       
 wire    [31:0]  hmain0_cpu_m2_hrdata;       
 wire            hmain0_cpu_m2_hready;       
-wire    [1 :0]  hmain0_cpu_m2_hresp;        
+wire    [1 :0]  hmain0_cpu_m2_hresp;   
+wire            hmain0_cpu_m4_hgrant;       
+wire    [31:0]  hmain0_cpu_m4_hrdata;       
+wire            hmain0_cpu_m4_hready;       
+wire    [1 :0]  hmain0_cpu_m4_hresp;        
+wire            hmain0_cpu_m5_hgrant;       
+wire    [31:0]  hmain0_cpu_m5_hrdata;       
+wire            hmain0_cpu_m5_hready;       
+wire    [1 :0]  hmain0_cpu_m5_hresp;        
+wire            hmain0_cpu_m6_hgrant;       
+wire    [31:0]  hmain0_cpu_m6_hrdata;       
+wire            hmain0_cpu_m6_hready;       
+wire    [1 :0]  hmain0_cpu_m6_hresp;      
 wire            hmain0_dmac0_m3_hgrant;     
 wire    [31:0]  hmain0_dmac0_m3_hrdata;     
 wire            hmain0_dmac0_m3_hready;     
@@ -560,6 +656,9 @@ wire    [1 :0]  smc_hmain0_s4_hresp;
 assign cpu_hmain0_m0_hprot_tmp[3:0] = cpu_hmain0_m0_hprot[3:0];
 assign cpu_hmain0_m1_hprot_tmp[3:0] = cpu_hmain0_m1_hprot[3:0];
 assign cpu_hmain0_m2_hprot_tmp[3:0] = cpu_hmain0_m2_hprot[3:0];
+assign cpu_hmain0_m4_hprot_tmp[3:0] = cpu_hmain0_m4_hprot[3:0];
+assign cpu_hmain0_m5_hprot_tmp[3:0] = cpu_hmain0_m5_hprot[3:0];
+assign cpu_hmain0_m6_hprot_tmp[3:0] = cpu_hmain0_m6_hprot[3:0];
 assign dmac0_hmain0_m3_hprot_tmp[3:0] = dmac0_hmain0_m3_hprot[3:0];
 assign mdummy0_hmain0_m4_hprot_tmp[3:0] = mdummy0_hmain0_m4_hprot[3:0];
 assign mdummy1_hmain0_m5_hprot_tmp[3:0] = mdummy1_hmain0_m5_hprot[3:0];
@@ -611,39 +710,39 @@ ahb_matrix_7_12_main  x_ahb_matrix_7_12_main (
   .m3_htrans                   (dmac0_hmain0_m3_htrans     ),
   .m3_hwdata                   (dmac0_hmain0_m3_hwdata     ),
   .m3_hwrite                   (dmac0_hmain0_m3_hwrite     ),
-  .m4_haddr                    (mdummy0_hmain0_m4_haddr    ),
-  .m4_hburst                   (mdummy0_hmain0_m4_hburst   ),
-  .m4_hgrant                   (hmain0_mdummy0_m4_hgrant   ),
-  .m4_hprot                    (mdummy0_hmain0_m4_hprot_tmp),
-  .m4_hrdata                   (hmain0_mdummy0_m4_hrdata   ),
-  .m4_hready                   (hmain0_mdummy0_m4_hready   ),
-  .m4_hresp                    (hmain0_mdummy0_m4_hresp    ),
-  .m4_hsize                    (mdummy0_hmain0_m4_hsize    ),
-  .m4_htrans                   (mdummy0_hmain0_m4_htrans   ),
-  .m4_hwdata                   (mdummy0_hmain0_m4_hwdata   ),
-  .m4_hwrite                   (mdummy0_hmain0_m4_hwrite   ),
-  .m5_haddr                    (mdummy1_hmain0_m5_haddr    ),
-  .m5_hburst                   (mdummy1_hmain0_m5_hburst   ),
-  .m5_hgrant                   (hmain0_mdummy1_m5_hgrant   ),
-  .m5_hprot                    (mdummy1_hmain0_m5_hprot_tmp),
-  .m5_hrdata                   (hmain0_mdummy1_m5_hrdata   ),
-  .m5_hready                   (hmain0_mdummy1_m5_hready   ),
-  .m5_hresp                    (hmain0_mdummy1_m5_hresp    ),
-  .m5_hsize                    (mdummy1_hmain0_m5_hsize    ),
-  .m5_htrans                   (mdummy1_hmain0_m5_htrans   ),
-  .m5_hwdata                   (mdummy1_hmain0_m5_hwdata   ),
-  .m5_hwrite                   (mdummy1_hmain0_m5_hwrite   ),
-  .m6_haddr                    (mdummy2_hmain0_m6_haddr    ),
-  .m6_hburst                   (mdummy2_hmain0_m6_hburst   ),
-  .m6_hgrant                   (hmain0_mdummy2_m6_hgrant   ),
-  .m6_hprot                    (mdummy2_hmain0_m6_hprot_tmp),
-  .m6_hrdata                   (hmain0_mdummy2_m6_hrdata   ),
-  .m6_hready                   (hmain0_mdummy2_m6_hready   ),
-  .m6_hresp                    (hmain0_mdummy2_m6_hresp    ),
-  .m6_hsize                    (mdummy2_hmain0_m6_hsize    ),
-  .m6_htrans                   (mdummy2_hmain0_m6_htrans   ),
-  .m6_hwdata                   (mdummy2_hmain0_m6_hwdata   ),
-  .m6_hwrite                   (mdummy2_hmain0_m6_hwrite   ),
+  .m4_haddr                    (cpu_hmain0_m4_haddr    ),
+  .m4_hburst                   (cpu_hmain0_m4_hburst   ),
+  .m4_hgrant                   (hmain0_cpu_m4_hgrant   ),
+  .m4_hprot                    (cpu_hmain0_m4_hprot_tmp),
+  .m4_hrdata                   (hmain0_cpu_m4_hrdata   ),
+  .m4_hready                   (hmain0_cpu_m4_hready   ),
+  .m4_hresp                    (hmain0_cpu_m4_hresp    ),
+  .m4_hsize                    (cpu_hmain0_m4_hsize    ),
+  .m4_htrans                   (cpu_hmain0_m4_htrans   ),
+  .m4_hwdata                   (cpu_hmain0_m4_hwdata   ),
+  .m4_hwrite                   (cpu_hmain0_m4_hwrite   ),
+  .m5_haddr                    (cpu_hmain0_m5_haddr    ),
+  .m5_hburst                   (cpu_hmain0_m5_hburst   ),
+  .m5_hgrant                   (hmain0_cpu_m5_hgrant   ),
+  .m5_hprot                    (cpu_hmain0_m5_hprot_tmp),
+  .m5_hrdata                   (hmain0_cpu_m5_hrdata   ),
+  .m5_hready                   (hmain0_cpu_m5_hready   ),
+  .m5_hresp                    (hmain0_cpu_m5_hresp    ),
+  .m5_hsize                    (cpu_hmain0_m5_hsize    ),
+  .m5_htrans                   (cpu_hmain0_m5_htrans   ),
+  .m5_hwdata                   (cpu_hmain0_m5_hwdata   ),
+  .m5_hwrite                   (cpu_hmain0_m5_hwrite   ),
+  .m6_haddr                    (cpu_hmain0_m6_haddr    ),
+  .m6_hburst                   (cpu_hmain0_m6_hburst   ),
+  .m6_hgrant                   (hmain0_cpu_m6_hgrant   ),
+  .m6_hprot                    (cpu_hmain0_m6_hprot_tmp),
+  .m6_hrdata                   (hmain0_cpu_m6_hrdata   ),
+  .m6_hready                   (hmain0_cpu_m6_hready   ),
+  .m6_hresp                    (hmain0_cpu_m6_hresp    ),
+  .m6_hsize                    (cpu_hmain0_m6_hsize    ),
+  .m6_htrans                   (cpu_hmain0_m6_htrans   ),
+  .m6_hwdata                   (cpu_hmain0_m6_hwdata   ),
+  .m6_hwrite                   (cpu_hmain0_m6_hwrite   ),
   .s0_haddr                    (hmain0_ismc_s0_haddr       ),
   .s0_hburst                   (hmain0_ismc_s0_hburst      ),
   .s0_hprot                    (hmain0_ismc_s0_hprot       ),
