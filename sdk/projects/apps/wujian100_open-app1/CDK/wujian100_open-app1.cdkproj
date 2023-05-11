@@ -404,7 +404,7 @@
       <Output>
         <OutputName>$(ProjectName)</OutputName>
         <Type>Executable</Type>
-        <CreateHexFile>no</CreateHexFile>
+        <CreateHexFile>yes</CreateHexFile>
         <CreateBinFile>yes</CreateBinFile>
         <Preprocessor>no</Preprocessor>
         <Disassmeble>yes</Disassmeble>
@@ -488,6 +488,7 @@
           <WaitReset>50</WaitReset>
           <DDC>yes</DDC>
           <TRST>no</TRST>
+          <PreReset>no</PreReset>
           <DebugPrint>no</DebugPrint>
           <Connect>Normal</Connect>
           <ResetType>soft</ResetType>
@@ -543,8 +544,8 @@
   </BuildConfigs>
   <DebugSessions>
     <watchExpressions/>
-    <memoryExpressions>;;;</memoryExpressions>
-    <statistics>;;32;;MHZ;</statistics>
+    <memoryExpressions>0x20000000;;;</memoryExpressions>
+    <statistics>;;32;;MHZ;;up</statistics>
     <peripheralTabs/>
     <WatchDisplayFormat>1</WatchDisplayFormat>
     <LocalDisplayFormat>1</LocalDisplayFormat>

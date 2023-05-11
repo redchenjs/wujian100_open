@@ -11,9 +11,6 @@
 #include "time.h"
 #include "syslog.h"
 
-#include "csi_core.h"
-#include "csi_config.h"
-
 #include "drv_pwm.h"
 #include "drv_gpio.h"
 
