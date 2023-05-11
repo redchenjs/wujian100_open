@@ -29,11 +29,11 @@ preplace port port-id_EXT_LED_4 -pg 1 -lvl 3 -x 690 -y 200 -defaultsOSRD
 preplace port port-id_PL_CLK_32K -pg 1 -lvl 0 -x 0 -y 850 -defaultsOSRD
 preplace portBus EXT_LED_1 -pg 1 -lvl 3 -x 690 -y 140 -defaultsOSRD
 preplace portBus EXT_LED_3 -pg 1 -lvl 3 -x 690 -y 1500 -defaultsOSRD
-preplace inst wujian100_open_top_0 -pg 1 -lvl 2 -x 500 -y 820 -defaultsOSRD
 preplace inst clk_wiz_0 -pg 1 -lvl 1 -x 170 -y 790 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 2 -x 500 -y 70 -defaultsOSRD
 preplace inst util_vector_logic_1 -pg 1 -lvl 1 -x 170 -y 140 -defaultsOSRD
 preplace inst util_vector_logic_2 -pg 1 -lvl 1 -x 170 -y 920 -defaultsOSRD
+preplace inst wujian100_open_top_0 -pg 1 -lvl 2 -x 500 -y 820 -defaultsOSRD
 preplace netloc EXT_KEY_1_1 1 0 1 NJ 910
 preplace netloc EXT_KEY_2_1 1 0 1 NJ 130
 preplace netloc EXT_MCU_NRST_0_1 1 0 1 NJ 150
