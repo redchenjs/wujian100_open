@@ -16,7 +16,7 @@ preplace port port-id_EXT_JTAG_TCK_0 -pg 1 -lvl 3 -x 690 -y 840 -defaultsOSRD
 preplace port port-id_EXT_JTAG_TMS_0 -pg 1 -lvl 3 -x 690 -y 860 -defaultsOSRD
 preplace port port-id_EXT_JTAG_TCK_1 -pg 1 -lvl 3 -x 690 -y 880 -defaultsOSRD
 preplace port port-id_EXT_JTAG_TMS_1 -pg 1 -lvl 3 -x 690 -y 900 -defaultsOSRD
-preplace port port-id_EXT_FLASH_NSS -pg 1 -lvl 3 -x 690 -y 1340 -defaultsOSRD
+preplace port port-id_EXT_FLASH_NSS -pg 1 -lvl 3 -x 690 -y 220 -defaultsOSRD
 preplace port port-id_EXT_FLASH_SCK -pg 1 -lvl 3 -x 690 -y 1360 -defaultsOSRD
 preplace port port-id_EXT_FLASH_SDO -pg 1 -lvl 3 -x 690 -y 1380 -defaultsOSRD
 preplace port port-id_EXT_FLASH_SDI -pg 1 -lvl 3 -x 690 -y 1400 -defaultsOSRD
@@ -40,7 +40,6 @@ preplace netloc EXT_MCU_NRST_0_1 1 0 1 NJ 150
 preplace netloc EXT_MCU_NRST_1_1 1 0 1 NJ 930
 preplace netloc Net 1 2 1 NJ 1360
 preplace netloc Net1 1 2 1 NJ 1400
-preplace netloc Net2 1 2 1 NJ 1340
 preplace netloc Net3 1 2 1 NJ 1380
 preplace netloc Net4 1 2 1 NJ 840
 preplace netloc Net5 1 2 1 NJ 860
@@ -48,7 +47,6 @@ preplace netloc Net6 1 2 1 NJ 1220
 preplace netloc Net7 1 2 1 NJ 1300
 preplace netloc Net8 1 2 1 NJ 1320
 preplace netloc Net9 1 2 1 NJ 1240
-preplace netloc Net10 1 2 1 NJ 200
 preplace netloc Net11 1 2 1 NJ 920
 preplace netloc Net12 1 2 1 NJ 880
 preplace netloc Net13 1 2 1 NJ 900
@@ -57,6 +55,8 @@ preplace netloc PL_CLK_50M_1 1 0 1 NJ 790
 preplace netloc clk_wiz_0_clk_out1 1 1 1 320J 790n
 preplace netloc util_vector_logic_1_Res 1 1 2 330 140 NJ
 preplace netloc util_vector_logic_2_Res 1 1 2 330 1500 NJ
+preplace netloc Net2 1 2 1 NJ 220
+preplace netloc Net10 1 2 1 NJ 200
 preplace netloc processing_system7_0_DDR 1 2 1 NJ 60
 preplace netloc processing_system7_0_FIXED_IO 1 2 1 NJ 80
 levelinfo -pg 1 0 170 500 690

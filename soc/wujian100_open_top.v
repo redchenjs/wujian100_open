@@ -1085,7 +1085,7 @@ pdu_top  x_pdu_top (
 core_top #(
   .IBUS_BASE(12'h000),
   .IBUS_MASK(12'he00),
-  .RESET_VECTOR(32'h1000_0000)
+  .RESET_VECTOR(32'h0000_0000)
 ) x_cpu_top (
   .apb0_dummy1_intr      (apb0_dummy1_intr     ),
   .apb0_dummy2_intr      (apb0_dummy2_intr     ),
@@ -1394,13 +1394,13 @@ PAD_DIG_IO  x_PAD_GPIO_0 (
   .OEN                     (pad_gpio_oen[0]        ),
   .PAD                     (PAD_GPIO_0             )
 );
-// PAD_DIG_IO  x_PAD_GPIO_1 (
-//   .ID                      (ioctl_gpio_ext_porta[1]),
-//   .IEN                     (pad_gpio_ien[1]        ),
-//   .OD                      (gpio_ioctl_porta_dr[1] ),
-//   .OEN                     (pad_gpio_oen[1]        ),
-//   .PAD                     (PAD_GPIO_1             )
-// );
+PAD_DIG_IO  x_PAD_GPIO_1 (
+  .ID                      (ioctl_gpio_ext_porta[1]),
+  .IEN                     (pad_gpio_ien[1]        ),
+  .OD                      (gpio_ioctl_porta_dr[1] ),
+  .OEN                     (pad_gpio_oen[1]        ),
+  .PAD                     (PAD_GPIO_1             )
+);
 // PAD_DIG_IO  x_PAD_GPIO_2 (
 //   .ID                      (ioctl_gpio_ext_porta[2]),
 //   .IEN                     (pad_gpio_ien[2]        ),
@@ -1791,13 +1791,13 @@ PAD_DIG_IO  x_PAD_USI2_SD1 (
   .OEN                 (usi2_ioctl_sd1_oe_n),
   .PAD                 (PAD_USI2_SD1       )
 );
-PAD_DIG_IO  x_PAD_USI2_NSS (
-  .ID                  (ioctl_usi2_nss_in  ),
-  .IEN                 (usi2_ioctl_nss_ie_n),
-  .OD                  (usi2_ioctl_nss_out ),
-  .OEN                 (usi2_ioctl_nss_oe_n),
-  .PAD                 (PAD_USI2_NSS       )
-);
+// PAD_DIG_IO  x_PAD_USI2_NSS (
+//   .ID                  (ioctl_usi2_nss_in  ),
+//   .IEN                 (usi2_ioctl_nss_ie_n),
+//   .OD                  (usi2_ioctl_nss_out ),
+//   .OEN                 (usi2_ioctl_nss_oe_n),
+//   .PAD                 (PAD_USI2_NSS       )
+// );
 assign bist0_mode = 1'b0;
 assign scan_en = 1'b0;
 assign scan_mode = 1'b0;

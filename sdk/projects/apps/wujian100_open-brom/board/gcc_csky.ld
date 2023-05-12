@@ -11,22 +11,33 @@
  ******************************************************************************/
 MEMORY
 {
-    I-SRAM : ORIGIN = 0x00000000 , LENGTH = 0x00010000   /* I-SRAM  64KB */
-    SRAM   : ORIGIN = 0x20010000,  LENGTH = 0x00010000   /* on-chip SRAM 64KB */
+    IRAM-BROM : ORIGIN = 0x00000000 , LENGTH = 0x00010000   /* IRAM-BROM 64KB */
+    IRAM-APP0 : ORIGIN = 0x10000000 , LENGTH = 0x00010000   /* IRAM-APP0 64KB */
+    IRAM-APP1 : ORIGIN = 0x20000000 , LENGTH = 0x00010000   /* IRAM-APP1 64KB */
+    SRAM-APP0 : ORIGIN = 0x20010000,  LENGTH = 0x00010000   /* SRAM-APP0 64KB */
+    SRAM-APP1 : ORIGIN = 0x20020000,  LENGTH = 0x00010000   /* SRAM-APP1 64KB */
 }
 
 __min_heap_size = 0x200;
 PROVIDE (__ram_end  = 0x20020000);
 PROVIDE (__heap_end = __ram_end);
 
-REGION_ALIAS("REGION_TEXT",    I-SRAM);
-REGION_ALIAS("REGION_RODATA",  I-SRAM);
-REGION_ALIAS("REGION_DATA",    SRAM);
-REGION_ALIAS("REGION_BSS",     SRAM);
+REGION_ALIAS("REGION_TEXT",   IRAM-BROM);
+REGION_ALIAS("REGION_RODATA", IRAM-BROM);
+REGION_ALIAS("REGION_DATA",   SRAM-APP0);
+REGION_ALIAS("REGION_BSS",    SRAM-APP0);
 
 ENTRY(Reset_Handler)
 SECTIONS
 {
+ .iram_app0 (NOLOAD) : {
+  . = ALIGN(4);
+ } > IRAM-APP0
+
+ .iram_app1 (NOLOAD) : {
+  . = ALIGN(4);
+ } > IRAM-APP1
+
  .text : {
   . = ALIGN(0x4) ;
   __stext = . ;

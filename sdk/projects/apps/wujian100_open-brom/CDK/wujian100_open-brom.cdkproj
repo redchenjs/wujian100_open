@@ -1057,9 +1057,6 @@
           <FileOption/>
         </File>
       </VirtualDirectory>
-      <File Name="../board/gcc_csky_irom.ld">
-        <FileOption/>
-      </File>
     </VirtualDirectory>
   </VirtualDirectory>
   <VendorInfo>
@@ -1071,7 +1068,6 @@
       <Version>latest</Version>
     </Compiler>
   </ToolsConfig>
-  <Dependencies Name="BuildSet"/>
   <MonitorProgress>
     <DebugLaunch>40</DebugLaunch>
   </MonitorProgress>
@@ -1286,9 +1282,10 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
+  <Dependencies Name="BuildSet"/>
   <DebugSessions>
-    <watchExpressions/>
-    <memoryExpressions>0x00000000;;;</memoryExpressions>
+    <watchExpressions>firmware_app0_size:1;firmware_app1_size:1</watchExpressions>
+    <memoryExpressions>0x20000000;0;;</memoryExpressions>
     <statistics>;;32;;MHZ;;up</statistics>
     <peripheralTabs/>
     <WatchDisplayFormat>1</WatchDisplayFormat>

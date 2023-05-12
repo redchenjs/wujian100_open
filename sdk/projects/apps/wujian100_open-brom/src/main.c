@@ -8,10 +8,11 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#include "time.h"
-#include "syslog.h"
+#include <time.h>
+#include <syslog.h>
 
 #include "drv_pwm.h"
+#include "drv_spi.h"
 #include "drv_gpio.h"
 #include "drv_usart.h"
 
@@ -20,33 +21,26 @@
 #include "mbedtls/platform.h"
 
 // Global Variables
-const void (*firmware_entry)(void) = (const void (*)())(0x80000000);
+#define FIRMWARE_SIZE_APP_0_MAX  (64 * 1024)
+#define FIRMWARE_SIZE_APP_1_MAX  (64 * 1024)
+
+#define FIRMWARE_LOAD_APP_0_ADDR (0x10000000)
+#define FIRMWARE_DATA_APP_0_ADDR (0x00000000)
+#define FIRMWARE_SIZE_APP_0_ADDR (0x000FFEFC)
+#define FIRMWARE_SIGN_APP_0_ADDR (0x000FFF00)
+
+#define FIRMWARE_LOAD_APP_1_ADDR (0x20000000)
+#define FIRMWARE_DATA_APP_1_ADDR (0x00100000)
+#define FIRMWARE_SIZE_APP_1_ADDR (0x001FFEFC)
+#define FIRMWARE_SIGN_APP_1_ADDR (0x001FFF00)
+
+static uint8_t firmware_app0[FIRMWARE_SIZE_APP_0_MAX] __attribute__((section(".iram_app0")));
+static uint8_t firmware_app1[FIRMWARE_SIZE_APP_1_MAX] __attribute__((section(".iram_app1")));
+
+const void (*firmware_entry)(void) = (const void (*)())(FIRMWARE_LOAD_APP_0_ADDR);
 
 const char public_key_n[] = "A89D653A84AA19B57B44D6D447877F9A8EA6A824C6BEF3B51D9D4D2952A0E7F3ED8F8B2F55CFD8E7E6BAE65E16DC4C43BBE00E631AE4289E583902261485C953E2042DEEBDAF2F54B6DE9FF321C612A87A9F46EA30FA264846E79167BB22CC4090830FF16A56EAC4B236CBB7B6D2880B3BE1B1263EF1D85BC9C006CFE592C6995B6914ECF38B5B0AB5325847B10C8523B91BA1F01FF2EAC4F8602DC40F17465393CB2C8933FFE43687FC93A69B9D5CA824AC6A203F8375164102E82F2B060FFB8FA0E5B4DDBF971F39A5A2588F4DB38BCC709C709A86634A40D4BA116239A14343E6EEE7E08123208B381C751140EBAA2FCD52F5077721F32114898342202CB7";
 const char public_key_e[] = "010001";
-
-const unsigned char data_buf[] = {
-    0x64, 0x65, 0x61, 0x64, 0x62, 0x65, 0x65, 0x66, 0x0a
-};
-
-const unsigned char sign_buf[] = {
-    0x40, 0xCE, 0x18, 0x97, 0x0A, 0xF0, 0x1C, 0x49, 0xF9, 0x79, 0x45, 0xC6, 0xA4, 0xCB, 0xA8, 0xE9,
-    0xB4, 0x71, 0x09, 0xB2, 0x7A, 0xC1, 0x60, 0x9A, 0xC2, 0xA5, 0x1C, 0x1A, 0x89, 0x7D, 0xBB, 0xA5,
-    0xBE, 0x81, 0x2A, 0x0E, 0x69, 0x41, 0x42, 0x44, 0x24, 0xFB, 0xBD, 0x30, 0x94, 0x96, 0x80, 0x8F,
-    0xB9, 0x04, 0xC1, 0xED, 0xA1, 0x42, 0x33, 0x33, 0xD2, 0xB6, 0xE2, 0x43, 0xB5, 0xBC, 0xEB, 0x2C,
-    0xDE, 0xF3, 0x08, 0x99, 0x2D, 0xB9, 0x59, 0x8B, 0xB8, 0xB9, 0xB2, 0x56, 0x8D, 0x5A, 0x51, 0x68,
-    0x09, 0xB3, 0xF3, 0xBE, 0x01, 0xA2, 0x6B, 0xBC, 0xC7, 0xF7, 0x44, 0x37, 0x73, 0xCA, 0xA5, 0xA0,
-    0x20, 0x50, 0xEC, 0xBE, 0xF3, 0xE6, 0xC3, 0x21, 0x2E, 0xC7, 0x66, 0xBA, 0x50, 0xB1, 0x6F, 0xFF,
-    0x73, 0x1F, 0xF1, 0x63, 0x13, 0x10, 0x11, 0x3B, 0x7A, 0x6D, 0x13, 0x2E, 0xF6, 0x5D, 0xB4, 0x51,
-    0x2B, 0x8B, 0x60, 0x2A, 0x63, 0x09, 0x0C, 0xA3, 0x89, 0xD1, 0x5E, 0x6B, 0x40, 0x93, 0x62, 0xAA,
-    0x2A, 0x51, 0xCA, 0xF7, 0x92, 0x23, 0xFD, 0x03, 0x50, 0x8C, 0xA7, 0xBB, 0x0B, 0xAD, 0xB1, 0x6A,
-    0x11, 0x66, 0xCA, 0xA1, 0x1F, 0xEE, 0xC6, 0x8C, 0x74, 0xEA, 0x2B, 0x56, 0xF8, 0x1C, 0x69, 0x44,
-    0xE8, 0xA0, 0xD3, 0xF5, 0x20, 0xAA, 0x7C, 0x71, 0xB0, 0x27, 0x4E, 0xE8, 0x81, 0x72, 0xD1, 0xD8,
-    0xD6, 0x45, 0x46, 0xCD, 0xD6, 0xB5, 0x80, 0xE9, 0x60, 0x1A, 0x66, 0x1C, 0x1B, 0x43, 0x20, 0xFA,
-    0x4A, 0xEA, 0x9D, 0x68, 0x50, 0x2A, 0x08, 0xB7, 0xCA, 0x3D, 0x60, 0x6D, 0xC5, 0xEF, 0x0E, 0x28,
-    0x16, 0xA4, 0xE4, 0xF7, 0xB5, 0xCE, 0xAB, 0x89, 0x56, 0xA4, 0xE4, 0x12, 0xFE, 0xD8, 0xB7, 0x81,
-    0x95, 0x26, 0x8D, 0x6C, 0x9F, 0xC4, 0xFE, 0x49, 0xA3, 0xEF, 0xC4, 0x3E, 0x50, 0xD5, 0x62, 0xFC,
-};
 
 // Core Functions
 void delay_ms(int x)
@@ -140,8 +134,56 @@ void gpio_deinit(void)
     csi_gpio_pin_uninitialize(pin_handle);
 }
 
+// SPI Flash Functions
+#define SPI_DEV_IDX 2
+#define SPI_NSS_PIN 1
+
+spi_handle_t spi_handle = NULL;
+gpio_pin_handle_t spi_nss_pin_handle = NULL;
+
+void spi_init(void)
+{
+    // init spi nss pin
+    spi_nss_pin_handle = csi_gpio_pin_initialize(SPI_NSS_PIN, NULL);
+
+    csi_gpio_pin_config_mode(spi_nss_pin_handle, GPIO_MODE_PULLNONE);
+    csi_gpio_pin_config_direction(spi_nss_pin_handle, GPIO_DIRECTION_OUTPUT);
+
+    csi_gpio_pin_write(spi_nss_pin_handle, true);
+
+    // init spi device
+    spi_handle = csi_spi_initialize(SPI_DEV_IDX, NULL);
+
+    csi_spi_config(spi_handle, 1000000, SPI_MODE_MASTER, SPI_FORMAT_CPOL0_CPHA0, SPI_ORDER_MSB2LSB, SPI_SS_MASTER_SW, 8);
+    csi_spi_config_block_mode(spi_handle, 1);
+}
+
+int32_t spi_flash_read(spi_handle_t handle, uint32_t addr, void *data, uint32_t len)
+{
+    uint8_t command[4] = { 0x00 };
+
+    command[0] = 0x03;
+    command[1] = (addr >> 16) & 0xff;
+    command[2] = (addr >> 8) & 0xff;
+    command[3] = addr & 0xff;
+
+    // set spi nss to active
+    csi_gpio_pin_write(spi_nss_pin_handle, false);
+
+    // send read data command
+    csi_spi_send(handle, command, 4);
+
+    // read data to buffer
+    csi_spi_receive(handle, (uint8_t *)data, len);
+
+    // set spi nss to inactive
+    csi_gpio_pin_write(spi_nss_pin_handle, true);
+
+    return len;
+}
+
 // RSA / SHA-256 Signature
-bool firmware_verify(void)
+bool firmware_verify(void *data, uint32_t data_size, uint8_t *sign, uint32_t sign_size)
 {
     mbedtls_rsa_context rsa;
     unsigned char hash[32] = {0};
@@ -159,7 +201,7 @@ bool firmware_verify(void)
     }
 
     rsa.MBEDTLS_PRIVATE(len) = (mbedtls_mpi_bitlen(&rsa.MBEDTLS_PRIVATE(N)) + 7) >> 3;
-    if (sizeof(sign_buf) != rsa.MBEDTLS_PRIVATE(len)) {
+    if (sign_size != rsa.MBEDTLS_PRIVATE(len)) {
         mbedtls_printf("\n  ! FAILED (Invalid RSA signature format)\n\n", rsa.MBEDTLS_PRIVATE(len));
         mbedtls_rsa_free(&rsa);
 
@@ -168,14 +210,14 @@ bool firmware_verify(void)
 
     mbedtls_printf("\n  . Verifying the RSA/SHA-256 signature");
 
-    if (mbedtls_md(mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), data_buf, sizeof(data_buf), hash) != 0) {
+    if (mbedtls_md(mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), data, data_size, hash) != 0) {
         mbedtls_printf("\n  ! FAILED (Unable to generate message-digest checksum)\n\n");
         mbedtls_rsa_free(&rsa);
 
         return false;
     }
 
-    if (mbedtls_rsa_pkcs1_verify(&rsa, MBEDTLS_MD_SHA256, 32, hash, sign_buf) != 0) {
+    if (mbedtls_rsa_pkcs1_verify(&rsa, MBEDTLS_MD_SHA256, 32, hash, sign) != 0) {
         mbedtls_printf("\n  ! FAILED (the signature is not valid)\n\n");
         mbedtls_rsa_free(&rsa);
 
@@ -190,22 +232,57 @@ bool firmware_verify(void)
 
 int main(void)
 {
+    uint32_t firmware_app0_size = 0;
+    uint32_t firmware_app1_size = 0;
+    uint8_t firmware_app0_sign[256] = { 0 };
+    uint8_t firmware_app1_sign[256] = { 0 };
+
+    spi_init();
     pwm_init();
     gpio_init();
 
     printf("(%u) brom: started.\n", get_timestamp());
 
-    if (firmware_verify()) {
-        printf("(%u) brom: firmware is signed, booting....\n", get_timestamp());
+    // load firmware 0 size and sign
+    spi_flash_read(spi_handle, FIRMWARE_SIZE_APP_0_ADDR, &firmware_app0_size, sizeof(firmware_app0_size));
+    spi_flash_read(spi_handle, FIRMWARE_SIGN_APP_0_ADDR, firmware_app0_sign, sizeof(firmware_app0_sign));
+    // load firmware 0 data
+    spi_flash_read(spi_handle, FIRMWARE_DATA_APP_0_ADDR, firmware_app0, firmware_app0_size);
 
-        for (int i = 20; i > 0; i--) {
-            pwm_test();
-            gpio_toggle();
+    printf("(%u) brom: firmware 0 loaded, size: %u\n", get_timestamp(), firmware_app0_size);
 
-            delay_ms(50);
+    // load firmware 1 size and sign
+    spi_flash_read(spi_handle, FIRMWARE_SIZE_APP_1_ADDR, &firmware_app1_size, sizeof(firmware_app1_size));
+    spi_flash_read(spi_handle, FIRMWARE_SIGN_APP_1_ADDR, firmware_app1_sign, sizeof(firmware_app1_sign));
+    // load firmware 1 data
+    spi_flash_read(spi_handle, FIRMWARE_DATA_APP_1_ADDR, firmware_app1, firmware_app1_size);
+
+    printf("(%u) brom: firmware 1 loaded, size: %u\n", get_timestamp(), firmware_app1_size);
+
+    if (firmware_verify(firmware_app0, firmware_app0_size, firmware_app0_sign, sizeof(firmware_app0_sign))) {
+        printf("(%u) brom: firmware 0 is signed.\n", get_timestamp());
+
+        if (firmware_verify(firmware_app0, firmware_app0_size, firmware_app0_sign, sizeof(firmware_app1_sign))) {
+            printf("(%u) brom: firmware 1 is signed.\n", get_timestamp());
+
+            for (int i = 20; i > 0; i--) {
+                pwm_test();
+                gpio_toggle();
+
+                delay_ms(50);
+            }
+        } else {
+            printf("(%u) brom: firmware 1 is not signed.\n", get_timestamp());
+
+            while (1) {
+                pwm_test();
+                gpio_toggle();
+
+                delay_ms(1000);
+            }
         }
     } else {
-        printf("(%u) brom: firmware is not signed.\n", get_timestamp());
+        printf("(%u) brom: firmware 0 is not signed.\n", get_timestamp());
 
         while (1) {
             pwm_test();
@@ -214,6 +291,8 @@ int main(void)
             delay_ms(200);
         }
     }
+
+    printf("(%u) brom: boot from firmware 0...\n", get_timestamp());
 
     pwm_deinit();
     gpio_deinit();

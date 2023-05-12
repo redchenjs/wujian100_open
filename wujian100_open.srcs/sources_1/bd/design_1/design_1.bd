@@ -1929,7 +1929,7 @@
       "Net2": {
         "ports": [
           "EXT_FLASH_NSS",
-          "wujian100_open_top_0/PAD_USI2_NSS"
+          "wujian100_open_top_0/PAD_GPIO_1"
         ]
       },
       "Net3": {
