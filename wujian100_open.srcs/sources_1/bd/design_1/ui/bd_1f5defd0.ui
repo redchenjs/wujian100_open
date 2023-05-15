@@ -57,8 +57,8 @@ preplace netloc PL_CLK_50M_1 1 0 1 NJ 910
 preplace netloc clk_wiz_0_clk_out1 1 1 1 330J 830n
 preplace netloc util_vector_logic_1_Res 1 1 1 330 660n
 preplace netloc util_vector_logic_2_Res 1 1 1 320 780n
-preplace netloc wujian100_open_top_0_PAD_MCURST_OUT_1 1 2 1 NJ 920
 preplace netloc wujian100_open_top_0_PAD_MCURST_OUT 1 2 1 NJ 860
+preplace netloc wujian100_open_top_0_PAD_MCURST_OUT_1 1 2 1 NJ 920
 preplace netloc processing_system7_0_DDR 1 2 1 NJ 60
 preplace netloc processing_system7_0_FIXED_IO 1 2 1 NJ 80
 levelinfo -pg 1 0 170 510 710

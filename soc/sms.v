@@ -101,35 +101,35 @@ parameter  DATAWIDTH = 32;
 parameter  ADDRWIDTH = 14;
 parameter  MEMDEPTH  = 2**(ADDRWIDTH);
 assign byte_wen_b[3:0] =  byte_sel_b[3:0] | {4{mbk_wen_b}};
-ram_sp #(
-    .WIDTH(DATAWIDTH),
-    .DEPTH(MEMDEPTH),
-    .OUT_REG(1'b1)
-) ram_sp (
-  .wr_clk_i(ram_clk),
-
-  .wr_en_i(1'b1),
-  .wr_data_i(ram_wdata[31:0]),
-  .wr_byte_en_i(~byte_wen_b[3:0]),
-
-  .rd_clk_i(ram_clk),
-
-  .rd_en_i(1'b1),
-  .rw_addr_i(ram_addr[15:2]),
-  .rd_data_o(ram0_rdata[31:0])
-);
-// rom_sp #(
-//     .PATH("D:\\Works\\Xilinx\\wujian100_open\\soc\\brom.txt"),
+// ram_sp #(
 //     .WIDTH(DATAWIDTH),
 //     .DEPTH(MEMDEPTH),
 //     .OUT_REG(1'b1)
-// ) rom_sp (
+// ) ram_sp (
+//   .wr_clk_i(ram_clk),
+
+//   .wr_en_i(1'b1),
+//   .wr_data_i(ram_wdata[31:0]),
+//   .wr_byte_en_i(~byte_wen_b[3:0]),
+
 //   .rd_clk_i(ram_clk),
 
 //   .rd_en_i(1'b1),
-//   .rd_addr_i(ram_addr[15:2]),
+//   .rw_addr_i(ram_addr[15:2]),
 //   .rd_data_o(ram0_rdata[31:0])
 // );
+rom_sp #(
+    .PATH("D:\\Works\\Xilinx\\wujian100_open\\soc\\brom.txt"),
+    .WIDTH(DATAWIDTH),
+    .DEPTH(MEMDEPTH),
+    .OUT_REG(1'b1)
+) rom_sp (
+  .rd_clk_i(ram_clk),
+
+  .rd_en_i(1'b1),
+  .rd_addr_i(ram_addr[15:2]),
+  .rd_data_o(ram0_rdata[31:0])
+);
 endmodule
 module rom_bank_64k_top(
   big_endian_b,
