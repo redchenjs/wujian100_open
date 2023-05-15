@@ -33,6 +33,18 @@ uint32_t get_timestamp(void)
     return tp.tv_nsec / 1000;
 }
 
+// Reset Functions
+#define RESET_CTRL_REG_BASE (0x60030000)
+
+void reset_set_value(int val)
+{
+    if (val) {
+        *(uint32_t *)RESET_CTRL_REG_BASE = 0x00000001;
+    } else {
+        *(uint32_t *)RESET_CTRL_REG_BASE = 0x00000000;
+    }
+}
+
 // PWM Functions
 #define PWM_TEST_CH 0
 
@@ -92,6 +104,10 @@ int main(void)
     printf("(%u) app0: started.\n", get_timestamp());
 
     pwm_init();
+
+    printf("(%u) app0: start core 1...\n", get_timestamp());
+
+    reset_set_value(1);
 
     do {
         printf("(%u) app0: loop count: %d\n", get_timestamp(), loop_count++);
