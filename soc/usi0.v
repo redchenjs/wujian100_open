@@ -545,7 +545,7 @@ always@(posedge clk or negedge rst_n)
 begin
     if(~rst_n)
     begin
-        uart_en <= 1'b0;
+        uart_en <= 1'b1;
         i2c_en  <= 1'b0;
         spi_en  <= 1'b0;
         i2cm_en <= 1'b0;
@@ -555,7 +555,8 @@ begin
     end
     else
     begin
-        uart_en <= usi_ctrl[0] & usi_ctrl[1] & (mode_sel == 2'b00);
+        uart_en <= ~(spi_en | i2c_en);
+        // uart_en <= usi_ctrl[0] & usi_ctrl[1] & (mode_sel == 2'b00);
         i2c_en  <= usi_ctrl[1] & usi_ctrl[0] & (mode_sel == 2'b01);
         spi_en  <= usi_ctrl[1] & usi_ctrl[0] & (mode_sel == 2'b10);
         i2cm_en <= i2c_en & i2c_mode;
