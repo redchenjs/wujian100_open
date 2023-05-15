@@ -1,0 +1,6 @@
+//arch = zynq; split = false; format = BIN
+the_ROM_image:
+{
+	[bootloader]D:\Works\Xilinx\wujian100\export\wujian100\sw\wujian100\boot\fsbl.elf
+	D:\Works\Xilinx\wujian100_open\wujian100_open.runs\impl_1\design_1_wrapper.bit
+}
