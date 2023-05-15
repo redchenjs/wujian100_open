@@ -255,7 +255,7 @@ int main(void)
     pwm_init();
     gpio_init();
 
-    printf("(%u) brom: started.\n", get_timestamp());
+    printf("brom: started.\n");
 
     // load firmware 0 size and sign
     spi_flash_read(spi_handle, FIRMWARE_SIZE_APP_0_ADDR, &firmware_app0_size, sizeof(firmware_app0_size));
@@ -263,7 +263,7 @@ int main(void)
     // load firmware 0 data
     spi_flash_read(spi_handle, FIRMWARE_DATA_APP_0_ADDR, firmware_app0, firmware_app0_size);
 
-    printf("(%u) brom: firmware 0 loaded, size: %u\n", get_timestamp(), firmware_app0_size);
+    printf("brom: firmware 0 loaded, size: %u\n", firmware_app0_size);
 
     // load firmware 1 size and sign
     spi_flash_read(spi_handle, FIRMWARE_SIZE_APP_1_ADDR, &firmware_app1_size, sizeof(firmware_app1_size));
@@ -271,13 +271,13 @@ int main(void)
     // load firmware 1 data
     spi_flash_read(spi_handle, FIRMWARE_DATA_APP_1_ADDR, firmware_app1, firmware_app1_size);
 
-    printf("(%u) brom: firmware 1 loaded, size: %u\n", get_timestamp(), firmware_app1_size);
+    printf("brom: firmware 1 loaded, size: %u\n", firmware_app1_size);
 
     if (firmware_verify(firmware_app0, firmware_app0_size, firmware_app0_sign, sizeof(firmware_app0_sign))) {
-        printf("(%u) brom: firmware 0 is signed.\n", get_timestamp());
+        printf("brom: firmware 0 is signed.\n");
 
         if (firmware_verify(firmware_app0, firmware_app0_size, firmware_app0_sign, sizeof(firmware_app1_sign))) {
-            printf("(%u) brom: firmware 1 is signed.\n", get_timestamp());
+            printf("brom: firmware 1 is signed.\n");
 
             for (int i = 20; i > 0; i--) {
                 pwm_test();
@@ -285,20 +285,18 @@ int main(void)
 
                 delay_ms(50);
             }
-
-            reset_set_value(1);
         } else {
-            printf("(%u) brom: firmware 1 is not signed.\n", get_timestamp());
+            printf("brom: firmware 1 is not signed.\n");
 
             while (1) {
                 pwm_test();
                 gpio_toggle();
 
-                delay_ms(1000);
+                delay_ms(400);
             }
         }
     } else {
-        printf("(%u) brom: firmware 0 is not signed.\n", get_timestamp());
+        printf("brom: firmware 0 is not signed.\n");
 
         while (1) {
             pwm_test();
@@ -308,7 +306,7 @@ int main(void)
         }
     }
 
-    printf("(%u) brom: boot from firmware 0...\n", get_timestamp());
+    printf("brom: boot from firmware 0...\n");
 
     pwm_deinit();
     gpio_deinit();
