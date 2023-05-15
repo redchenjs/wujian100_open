@@ -44,9 +44,11 @@ module wujian100_open_top(
   PAD_JTAG_TCLK,
   PAD_JTAG_TMS,
   PAD_MCURST,
+  PAD_MCURST_OUT,
   PAD_JTAG_TCLK_1,
   PAD_JTAG_TMS_1,
   PAD_MCURST_1,
+  PAD_MCURST_OUT_1,
   PAD_PWM_CH0,
   PAD_PWM_CH1,
   PAD_PWM_CH10,
@@ -116,9 +118,11 @@ inout           PAD_GPIO_9;
 inout           PAD_JTAG_TCLK;         
 inout           PAD_JTAG_TMS;          
 input           PAD_MCURST;            
+output          PAD_MCURST_OUT;
 inout           PAD_JTAG_TCLK_1;         
 inout           PAD_JTAG_TMS_1;          
 input           PAD_MCURST_1;   
+output          PAD_MCURST_OUT_1;
 inout           PAD_PWM_CH0;           
 inout           PAD_PWM_CH1;           
 inout           PAD_PWM_CH10;          
@@ -1345,6 +1349,7 @@ assign els_pmu_clk = PIN_ELS;
 //   .PAD          (PAD_MCURST  )
 // );
 assign pad_mcurst_b = PAD_MCURST;
+assign PAD_MCURST_OUT = pad_core_rst_b;
 assign cpu_padmux_jtg_tms_oen = ~cpu_padmux_jtg_tms_oe;
 assign cpu_padmux_jtg_tms_ien = cpu_padmux_jtg_tms_oe;
 PAD_DIG_IO  x_PAD_JTAG_TMS (
@@ -1370,6 +1375,7 @@ assign padmux_cpu_jtg_tclk = PAD_JTAG_TCLK;
 //   .PAD          (PAD_MCURST_1  )
 // );
 assign pad_mcurst_b_1 = PAD_MCURST_1;
+assign PAD_MCURST_OUT_1 = pad_core_rst_b_1;
 assign cpu_padmux_jtg_tms_oen_1 = ~cpu_padmux_jtg_tms_oe_1;
 assign cpu_padmux_jtg_tms_ien_1 = cpu_padmux_jtg_tms_oe_1;
 PAD_DIG_IO  x_PAD_JTAG_TMS_1 (

@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x46A58CD4F32C4017",
+      "boundary_crc": "0x189C011B50A2AB1E",
       "device": "xc7z020clg400-2",
       "gen_directory": "../../../../wujian100_open.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -301,36 +301,6 @@
       "EXT_UART_RXD_1": {
         "direction": "IO"
       },
-      "EXT_LED_1": {
-        "direction": "O",
-        "left": "0",
-        "right": "0",
-        "parameters": {
-          "PortType": {
-            "value": "undef",
-            "value_src": "ip_prop"
-          },
-          "PortType.PROP_SRC": {
-            "value": "false",
-            "value_src": "ip_prop"
-          }
-        }
-      },
-      "EXT_LED_3": {
-        "direction": "O",
-        "left": "0",
-        "right": "0",
-        "parameters": {
-          "PortType": {
-            "value": "undef",
-            "value_src": "ip_prop"
-          },
-          "PortType.PROP_SRC": {
-            "value": "false",
-            "value_src": "ip_prop"
-          }
-        }
-      },
       "EXT_LED_2": {
         "direction": "IO"
       },
@@ -361,6 +331,12 @@
             "value_src": "default"
           }
         }
+      },
+      "EXT_LED_1": {
+        "direction": "O"
+      },
+      "EXT_LED_3": {
+        "direction": "O"
       }
     },
     "components": {
@@ -1738,6 +1714,9 @@
               }
             }
           },
+          "PAD_MCURST_OUT": {
+            "direction": "O"
+          },
           "PAD_JTAG_TCLK_1": {
             "direction": "IO"
           },
@@ -1756,6 +1735,9 @@
                 "value_src": "ip_prop"
               }
             }
+          },
+          "PAD_MCURST_OUT_1": {
+            "direction": "O"
           },
           "PAD_PWM_CH0": {
             "direction": "IO"
@@ -2019,15 +2001,25 @@
       "util_vector_logic_1_Res": {
         "ports": [
           "util_vector_logic_1/Res",
-          "EXT_LED_1",
           "wujian100_open_top_0/PAD_MCURST"
         ]
       },
       "util_vector_logic_2_Res": {
         "ports": [
           "util_vector_logic_2/Res",
-          "EXT_LED_3",
           "wujian100_open_top_0/PAD_MCURST_1"
+        ]
+      },
+      "wujian100_open_top_0_PAD_MCURST_OUT": {
+        "ports": [
+          "wujian100_open_top_0/PAD_MCURST_OUT",
+          "EXT_LED_1"
+        ]
+      },
+      "wujian100_open_top_0_PAD_MCURST_OUT_1": {
+        "ports": [
+          "wujian100_open_top_0/PAD_MCURST_OUT_1",
+          "EXT_LED_3"
         ]
       }
     }

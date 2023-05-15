@@ -1,7 +1,7 @@
 //Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2022.2.2 (win64) Build 3788238 Tue Feb 21 20:00:34 MST 2023
-//Date        : Sat May 13 05:01:11 2023
+//Date        : Mon May 15 23:00:47 2023
 //Host        : ThinPC running 64-bit major release  (build 9200)
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
@@ -78,9 +78,9 @@ module design_1_wrapper
   inout EXT_JTAG_TMS_1;
   input EXT_KEY_1;
   input EXT_KEY_2;
-  output [0:0]EXT_LED_1;
+  output EXT_LED_1;
   inout EXT_LED_2;
-  output [0:0]EXT_LED_3;
+  output EXT_LED_3;
   inout EXT_LED_4;
   input EXT_MCU_NRST_0;
   input EXT_MCU_NRST_1;
@@ -122,9 +122,9 @@ module design_1_wrapper
   wire EXT_JTAG_TMS_1;
   wire EXT_KEY_1;
   wire EXT_KEY_2;
-  wire [0:0]EXT_LED_1;
+  wire EXT_LED_1;
   wire EXT_LED_2;
-  wire [0:0]EXT_LED_3;
+  wire EXT_LED_3;
   wire EXT_LED_4;
   wire EXT_MCU_NRST_0;
   wire EXT_MCU_NRST_1;

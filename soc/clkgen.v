@@ -381,6 +381,7 @@ wire            pmu_wic_intr;
 wire    [31:0]  prdata;               
 wire            soc_hclk;             
 wire            soc_hrst_b;           
+wire            soc_hrst_b_1;
 wire            soc_p0clk;            
 wire            soc_p0rst_b;          
 wire            soc_p1clk;            
@@ -388,10 +389,10 @@ wire            soc_p1rst_b;
 wire            soc_s3clk;            
 wire            soc_s3rst_b;          
 wire            sys_rst_b;            
+wire            sys_rst_b_1;
 wire            wdt_pmu_rst_b;        
 assign pmu_cpu_dfs_req = 1'b0;
 assign pmu_wic_intr = 1'b0;
-assign prdata[31:0] = 32'h0;
 assign pmu_apb0_pclk_en = 1'b1;
 assign pmu_apb1_pclk_en = 1'b1;
 assign pmu_rtc_clk = els_pmu_clk;
@@ -400,10 +401,9 @@ assign  soc_p0clk = ehs_pmu_clk;
 assign  soc_p1clk = ehs_pmu_clk;
 assign  soc_s3clk = ehs_pmu_clk;
 assign  dft_clk = ehs_pmu_clk;
-assign sys_rst_b = pad_mcurst_b & wdt_pmu_rst_b;
-assign sys_rst_b_1 = pad_mcurst_b_1 & wdt_pmu_rst_b;
-assign  soc_hrst_b  = sys_rst_b;
-assign  soc_hrst_b_1  = sys_rst_b_1;
+assign  sys_rst_b = pad_mcurst_b & wdt_pmu_rst_b;
+assign  soc_hrst_b = sys_rst_b;
+assign  soc_hrst_b_1 = sys_rst_b_1 & pad_mcurst_b_1;
 assign  soc_p0rst_b = sys_rst_b;
 assign  soc_p1rst_b = sys_rst_b;
 assign  soc_s3rst_b = sys_rst_b;
@@ -513,4 +513,23 @@ assign  pmu_tim3_p1rst_b = soc_p1rst_b;
 assign  pmu_tim5_p1rst_b = soc_p1rst_b;
 assign  pmu_tim7_p1rst_b = soc_p1rst_b;
 assign  pmu_usi1_p1rst_b = soc_p1rst_b;
+
+rst_top #(
+  .ADDR_WIDTH(8),
+  .DATA_WIDTH(32)
+) rst_top (
+  .pclk(dft_clk),
+  .presetn(sys_rst_b),
+
+  .psel(psel),
+  .paddr(paddr),
+  .pwrite(pwrite),
+  .penable(penable),
+
+  .pwdata(pwdata),
+  .prdata(prdata),
+
+  .sys_rst_n(sys_rst_b_1)
+);
+
 endmodule
