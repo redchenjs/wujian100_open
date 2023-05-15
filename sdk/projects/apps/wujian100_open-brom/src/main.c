@@ -70,6 +70,18 @@ void board_deinit(void)
     clock_timer_uninit();
 }
 
+// Reset Functions
+#define RESET_CTRL_REG_BASE (0x60030000)
+
+void reset_set_value(int val)
+{
+    if (val) {
+        *(uint32_t *)RESET_CTRL_REG_BASE = 0x00000001;
+    } else {
+        *(uint32_t *)RESET_CTRL_REG_BASE = 0x00000000;
+    }
+}
+
 // PWM Functions
 #define PWM_TEST_CH 0
 
@@ -237,6 +249,8 @@ int main(void)
     uint8_t firmware_app0_sign[256] = { 0 };
     uint8_t firmware_app1_sign[256] = { 0 };
 
+    reset_set_value(0);
+
     spi_init();
     pwm_init();
     gpio_init();
@@ -271,6 +285,8 @@ int main(void)
 
                 delay_ms(50);
             }
+
+            reset_set_value(1);
         } else {
             printf("(%u) brom: firmware 1 is not signed.\n", get_timestamp());
 
