@@ -34,13 +34,13 @@
 #define FIRMWARE_SIZE_APP_1_ADDR (0x001FFEFC)
 #define FIRMWARE_SIGN_APP_1_ADDR (0x001FFF00)
 
-static uint8_t firmware_app0[FIRMWARE_SIZE_APP_0_MAX] __attribute__((section(".iram_app0")));
-static uint8_t firmware_app1[FIRMWARE_SIZE_APP_1_MAX] __attribute__((section(".iram_app1")));
+uint8_t firmware_app0[FIRMWARE_SIZE_APP_0_MAX] __attribute__((section(".iram_app0")));
+uint8_t firmware_app1[FIRMWARE_SIZE_APP_1_MAX] __attribute__((section(".iram_app1")));
 
 const void (*firmware_entry)(void) = (const void (*)())(FIRMWARE_LOAD_APP_0_ADDR);
 
-const char public_key_n[] = "A89D653A84AA19B57B44D6D447877F9A8EA6A824C6BEF3B51D9D4D2952A0E7F3ED8F8B2F55CFD8E7E6BAE65E16DC4C43BBE00E631AE4289E583902261485C953E2042DEEBDAF2F54B6DE9FF321C612A87A9F46EA30FA264846E79167BB22CC4090830FF16A56EAC4B236CBB7B6D2880B3BE1B1263EF1D85BC9C006CFE592C6995B6914ECF38B5B0AB5325847B10C8523B91BA1F01FF2EAC4F8602DC40F17465393CB2C8933FFE43687FC93A69B9D5CA824AC6A203F8375164102E82F2B060FFB8FA0E5B4DDBF971F39A5A2588F4DB38BCC709C709A86634A40D4BA116239A14343E6EEE7E08123208B381C751140EBAA2FCD52F5077721F32114898342202CB7";
-const char public_key_e[] = "010001";
+const char pubkey_n[] = "DC1B56F36E933EC234545C4715370B14CAE00EA9376E9F65DE2C1361F116F05A4C2FF556FF0052F8E2D3434FF5E843A6B246449DE6C8F04C7CA821EFFBAA1DBCC7A1B903A05B7671BB6D0FD8639D492C5B74C2C91510E3B006B227CBF14A694C21A98A4B1A2474613ECD29405863716CF3DF5D3160ED0B992A25B35626E67FF1AA9242ED3A1F7EAD7C638B26DBE3624B6712055E101C07761FA6EFE38D915006F52BB4D76E52F13EAD7D04B046FB4ACFC02A57E02CF28CC1AFC3D22B572669A99EE7D357B840BC8BFA4EB1BBAD287824D93AC259D59EBBAA798ED0F026E5A0E05392683A68B16964160DF9366AF79B0AA8D95FA996E636022E584863A3F4E0D1";
+const char pubkey_e[] = "010001";
 
 // Core Functions
 void delay_ms(int x)
@@ -204,8 +204,8 @@ bool firmware_verify(void *data, uint32_t data_size, uint8_t *sign, uint32_t sig
 
     mbedtls_printf("\n  . Reading public key from Boot ROM");
 
-    if (mbedtls_mpi_read_string(&rsa.MBEDTLS_PRIVATE(N), 16, public_key_n) != 0 ||
-        mbedtls_mpi_read_string(&rsa.MBEDTLS_PRIVATE(E), 16, public_key_e) != 0) {
+    if (mbedtls_mpi_read_string(&rsa.MBEDTLS_PRIVATE(N), 16, pubkey_n) != 0 ||
+        mbedtls_mpi_read_string(&rsa.MBEDTLS_PRIVATE(E), 16, pubkey_e) != 0) {
         mbedtls_printf("\n  ! FAILED (Invalid RSA public key data)\n\n");
         mbedtls_rsa_free(&rsa);
 
@@ -214,7 +214,7 @@ bool firmware_verify(void *data, uint32_t data_size, uint8_t *sign, uint32_t sig
 
     rsa.MBEDTLS_PRIVATE(len) = (mbedtls_mpi_bitlen(&rsa.MBEDTLS_PRIVATE(N)) + 7) >> 3;
     if (sign_size != rsa.MBEDTLS_PRIVATE(len)) {
-        mbedtls_printf("\n  ! FAILED (Invalid RSA signature format)\n\n", rsa.MBEDTLS_PRIVATE(len));
+        mbedtls_printf("\n  ! FAILED (Invalid RSA signature format)\n\n");
         mbedtls_rsa_free(&rsa);
 
         return false;

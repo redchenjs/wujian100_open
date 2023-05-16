@@ -301,29 +301,6 @@
         <FileOption/>
       </File>
       <VirtualDirectory Name="mbedtls">
-        <VirtualDirectory Name="configs">
-          <File Name="../src/mbedtls/configs/config-ccm-psk-dtls1_2.h">
-            <FileOption/>
-          </File>
-          <File Name="../src/mbedtls/configs/config-ccm-psk-tls1_2.h">
-            <FileOption/>
-          </File>
-          <File Name="../src/mbedtls/configs/config-no-entropy.h">
-            <FileOption/>
-          </File>
-          <File Name="../src/mbedtls/configs/config-suite-b.h">
-            <FileOption/>
-          </File>
-          <File Name="../src/mbedtls/configs/config-symmetric-only.h">
-            <FileOption/>
-          </File>
-          <File Name="../src/mbedtls/configs/config-thread.h">
-            <FileOption/>
-          </File>
-          <File Name="../src/mbedtls/configs/README.txt">
-            <FileOption/>
-          </File>
-        </VirtualDirectory>
         <VirtualDirectory Name="include">
           <File Name="../src/mbedtls/include/.gitignore">
             <FileOption/>
