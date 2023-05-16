@@ -17,32 +17,19 @@
  *  limitations under the License.
  */
 
-#include <mbedtls/build_info.h>
-
-#include <mbedtls/platform.h>
-/* md.h is included this early since MD_CAN_XXX macros are defined there. */
-#include <mbedtls/md.h>
-#include <mbedtls/error.h>
-
-
-#if !defined(MBEDTLS_BIGNUM_C) || !defined(MBEDTLS_RSA_C) ||  \
-    !defined(MBEDTLS_MD_CAN_SHA256) || !defined(MBEDTLS_MD_C) || \
-    !defined(MBEDTLS_FS_IO) || !defined(MBEDTLS_CTR_DRBG_C)
-int main(void)
-{
-    mbedtls_printf("MBEDTLS_BIGNUM_C and/or MBEDTLS_RSA_C and/or "
-                   "MBEDTLS_MD_C and/or "
-                   "MBEDTLS_MD_CAN_SHA256 and/or MBEDTLS_FS_IO not defined.\n");
-    mbedtls_exit(0);
-}
-#else
-
-#include <mbedtls/rsa.h>
-#include <mbedtls/entropy.h>
-#include <mbedtls/ctr_drbg.h>
 #include <stdio.h>
 #include <string.h>
 
+#include "mbedtls/build_info.h"
+
+#include "mbedtls/platform.h"
+/* md.h is included this early since MD_CAN_XXX macros are defined there. */
+#include "mbedtls/md.h"
+#include "mbedtls/error.h"
+
+#include "mbedtls/rsa.h"
+#include "mbedtls/entropy.h"
+#include "mbedtls/ctr_drbg.h"
 
 int main(int argc, char *argv[])
 {
@@ -62,13 +49,9 @@ int main(int argc, char *argv[])
     mbedtls_ctr_drbg_init(&ctr_drbg);
     mbedtls_entropy_init(&entropy);
 
-    ret = mbedtls_ctr_drbg_seed(&ctr_drbg, mbedtls_entropy_func,
-        &entropy, (const unsigned char *)pers,
-        strlen(pers));
-    if (ret != 0)
-    {
-        mbedtls_printf(" failed\n  ! mbedtls_ctr_drbg_seed returned %d\n",
-            ret);
+    ret = mbedtls_ctr_drbg_seed(&ctr_drbg, mbedtls_entropy_func, &entropy, (const unsigned char *)pers, strlen(pers));
+    if (ret != 0) {
+        mbedtls_printf(" failed\n  ! mbedtls_ctr_drbg_seed returned %d\n", ret);
         goto exit;
     }
 
@@ -112,22 +95,19 @@ int main(int argc, char *argv[])
     fclose(f);
 
     if ((ret = mbedtls_rsa_import(&rsa, &N, &P, &Q, &D, &E)) != 0) {
-        mbedtls_printf(" failed\n  ! mbedtls_rsa_import returned %d\n\n",
-                       ret);
+        mbedtls_printf(" failed\n  ! mbedtls_rsa_import returned %d\n\n", ret);
         goto exit;
     }
 
     if ((ret = mbedtls_rsa_complete(&rsa)) != 0) {
-        mbedtls_printf(" failed\n  ! mbedtls_rsa_complete returned %d\n\n",
-                       ret);
+        mbedtls_printf(" failed\n  ! mbedtls_rsa_complete returned %d\n\n", ret);
         goto exit;
     }
 
     mbedtls_printf("\n  . Checking the private key");
     fflush(stdout);
     if ((ret = mbedtls_rsa_check_privkey(&rsa)) != 0) {
-        mbedtls_printf(" failed\n  ! mbedtls_rsa_check_privkey failed with -0x%0x\n",
-                       (unsigned int) -ret);
+        mbedtls_printf(" failed\n  ! mbedtls_rsa_check_privkey failed with -0x%0x\n", (unsigned int)-ret);
         goto exit;
     }
 
@@ -138,17 +118,13 @@ int main(int argc, char *argv[])
     mbedtls_printf("\n  . Generating the RSA/SHA-256 signature");
     fflush(stdout);
 
-    if ((ret = mbedtls_md_file(
-             mbedtls_md_info_from_type(MBEDTLS_MD_SHA256),
-             argv[1], hash)) != 0) {
+    if ((ret = mbedtls_md_file(mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), argv[1], hash)) != 0) {
         mbedtls_printf(" failed\n  ! Could not open or read %s\n\n", argv[1]);
         goto exit;
     }
 
-    if ((ret = mbedtls_rsa_pkcs1_sign(&rsa, mbedtls_ctr_drbg_random, &ctr_drbg, MBEDTLS_MD_SHA256,
-                                      32, hash, buf)) != 0) {
-        mbedtls_printf(" failed\n  ! mbedtls_rsa_pkcs1_sign returned -0x%0x, %s\n\n",
-                       (unsigned int) -ret, mbedtls_high_level_strerr(ret));
+    if ((ret = mbedtls_rsa_pkcs1_sign(&rsa, mbedtls_ctr_drbg_random, &ctr_drbg, MBEDTLS_MD_SHA256, 32, hash, buf)) != 0) {
+        mbedtls_printf(" failed\n  ! mbedtls_rsa_pkcs1_sign returned -0x%0x, %s\n\n", (unsigned int)-ret, mbedtls_high_level_strerr(ret));
         goto exit;
     }
 
@@ -163,8 +139,7 @@ int main(int argc, char *argv[])
     }
 
     for (i = 0; i < rsa.MBEDTLS_PRIVATE(len); i++) {
-        mbedtls_fprintf(f, "%02X%s", buf[i],
-                        (i + 1) % 16 == 0 ? "\r\n" : " ");
+        mbedtls_fprintf(f, "%02X%s", buf[i], (i + 1) % 16 == 0 ? "\r\n" : " ");
     }
 
     fclose(f);
@@ -174,7 +149,6 @@ int main(int argc, char *argv[])
     exit_code = MBEDTLS_EXIT_SUCCESS;
 
 exit:
-
     mbedtls_ctr_drbg_free(&ctr_drbg);
     mbedtls_entropy_free(&entropy);
 
@@ -185,5 +159,3 @@ exit:
 
     mbedtls_exit(exit_code);
 }
-#endif /* MBEDTLS_BIGNUM_C && MBEDTLS_RSA_C && MBEDTLS_MD_CAN_SHA256 &&
-          MBEDTLS_FS_IO */

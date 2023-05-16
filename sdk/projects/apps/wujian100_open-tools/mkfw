@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+./rsa_sign ../wujian100_open-app0/CDK/Obj/wujian100_open-app0_0x10000000.bin
+./rsa_sign ../wujian100_open-app1/CDK/Obj/wujian100_open-app1_0x20000000.bin
+
+./mkflash ../../../../flash.bin \
+        ../wujian100_open-app0/CDK/Obj/wujian100_open-app0_0x10000000.bin \
+        ../wujian100_open-app0/CDK/Obj/wujian100_open-app0_0x10000000.bin.sig \
+        ../wujian100_open-app1/CDK/Obj/wujian100_open-app1_0x20000000.bin \
+        ../wujian100_open-app1/CDK/Obj/wujian100_open-app1_0x20000000.bin.sig

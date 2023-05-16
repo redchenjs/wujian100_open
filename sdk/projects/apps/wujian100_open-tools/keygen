@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Generate RSA-2048 private key
+# openssl genrsa -out rsa_private_pkcs1_2048.pem 2048
+
+# Generate public key from private key
+openssl rsa -in rsa_private_pkcs1_2048.pem -out rsa_public_pkcs1_2048.pem -pubout -RSAPublicKey_out
+
+# Export private key
+openssl asn1parse -in rsa_private_pkcs1_2048.pem -strparse 22
+
+# Export public key
+openssl asn1parse -in rsa_public_pkcs1_2048.pem

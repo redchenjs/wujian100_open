@@ -17,29 +17,16 @@
  *  limitations under the License.
  */
 
+#include <stdio.h>
+#include <string.h>
+
 #include "mbedtls/build_info.h"
 
 #include "mbedtls/platform.h"
 /* md.h is included this early since MD_CAN_XXX macros are defined there. */
 #include "mbedtls/md.h"
 
-#if !defined(MBEDTLS_BIGNUM_C) || !defined(MBEDTLS_RSA_C) ||  \
-    !defined(MBEDTLS_MD_CAN_SHA256) || !defined(MBEDTLS_MD_C) || \
-    !defined(MBEDTLS_FS_IO)
-int main(void)
-{
-    mbedtls_printf("MBEDTLS_BIGNUM_C and/or MBEDTLS_RSA_C and/or "
-                   "MBEDTLS_MD_C and/or "
-                   "MBEDTLS_MD_CAN_SHA256 and/or MBEDTLS_FS_IO not defined.\n");
-    mbedtls_exit(0);
-}
-#else
-
 #include "mbedtls/rsa.h"
-
-#include <stdio.h>
-#include <string.h>
-
 
 int main(int argc, char *argv[])
 {
@@ -96,9 +83,8 @@ int main(int argc, char *argv[])
     }
 
     i = 0;
-    while (fscanf(f, "%02X", (unsigned int *) &c) > 0 &&
-           i < (int) sizeof(buf)) {
-        buf[i++] = (unsigned char) c;
+    while (fscanf(f, "%02X", (unsigned int *)&c) > 0 && i < (int)sizeof(buf)) {
+        buf[i++] = (unsigned char)c;
     }
 
     fclose(f);
@@ -115,17 +101,13 @@ int main(int argc, char *argv[])
     mbedtls_printf("\n  . Verifying the RSA/SHA-256 signature");
     fflush(stdout);
 
-    if ((ret = mbedtls_md_file(
-             mbedtls_md_info_from_type(MBEDTLS_MD_SHA256),
-             argv[1], hash)) != 0) {
+    if ((ret = mbedtls_md_file(mbedtls_md_info_from_type(MBEDTLS_MD_SHA256), argv[1], hash)) != 0) {
         mbedtls_printf(" failed\n  ! Could not open or read %s\n\n", argv[1]);
         goto exit;
     }
 
-    if ((ret = mbedtls_rsa_pkcs1_verify(&rsa, MBEDTLS_MD_SHA256,
-                                        32, hash, buf)) != 0) {
-        mbedtls_printf(" failed\n  ! mbedtls_rsa_pkcs1_verify returned -0x%0x\n\n",
-                       (unsigned int) -ret);
+    if ((ret = mbedtls_rsa_pkcs1_verify(&rsa, MBEDTLS_MD_SHA256, 32, hash, buf)) != 0) {
+        mbedtls_printf(" failed\n  ! mbedtls_rsa_pkcs1_verify returned -0x%0x\n\n", (unsigned int)-ret);
         goto exit;
     }
 
@@ -134,10 +116,7 @@ int main(int argc, char *argv[])
     exit_code = MBEDTLS_EXIT_SUCCESS;
 
 exit:
-
     mbedtls_rsa_free(&rsa);
 
     mbedtls_exit(exit_code);
 }
-#endif /* MBEDTLS_BIGNUM_C && MBEDTLS_RSA_C && MBEDTLS_MD_CAN_SHA256 &&
-          MBEDTLS_FS_IO */

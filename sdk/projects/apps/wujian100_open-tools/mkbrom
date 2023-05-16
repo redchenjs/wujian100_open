@@ -1,0 +1,3 @@
+#!/bin/bash
+
+hexdump -v -e'/4 "%08x\n"' ../wujian100_open-boot/CDK/Obj/wujian100_open-boot_0x0.bin > ../../../../soc/brom.txt
