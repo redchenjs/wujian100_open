@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Project Name="wujian100_open-brom" Version="1" Language="C">
+<Project Name="wujian100_open-boot" Version="1" Language="C">
   <Description/>
   <Dependencies Name="Debug"/>
   <VirtualDirectory Name="csi_driver">

@@ -3,7 +3,7 @@
 ##
 
 
-NAME   = wujian100_open-brom
+NAME   = wujian100_open-boot
 CDIR   = .
 BUILDDIR= $(CDIR)/out
 OBJDIR = $(BUILDDIR)/obj
