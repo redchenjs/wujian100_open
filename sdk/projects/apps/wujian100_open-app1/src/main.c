@@ -15,14 +15,7 @@
 #include "drv_gpio.h"
 
 // Core Functions
-void delay_ms(int x)
-{
-    for (int i = x; i > 0; i--) {
-        for (int j = 5000; j > 0; j--) {
-            asm("nop");
-        }
-    }
-}
+extern void mdelay(uint32_t ms);
 
 uint32_t get_timestamp(void)
 {
@@ -98,7 +91,7 @@ int main(void)
 
         gpio_toggle();
 
-        delay_ms(1000);
+        mdelay(1000);
     } while (1);
 
     return 0;

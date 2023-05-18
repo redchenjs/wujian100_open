@@ -160,6 +160,8 @@ module pdu_top(
   lsbus_dummy2_intr,
   lsbus_dummy3_intr,
   main_dmemdummy0_intr,
+  mailbox0_intr,
+  mailbox1_intr,
   main_dummy0_intr,
   main_dummy1_intr,
   main_dummy2_intr,
@@ -613,6 +615,8 @@ output          lsbus_dummy1_intr;
 output          lsbus_dummy2_intr;      
 output          lsbus_dummy3_intr;      
 output          main_dmemdummy0_intr;   
+output          mailbox0_intr;
+output          mailbox1_intr;
 output          main_dummy0_intr;       
 output          main_dummy1_intr;       
 output          main_dummy2_intr;       
@@ -876,6 +880,8 @@ wire    [31:0]  lsbus_hmain0_s10_hrdata;
 wire            lsbus_hmain0_s10_hready; 
 wire    [1 :0]  lsbus_hmain0_s10_hresp; 
 wire            main_dmemdummy0_intr;   
+wire            mailbox0_intr;
+wire            mailbox1_intr;
 wire            main_dummy0_intr;       
 wire            main_dummy1_intr;       
 wire            main_dummy2_intr;       
@@ -1181,6 +1187,8 @@ ahb_matrix_top  x_main_bus_top (
   .lsbus_hmain0_s10_hready (lsbus_hmain0_s10_hready),
   .lsbus_hmain0_s10_hresp  (lsbus_hmain0_s10_hresp ),
   .main_dmemdummy0_intr    (main_dmemdummy0_intr   ),
+  .mailbox0_intr(mailbox0_intr),
+  .mailbox1_intr(mailbox1_intr),
   .main_dummy0_intr        (main_dummy0_intr       ),
   .main_dummy1_intr        (main_dummy1_intr       ),
   .main_dummy2_intr        (main_dummy2_intr       ),

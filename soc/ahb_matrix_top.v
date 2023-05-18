@@ -123,6 +123,8 @@ module ahb_matrix_top(
   lsbus_hmain0_s10_hready,
   lsbus_hmain0_s10_hresp,
   main_dmemdummy0_intr,
+  mailbox0_intr,
+  mailbox1_intr,
   main_dummy0_intr,
   main_dummy1_intr,
   main_dummy2_intr,
@@ -305,6 +307,8 @@ output  [1 :0]  hmain0_smc_s4_htrans;
 output  [31:0]  hmain0_smc_s4_hwdata;       
 output          hmain0_smc_s4_hwrite;       
 output          main_dmemdummy0_intr;       
+output          mailbox0_intr;
+output          mailbox1_intr;
 output          main_dummy0_intr;           
 output          main_dummy1_intr;           
 output          main_dummy2_intr;           
@@ -439,6 +443,12 @@ wire            dmacch9_etb_prot;
 wire    [31:0]  dmemdummy0_hmain0_s5_hrdata; 
 wire            dmemdummy0_hmain0_s5_hready; 
 wire    [1 :0]  dmemdummy0_hmain0_s5_hresp; 
+wire    [31:0]  mailbox0_hmain0_s7_hrdata;
+wire            mailbox0_hmain0_s7_hready;
+wire    [1 :0]  mailbox0_hmain0_s7_hresp;
+wire    [31:0]  mailbox1_hmain0_s8_hrdata;
+wire            mailbox1_hmain0_s8_hready;
+wire    [1 :0]  mailbox1_hmain0_s8_hresp;
 wire    [31:0]  dummy0_hmain0_s7_hrdata;    
 wire            dummy0_hmain0_s7_hready;    
 wire    [1 :0]  dummy0_hmain0_s7_hresp;     
@@ -511,6 +521,22 @@ wire    [2 :0]  hmain0_dmemdummy0_s5_hsize;
 wire    [1 :0]  hmain0_dmemdummy0_s5_htrans; 
 wire    [31:0]  hmain0_dmemdummy0_s5_hwdata; 
 wire            hmain0_dmemdummy0_s5_hwrite; 
+wire    [31:0]  hmain0_mailbox0_s7_haddr;
+wire    [2 :0]  hmain0_mailbox0_s7_hburst;
+wire    [3 :0]  hmain0_mailbox0_s7_hprot;
+wire            hmain0_mailbox0_s7_hsel;
+wire    [2 :0]  hmain0_mailbox0_s7_hsize;
+wire    [1 :0]  hmain0_mailbox0_s7_htrans;
+wire    [31:0]  hmain0_mailbox0_s7_hwdata;
+wire            hmain0_mailbox0_s7_hwrite;
+wire    [31:0]  hmain0_mailbox1_s8_haddr;
+wire    [2 :0]  hmain0_mailbox1_s8_hburst;
+wire    [3 :0]  hmain0_mailbox1_s8_hprot;
+wire            hmain0_mailbox1_s8_hsel;
+wire    [2 :0]  hmain0_mailbox1_s8_hsize;
+wire    [1 :0]  hmain0_mailbox1_s8_htrans;
+wire    [31:0]  hmain0_mailbox1_s8_hwdata;
+wire            hmain0_mailbox1_s8_hwrite;
 wire    [31:0]  hmain0_dummy0_s7_haddr;     
 wire    [2 :0]  hmain0_dummy0_s7_hburst;    
 wire    [3 :0]  hmain0_dummy0_s7_hprot;     
@@ -624,6 +650,8 @@ wire    [31:0]  lsbus_hmain0_s10_hrdata;
 wire            lsbus_hmain0_s10_hready;    
 wire    [1 :0]  lsbus_hmain0_s10_hresp;     
 wire            main_dmemdummy0_intr;       
+wire            mailbox0_intr;
+wire            mailbox1_intr;
 wire            main_dummy0_intr;           
 wire            main_dummy1_intr;           
 wire            main_dummy2_intr;           
@@ -873,28 +901,28 @@ ahb_matrix_7_12_main  x_ahb_matrix_7_12_main (
   .s6_htrans                   (hmain0_dmac0_s6_htrans     ),
   .s6_hwdata                   (hmain0_dmac0_s6_hwdata     ),
   .s6_hwrite                   (hmain0_dmac0_s6_hwrite     ),
-  .s7_haddr                    (hmain0_dummy0_s7_haddr     ),
-  .s7_hburst                   (hmain0_dummy0_s7_hburst    ),
-  .s7_hprot                    (hmain0_dummy0_s7_hprot     ),
-  .s7_hrdata                   (dummy0_hmain0_s7_hrdata    ),
-  .s7_hready                   (dummy0_hmain0_s7_hready    ),
-  .s7_hresp                    (dummy0_hmain0_s7_hresp     ),
-  .s7_hselx                    (hmain0_dummy0_s7_hsel      ),
-  .s7_hsize                    (hmain0_dummy0_s7_hsize     ),
-  .s7_htrans                   (hmain0_dummy0_s7_htrans    ),
-  .s7_hwdata                   (hmain0_dummy0_s7_hwdata    ),
-  .s7_hwrite                   (hmain0_dummy0_s7_hwrite    ),
-  .s8_haddr                    (hmain0_dummy1_s8_haddr     ),
-  .s8_hburst                   (hmain0_dummy1_s8_hburst    ),
-  .s8_hprot                    (hmain0_dummy1_s8_hprot     ),
-  .s8_hrdata                   (dummy1_hmain0_s8_hrdata    ),
-  .s8_hready                   (dummy1_hmain0_s8_hready    ),
-  .s8_hresp                    (dummy1_hmain0_s8_hresp     ),
-  .s8_hselx                    (hmain0_dummy1_s8_hsel      ),
-  .s8_hsize                    (hmain0_dummy1_s8_hsize     ),
-  .s8_htrans                   (hmain0_dummy1_s8_htrans    ),
-  .s8_hwdata                   (hmain0_dummy1_s8_hwdata    ),
-  .s8_hwrite                   (hmain0_dummy1_s8_hwrite    ),
+  .s7_haddr                    (hmain0_mailbox0_s7_haddr     ),
+  .s7_hburst                   (hmain0_mailbox0_s7_hburst    ),
+  .s7_hprot                    (hmain0_mailbox0_s7_hprot     ),
+  .s7_hrdata                   (mailbox0_hmain0_s7_hrdata    ),
+  .s7_hready                   (mailbox0_hmain0_s7_hready    ),
+  .s7_hresp                    (mailbox0_hmain0_s7_hresp     ),
+  .s7_hselx                    (hmain0_mailbox0_s7_hsel      ),
+  .s7_hsize                    (hmain0_mailbox0_s7_hsize     ),
+  .s7_htrans                   (hmain0_mailbox0_s7_htrans    ),
+  .s7_hwdata                   (hmain0_mailbox0_s7_hwdata    ),
+  .s7_hwrite                   (hmain0_mailbox0_s7_hwrite    ),
+  .s8_haddr                    (hmain0_mailbox1_s8_haddr     ),
+  .s8_hburst                   (hmain0_mailbox1_s8_hburst    ),
+  .s8_hprot                    (hmain0_mailbox1_s8_hprot     ),
+  .s8_hrdata                   (mailbox1_hmain0_s8_hrdata    ),
+  .s8_hready                   (mailbox1_hmain0_s8_hready    ),
+  .s8_hresp                    (mailbox1_hmain0_s8_hresp     ),
+  .s8_hselx                    (hmain0_mailbox1_s8_hsel      ),
+  .s8_hsize                    (hmain0_mailbox1_s8_hsize     ),
+  .s8_htrans                   (hmain0_mailbox1_s8_htrans    ),
+  .s8_hwdata                   (hmain0_mailbox1_s8_hwdata    ),
+  .s8_hwrite                   (hmain0_mailbox1_s8_hwrite    ),
   .s9_haddr                    (hmain0_dummy2_s9_haddr     ),
   .s9_hburst                   (hmain0_dummy2_s9_hburst    ),
   .s9_hprot                    (hmain0_dummy2_s9_hprot     ),
@@ -982,21 +1010,21 @@ ahb_dummy_top  x_main_dmemdummy_top0 (
   .hwrite                      (hmain0_dmemdummy0_s5_hwrite),
   .intr                        (main_dmemdummy0_intr       )
 );
-ahb_dummy_top  x_main_dummy_top0 (
-  .haddr                   (hmain0_dummy0_s7_haddr ),
-  .hclk                    (pmu_dummy0_hclk        ),
-  .hprot                   (hmain0_dummy0_s7_hprot ),
-  .hrdata                  (dummy0_hmain0_s7_hrdata),
-  .hready                  (dummy0_hmain0_s7_hready),
-  .hresp                   (dummy0_hmain0_s7_hresp ),
-  .hrst_b                  (pmu_dummy0_hrst_b      ),
-  .hsel                    (hmain0_dummy0_s7_hsel  ),
-  .hsize                   (hmain0_dummy0_s7_hsize ),
-  .htrans                  (hmain0_dummy0_s7_htrans),
-  .hwdata                  (hmain0_dummy0_s7_hwdata),
-  .hwrite                  (hmain0_dummy0_s7_hwrite),
-  .intr                    (main_dummy0_intr       )
-);
+// ahb_dummy_top  x_main_dummy_top0 (
+//   .haddr                   (hmain0_dummy0_s7_haddr ),
+//   .hclk                    (pmu_dummy0_hclk        ),
+//   .hprot                   (hmain0_dummy0_s7_hprot ),
+//   .hrdata                  (dummy0_hmain0_s7_hrdata),
+//   .hready                  (dummy0_hmain0_s7_hready),
+//   .hresp                   (dummy0_hmain0_s7_hresp ),
+//   .hrst_b                  (pmu_dummy0_hrst_b      ),
+//   .hsel                    (hmain0_dummy0_s7_hsel  ),
+//   .hsize                   (hmain0_dummy0_s7_hsize ),
+//   .htrans                  (hmain0_dummy0_s7_htrans),
+//   .hwdata                  (hmain0_dummy0_s7_hwdata),
+//   .hwrite                  (hmain0_dummy0_s7_hwrite),
+//   .intr                    (main_dummy0_intr       )
+// );
 dmac_top  x_dmac_top (
   .ch0_etb_evtdone            (ch0_etb_evtdone           ),
   .ch0_etb_htfrdone           (ch0_etb_htfrdone          ),
@@ -1104,20 +1132,62 @@ dmac_top  x_dmac_top (
   .s_hwdata                   (hmain0_dmac0_s6_hwdata    ),
   .s_hwrite                   (hmain0_dmac0_s6_hwrite    )
 );
-ahb_dummy_top  x_main_dummy_top1 (
-  .haddr                   (hmain0_dummy1_s8_haddr ),
-  .hclk                    (pmu_dummy1_hclk        ),
-  .hprot                   (hmain0_dummy1_s8_hprot ),
-  .hrdata                  (dummy1_hmain0_s8_hrdata),
-  .hready                  (dummy1_hmain0_s8_hready),
-  .hresp                   (dummy1_hmain0_s8_hresp ),
-  .hrst_b                  (pmu_dummy1_hrst_b      ),
-  .hsel                    (hmain0_dummy1_s8_hsel  ),
-  .hsize                   (hmain0_dummy1_s8_hsize ),
-  .htrans                  (hmain0_dummy1_s8_htrans),
-  .hwdata                  (hmain0_dummy1_s8_hwdata),
-  .hwrite                  (hmain0_dummy1_s8_hwrite),
-  .intr                    (main_dummy1_intr       )
+// ahb_dummy_top  x_main_dummy_top1 (
+//   .haddr                   (hmain0_dummy1_s8_haddr ),
+//   .hclk                    (pmu_dummy1_hclk        ),
+//   .hprot                   (hmain0_dummy1_s8_hprot ),
+//   .hrdata                  (dummy1_hmain0_s8_hrdata),
+//   .hready                  (dummy1_hmain0_s8_hready),
+//   .hresp                   (dummy1_hmain0_s8_hresp ),
+//   .hrst_b                  (pmu_dummy1_hrst_b      ),
+//   .hsel                    (hmain0_dummy1_s8_hsel  ),
+//   .hsize                   (hmain0_dummy1_s8_hsize ),
+//   .htrans                  (hmain0_dummy1_s8_htrans),
+//   .hwdata                  (hmain0_dummy1_s8_hwdata),
+//   .hwrite                  (hmain0_dummy1_s8_hwrite),
+//   .intr                    (main_dummy1_intr       )
+// );
+ahb_mailbox #(
+  .ADDR_WIDTH(32),
+  .DATA_WIDTH(32)
+) ahb_mailbox_0 (
+  .hclk(pmu_hmain0_hclk),
+  .hresetn(pmu_hmain0_hrst_b),
+
+  .hsel(hmain0_mailbox0_s7_hsel),
+  .haddr(hmain0_mailbox0_s7_haddr),
+  .hprot(hmain0_mailbox0_s7_hprot),
+  .hsize(hmain0_mailbox0_s7_hsize),
+  .htrans(hmain0_mailbox0_s7_htrans),
+  .hwrite(hmain0_mailbox0_s7_hwrite),
+  .hwdata(hmain0_mailbox0_s7_hwdata),
+
+  .hresp(mailbox0_hmain0_s7_hresp),
+  .hready(mailbox0_hmain0_s7_hready),
+  .hrdata(mailbox0_hmain0_s7_hrdata),
+
+  .mailbox_intr(mailbox0_intr)
+);
+ahb_mailbox #(
+  .ADDR_WIDTH(32),
+  .DATA_WIDTH(32)
+) ahb_mailbox_1 (
+  .hclk(pmu_hmain0_hclk),
+  .hresetn(pmu_hmain0_hrst_b),
+
+  .hsel(hmain0_mailbox1_s8_hsel),
+  .haddr(hmain0_mailbox1_s8_haddr),
+  .hprot(hmain0_mailbox1_s8_hprot),
+  .hsize(hmain0_mailbox1_s8_hsize),
+  .htrans(hmain0_mailbox1_s8_htrans),
+  .hwrite(hmain0_mailbox1_s8_hwrite),
+  .hwdata(hmain0_mailbox1_s8_hwdata),
+
+  .hresp(mailbox1_hmain0_s8_hresp),
+  .hready(mailbox1_hmain0_s8_hready),
+  .hrdata(mailbox1_hmain0_s8_hrdata),
+
+  .mailbox_intr(mailbox1_intr)
 );
 ahb_dummy_top  x_main_dummy_top2 (
   .haddr                   (hmain0_dummy2_s9_haddr ),

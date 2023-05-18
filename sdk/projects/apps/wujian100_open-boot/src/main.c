@@ -43,14 +43,7 @@ const char pubkey_n[] = "DC1B56F36E933EC234545C4715370B14CAE00EA9376E9F65DE2C136
 const char pubkey_e[] = "010001";
 
 // Core Functions
-void delay_ms(int x)
-{
-    for (int i = x; i > 0; i--) {
-        for (int j = 5000; j > 0; j--) {
-            asm("nop");
-        }
-    }
-}
+extern void mdelay(uint32_t ms);
 
 uint32_t get_timestamp(void)
 {
@@ -283,7 +276,7 @@ int main(void)
                 pwm_test();
                 gpio_toggle();
 
-                delay_ms(50);
+                mdelay(50);
             }
         } else {
             printf("brom: firmware 1 is not signed.\n");
@@ -292,7 +285,7 @@ int main(void)
                 pwm_test();
                 gpio_toggle();
 
-                delay_ms(400);
+                mdelay(500);
             }
         }
     } else {
@@ -302,7 +295,7 @@ int main(void)
             pwm_test();
             gpio_toggle();
 
-            delay_ms(200);
+            mdelay(250);
         }
     }
 

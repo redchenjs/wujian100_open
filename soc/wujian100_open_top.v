@@ -609,6 +609,8 @@ wire            usi2_ioctl_sd1_out;
 wire            usi2_wic_intr;         
 wire            wdt_pmu_rst_b;         
 wire            wdt_wic_intr;          
+wire            mailbox0_intr;
+wire            mailbox1_intr;
 aou_top  x_aou_top (
   .apb1_gpio_psel_s5     (apb1_gpio_psel_s5    ),
   .apb1_pmu_psel_s15     (apb1_pmu_psel_s15    ),
@@ -895,6 +897,8 @@ pdu_top  x_pdu_top (
   .lsbus_dummy2_intr     (lsbus_dummy2_intr    ),
   .lsbus_dummy3_intr     (lsbus_dummy3_intr    ),
   .main_dmemdummy0_intr  (main_dmemdummy0_intr ),
+  .mailbox0_intr(mailbox0_intr),
+  .mailbox1_intr(mailbox1_intr),
   .main_dummy0_intr      (main_dummy0_intr     ),
   .main_dummy1_intr      (main_dummy1_intr     ),
   .main_dummy2_intr      (main_dummy2_intr     ),
@@ -1178,11 +1182,12 @@ core_top #(
   .usi0_wic_intr         (usi0_wic_intr        ),
   .usi1_wic_intr         ('b0),
   .usi2_wic_intr         (usi2_wic_intr        ),
-  .wdt_wic_intr          (wdt_wic_intr         )
+  .wdt_wic_intr          (wdt_wic_intr         ),
+  .mailbox_intr          (mailbox0_intr        )
 );
 core_top #(
   .IBUS_BASE(12'h200),
-  .IBUS_MASK(12'hd00),
+  .IBUS_MASK(12'he00),
   .RESET_VECTOR(32'h2000_0000)
 ) x_cpu_top_1 (
   .apb0_dummy1_intr      (apb0_dummy1_intr     ),
@@ -1272,7 +1277,8 @@ core_top #(
   .usi0_wic_intr         ('b0),
   .usi1_wic_intr         (usi1_wic_intr        ),
   .usi2_wic_intr         ('b0),
-  .wdt_wic_intr          ('b0)
+  .wdt_wic_intr          ('b0),
+  .mailbox_intr          (mailbox1_intr        )
 );
 retu_top  x_retu_top (
   .hmain0_ismc_s0_haddr  (hmain0_ismc_s0_haddr ),

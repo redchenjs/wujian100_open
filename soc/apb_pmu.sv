@@ -1,12 +1,12 @@
 /*
- * rst.sv
+ * apb_pmu.sv
  *
  *  Created on: 2023-05-15 20:25
  *      Author: Jack Chen <redchenjs@live.com>
  */
 
-module rst_top #(
-    parameter ADDR_WIDTH = 8,
+module apb_pmu #(
+    parameter ADDR_WIDTH = 32,
     parameter DATA_WIDTH = 32
 ) (
     input logic pclk,
@@ -15,9 +15,9 @@ module rst_top #(
     input logic                  psel,
     input logic [ADDR_WIDTH-1:0] paddr,
     input logic                  pwrite,
+    input logic [DATA_WIDTH-1:0] pwdata,
     input logic                  penable,
 
-    input  logic [DATA_WIDTH-1:0] pwdata,
     output logic [DATA_WIDTH-1:0] prdata,
 
     output logic sys_rst_n
@@ -46,7 +46,7 @@ begin
         rst_ctrl_0 <= 'b0;
     end else begin
         if (wr_en) begin
-            case (paddr)
+            case (paddr[7:0])
                 8'h00: begin
                     rst_ctrl_0 <= pwdata;
                 end
@@ -54,7 +54,7 @@ begin
         end
 
         if (rd_en) begin
-            case (paddr)
+            case (paddr[7:0])
                 8'h00: begin
                     prdata <= rst_ctrl_0;
                 end

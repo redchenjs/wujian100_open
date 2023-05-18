@@ -514,10 +514,10 @@ assign  pmu_tim5_p1rst_b = soc_p1rst_b;
 assign  pmu_tim7_p1rst_b = soc_p1rst_b;
 assign  pmu_usi1_p1rst_b = soc_p1rst_b;
 
-rst_top #(
-  .ADDR_WIDTH(8),
+apb_pmu #(
+  .ADDR_WIDTH(32),
   .DATA_WIDTH(32)
-) rst_top (
+) apb_pmu (
   .pclk(dft_clk),
   .presetn(sys_rst_b),
 

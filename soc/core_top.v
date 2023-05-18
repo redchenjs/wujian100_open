@@ -100,7 +100,8 @@ module core_top #(
   usi0_wic_intr,
   usi1_wic_intr,
   usi2_wic_intr,
-  wdt_wic_intr
+  wdt_wic_intr,
+  mailbox_intr
 );
 input           apb0_dummy1_intr;      
 input           apb0_dummy2_intr;      
@@ -165,6 +166,7 @@ input           usi0_wic_intr;
 input           usi1_wic_intr;         
 input           usi2_wic_intr;         
 input           wdt_wic_intr;          
+input           mailbox_intr;
 output  [31:0]  cpu_hmain0_m0_haddr;   
 output  [2 :0]  cpu_hmain0_m0_hburst;  
 output  [3 :0]  cpu_hmain0_m0_hprot;   
@@ -378,6 +380,7 @@ wire            usi0_wic_intr;
 wire            usi1_wic_intr;         
 wire            usi2_wic_intr;         
 wire            wdt_wic_intr;          
+wire            mailbox_intr;
 assign dlite_clk_en = 1'b1;
 assign ilite_clk_en = 1'b1;
 assign pad_core_jtg_tclk = test_mode ? dft_clk : padmux_cpu_jtg_tclk;
@@ -561,7 +564,7 @@ assign ip_cpu_int_vld[36:35]   = tim5_wic_intr[1:0];
 assign ip_cpu_int_vld[38:37]   = tim6_wic_intr[1:0];
 assign ip_cpu_int_vld[40:39]   = tim7_wic_intr[1:0];
 assign ip_cpu_int_vld[41]    = main_imemdummy0_intr | main_dmemdummy0_intr;
-assign ip_cpu_int_vld[42]    = main_dummy0_intr;
+assign ip_cpu_int_vld[42]    = mailbox_intr;
 assign ip_cpu_int_vld[43]    = main_dummy1_intr;
 assign ip_cpu_int_vld[44]    = main_dummy2_intr;
 assign ip_cpu_int_vld[45]    = main_dummy3_intr;

@@ -15,7 +15,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 `define BANK2_ADDR_WORDS 16384 
 `define BANK2_DATA_WIDTH 32
 `define BANK2_ADDR_WIDTH_14
-module rom_sram_bk2(
+module rom_sram_bk2 #(
+  parameter WIDTH = 32,
+  parameter DEPTH = 16384
+) (
   hrst_b,
   ram_addr,
   ram_clk,
@@ -97,41 +100,30 @@ begin
       ram_rdata[31:0] = 32'b0;
   endcase
 end
-parameter  DATAWIDTH = 32;
-parameter  ADDRWIDTH = 14;
-parameter  MEMDEPTH  = 2**(ADDRWIDTH);
 assign byte_wen_b[3:0] =  byte_sel_b[3:0] | {4{mbk_wen_b}};
-// ram_sp #(
-//     .WIDTH(DATAWIDTH),
-//     .DEPTH(MEMDEPTH),
-//     .OUT_REG(1'b1)
-// ) ram_sp (
-//   .wr_clk_i(ram_clk),
+ram_sp #(
+  .INIT(1),
+  .FILE("D:\\Works\\Xilinx\\wujian100_open\\soc\\brom.txt"),
+  .WIDTH(WIDTH),
+  .DEPTH(DEPTH),
+  .OUT_REG(1)
+) ram_sp (
+  .rw_clk_i(ram_clk),
 
-//   .wr_en_i(1'b1),
-//   .wr_data_i(ram_wdata[31:0]),
-//   .wr_byte_en_i(~byte_wen_b[3:0]),
+  .wr_en_i(1'b1),
+  .wr_data_i(ram_wdata[31:0]),
+  .wr_byte_en_i(~byte_wen_b[3:0]),
 
-//   .rd_clk_i(ram_clk),
-
-//   .rd_en_i(1'b1),
-//   .rw_addr_i(ram_addr[15:2]),
-//   .rd_data_o(ram0_rdata[31:0])
-// );
-rom_sp #(
-    .PATH("D:\\Works\\Xilinx\\wujian100_open\\soc\\brom.txt"),
-    .WIDTH(DATAWIDTH),
-    .DEPTH(MEMDEPTH),
-    .OUT_REG(1'b1)
-) rom_sp (
-  .rd_clk_i(ram_clk),
+  .rw_addr_i(ram_addr[15:2]),
 
   .rd_en_i(1'b1),
-  .rd_addr_i(ram_addr[15:2]),
   .rd_data_o(ram0_rdata[31:0])
 );
 endmodule
-module rom_bank_64k_top(
+module rom_bank_64k_top #(
+  parameter WIDTH = 32,
+  parameter DEPTH = 16384
+) (
   big_endian_b,
   mem_haddr,
   mem_hclk,
@@ -289,7 +281,10 @@ sms_sms_ahbs_bk2  x_sms_sms_ahbs (
   .ram_write           (ram_write          ),
   .resp_cfg            (resp_cfg           )
 );
-rom_sram_bk2  x_sms_sram (
+rom_sram_bk2 #(
+  .WIDTH(WIDTH),
+  .DEPTH(DEPTH)
+) x_sms_sram (
   .hrst_b     (mem_hrst_b),
   .ram_addr   (ram_addr  ),
   .ram_clk    (mem_hclk  ),
@@ -301,7 +296,10 @@ rom_sram_bk2  x_sms_sram (
 );
 assign resp_cfg[3:0] = 4'b1000;
 endmodule
-module sms_bank_64k_top(
+module sms_bank_64k_top #(
+  parameter WIDTH = 32,
+  parameter DEPTH = 16384
+) (
   big_endian_b,
   mem_haddr,
   mem_hclk,
@@ -459,7 +457,10 @@ sms_sms_ahbs_bk2  x_sms_sms_ahbs (
   .ram_write           (ram_write          ),
   .resp_cfg            (resp_cfg           )
 );
-sms_sram_bk2  x_sms_sram (
+sms_sram_bk2 #(
+  .WIDTH(WIDTH),
+  .DEPTH(DEPTH)
+) x_sms_sram (
   .hrst_b     (mem_hrst_b),
   .ram_addr   (ram_addr  ),
   .ram_clk    (mem_hclk  ),
@@ -799,7 +800,10 @@ casex ({resp_cfg[3:2], rty_first, resp_cfg[1:0]})  // synopsys parallel_case
 endcase
 end
 endmodule
-module sms_sram_bk2(
+module sms_sram_bk2 #(
+  parameter WIDTH = 32,
+  parameter DEPTH = 16384
+) (
   hrst_b,
   ram_addr,
   ram_clk,
@@ -881,20 +885,28 @@ begin
       ram_rdata[31:0] = 32'b0;
   endcase
 end
-parameter  DATAWIDTH = 32;
-parameter  ADDRWIDTH = 14;
-parameter  MEMDEPTH  = 2**(ADDRWIDTH);
 assign byte_wen_b[3:0] =  byte_sel_b[3:0] | {4{mbk_wen_b}};
-fpga_spram #(DATAWIDTH,ADDRWIDTH,MEMDEPTH) x_fpga_spram (
-  .A                (ram_addr[15:2]  ),
-  .BWEN             (byte_wen_b[3:0] ),
-  .CEN              (mbk_cen_b       ),
-  .CLK              (ram_clk         ),
-  .D                (ram_wdata[31:0] ),
-  .Q                (ram0_rdata[31:0])
+ram_sp #(
+  .WIDTH(WIDTH),
+  .DEPTH(DEPTH),
+  .OUT_REG(1)
+) ram_sp (
+  .rw_clk_i(ram_clk),
+
+  .wr_en_i(1'b1),
+  .wr_data_i(ram_wdata[31:0]),
+  .wr_byte_en_i(~byte_wen_b[3:0]),
+
+  .rw_addr_i(ram_addr[15:2]),
+
+  .rd_en_i(1'b1),
+  .rd_data_o(ram0_rdata[31:0])
 );
 endmodule
-module sms_top(
+module sms_top #(
+  parameter WIDTH = 32,
+  parameter DEPTH = 16384
+) (
   ahb_sms0_haddr,
   ahb_sms0_hprot,
   ahb_sms0_hsel,
@@ -1078,7 +1090,10 @@ wire            sms4_ahb_hready;
 wire    [1 :0]  sms4_ahb_hresp;      
 wire            sms4_idle;           
 wire            sms_big_endian_b;    
-sms_bank_64k_top  x_sms0_top (
+sms_bank_64k_top #(
+  .WIDTH(WIDTH),
+  .DEPTH(DEPTH)
+) x_sms0_top (
   .big_endian_b                (sms_big_endian_b           ),
   .mem_haddr                   (ahb_sms0_haddr             ),
   .mem_hclk                    (pmu_sms_hclk               ),
@@ -1097,7 +1112,10 @@ sms_bank_64k_top  x_sms0_top (
   .region_wr_deny_flag         (region_wr_deny_flag0       ),
   .sms_idle0                   (sms0_idle                  )
 );
-sms_bank_64k_top  x_sms1_top (
+sms_bank_64k_top  #(
+  .WIDTH(WIDTH),
+  .DEPTH(DEPTH)
+) x_sms1_top (
   .big_endian_b                (sms_big_endian_b           ),
   .mem_haddr                   (ahb_sms1_haddr             ),
   .mem_hclk                    (pmu_sms_hclk               ),
@@ -1116,7 +1134,10 @@ sms_bank_64k_top  x_sms1_top (
   .region_wr_deny_flag         (region_wr_deny_flag1       ),
   .sms_idle0                   (sms1_idle                  )
 );
-sms_bank_64k_top  x_sms2_top (
+sms_bank_64k_top  #(
+  .WIDTH(WIDTH),
+  .DEPTH(DEPTH)
+) x_sms2_top (
   .big_endian_b                (sms_big_endian_b           ),
   .mem_haddr                   (ahb_sms2_haddr             ),
   .mem_hclk                    (pmu_sms_hclk               ),
@@ -1135,7 +1156,10 @@ sms_bank_64k_top  x_sms2_top (
   .region_wr_deny_flag         (region_wr_deny_flag2       ),
   .sms_idle0                   (sms2_idle                  )
 );
-rom_bank_64k_top  x_isram_top (
+rom_bank_64k_top  #(
+  .WIDTH(WIDTH),
+  .DEPTH(DEPTH)
+) x_isram_top (
   .big_endian_b                 (sms_big_endian_b            ),
   .mem_haddr                    (ahb_sms3_haddr              ),
   .mem_hclk                     (pmu_sms_hclk                ),
@@ -1154,7 +1178,10 @@ rom_bank_64k_top  x_isram_top (
   .region_wr_deny_flag          (region_wr_deny_flag3        ),
   .sms_idle0                    (sms3_idle                   )
 );
-sms_bank_64k_top  x_sms4_top (
+sms_bank_64k_top #(
+  .WIDTH(WIDTH),
+  .DEPTH(DEPTH)
+) x_sms4_top (
   .big_endian_b                 (sms_big_endian_b            ),
   .mem_haddr                    (ahb_sms4_haddr              ),
   .mem_hclk                     (pmu_sms_hclk                ),

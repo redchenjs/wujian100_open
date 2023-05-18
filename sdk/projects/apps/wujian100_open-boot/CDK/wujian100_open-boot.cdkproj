@@ -1262,7 +1262,7 @@
   <Dependencies Name="BuildSet"/>
   <DebugSessions>
     <watchExpressions>firmware_app0_size:1;firmware_app1_size:1</watchExpressions>
-    <memoryExpressions>0x20000000;0;;</memoryExpressions>
+    <memoryExpressions>0x00000000;0;;</memoryExpressions>
     <statistics>;;32;;MHZ;;up</statistics>
     <peripheralTabs/>
     <WatchDisplayFormat>1</WatchDisplayFormat>
