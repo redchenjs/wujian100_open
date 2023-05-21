@@ -19,6 +19,7 @@ module ahb_mailbox #(
     input logic            [3:0] hprot,
     input logic            [2:0] hsize,
     input logic            [1:0] htrans,
+    input logic            [2:0] hburst,
     input logic                  hwrite,
     input logic [DATA_WIDTH-1:0] hwdata,
 
@@ -35,12 +36,12 @@ typedef struct packed {
     logic [29:23] rsvd;
     logic  [22:8] size;
     logic   [7:0] id;
-} mbox_ctrl_0_t;
+} mbox_ctrl_t;
 
 logic ram_hsel;
 logic reg_hsel_w;
 
-mbox_ctrl_0_t mbox_ctrl_0;
+mbox_ctrl_t mbox_ctrl_0;
 
 logic            [1:0] ram_hresp;
 logic                  ram_hready;

@@ -24,14 +24,11 @@ module apb_pmu #(
 );
 
 typedef struct packed {
-    logic [7:0] rsvd_3;
-    logic [7:0] rsvd_2;
-    logic [7:0] rsvd_1;
-    logic [7:1] rsvd_0;
-    logic       rst_n;
-} rst_ctrl_0_t;
+    logic [31:1] rsvd;
+    logic        rst_n;
+} rst_ctrl_t;
 
-rst_ctrl_0_t rst_ctrl_0;
+rst_ctrl_t rst_ctrl_0;
 
 wire wr_en = psel &  penable &  pwrite;
 wire rd_en = psel & !penable & !pwrite;
