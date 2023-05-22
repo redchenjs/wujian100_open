@@ -45,15 +45,6 @@ const char pubkey_e[] = "010001";
 // Core Functions
 extern void mdelay(uint32_t ms);
 
-uint32_t get_timestamp(void)
-{
-    struct timespec tp = {0};
-    
-    clock_gettime(CLOCK_MONOTONIC, &tp);
-    
-    return tp.tv_nsec / 1000;
-}
-
 void board_deinit(void)
 {
     extern usart_handle_t console_handle;
@@ -63,15 +54,18 @@ void board_deinit(void)
     clock_timer_uninit();
 }
 
-// Reset Functions
-#define RESET_CTRL_REG_BASE (0x60030000)
+// PMU Functions
+#define PMU_CTRL_REG_BASE (0x60030000)
+#define PMU_RST_N_BIT     (0x00000001)
 
-void reset_set_value(int val)
+#define PMU_CTRL_REG      (*(volatile uint32_t *)PMU_CTRL_REG_BASE)
+
+void pmu_set_reset(int val)
 {
     if (val) {
-        *(uint32_t *)RESET_CTRL_REG_BASE = 0x00000001;
+        PMU_CTRL_REG |= PMU_RST_N_BIT;
     } else {
-        *(uint32_t *)RESET_CTRL_REG_BASE = 0x00000000;
+        PMU_CTRL_REG &=~PMU_RST_N_BIT;
     }
 }
 
@@ -242,7 +236,7 @@ int main(void)
     uint8_t firmware_app0_sign[256] = { 0 };
     uint8_t firmware_app1_sign[256] = { 0 };
 
-    reset_set_value(0);
+    pmu_set_reset(0);
 
     spi_init();
     pwm_init();

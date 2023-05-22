@@ -98,8 +98,6 @@ typedef struct packed {
     logic [31:0] base;
 } pmp_conf_t;
 
-logic hsel_w;
-
 pmp_ctrl_t pmp_ctrl_0;
 pmp_ctrl_t pmp_ctrl_1;
 
@@ -121,8 +119,10 @@ pmp_conf_t pmp_conf_1_5;
 pmp_conf_t pmp_conf_1_6;
 pmp_conf_t pmp_conf_1_7;
 
-wire wr_en = hsel_w;
 wire rd_en = hsel & !hwrite;
+
+logic                  hsel_r;
+logic [ADDR_WIDTH-1:0] haddr_r;
 
 assign hresp  = AHB_RESP_OKAY;
 assign hready = 'b1;
@@ -174,8 +174,10 @@ assign pmp_ctrl_1.hit[7] = (s1_haddr & pmp_conf_1_7.mask) == pmp_conf_1_7.base;
 always_ff @(posedge hclk or negedge hresetn)
 begin
     if (!hresetn) begin
-        hsel_w <= 'b0;
         hrdata <= 'b0;
+
+        hsel_r  <= 'b0;
+        haddr_r <= 'b0;
 
         pmp_ctrl_0 <= 'b0;
         pmp_ctrl_1 <= 'b0;
@@ -198,10 +200,11 @@ begin
         pmp_conf_1_6 <= 'b0;
         pmp_conf_1_7 <= 'b0;
     end else begin
-        hsel_w <= hsel & hwrite;
+        hsel_r  <= hsel & hwrite;
+        haddr_r <= haddr;
 
-        if (wr_en) begin
-            case (haddr[7:0])
+        if (hsel_r) begin
+            case (haddr_r[7:0])
                 8'h00: begin
                     pmp_ctrl_0[7:0] <= hwdata;
                 end

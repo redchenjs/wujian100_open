@@ -538,9 +538,10 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
+  <Dependencies Name="BuildSet"/>
   <DebugSessions>
     <watchExpressions/>
-    <memoryExpressions>0x20000000;;;</memoryExpressions>
+    <memoryExpressions>0x40100000;;;</memoryExpressions>
     <statistics>;;32;;MHZ;;up</statistics>
     <peripheralTabs/>
     <WatchDisplayFormat>1</WatchDisplayFormat>
@@ -548,5 +549,4 @@
     <debugLayout/>
     <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
   </DebugSessions>
-  <Dependencies Name="BuildSet"/>
 </Project>

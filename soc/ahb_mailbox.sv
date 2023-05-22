@@ -32,24 +32,25 @@ module ahb_mailbox #(
 
 typedef struct packed {
     logic         intr;
-    logic         flag; // 0: normal, 1: ack
-    logic [29:23] rsvd;
+    logic         resp; // 0: normal, 1: ack
+    logic         flag; // 0: empty, 1: full
+    logic [28:23] rsvd;
     logic  [22:8] size;
     logic   [7:0] id;
 } mbox_ctrl_t;
 
-logic ram_hsel;
-logic reg_hsel_w;
-
 mbox_ctrl_t mbox_ctrl_0;
 
+logic                  ram_hsel;
 logic            [1:0] ram_hresp;
 logic                  ram_hready;
 logic [DATA_WIDTH-1:0] ram_hrdata;
 
 logic [DATA_WIDTH-1:0] reg_hrdata;
 
-wire wr_en = reg_hsel_w;
+logic                  reg_hsel_r;
+logic [ADDR_WIDTH-1:0] reg_haddr_r;
+
 wire rd_en = !haddr[15] & hsel & !hwrite;
 
 wire [1:0] reg_hresp  = AHB_RESP_OKAY;
@@ -87,18 +88,22 @@ sms_bank_64k_top #(
 always_ff @(posedge hclk or negedge hresetn)
 begin
     if (!hresetn) begin
-        ram_hsel   <= 'b0;
-        reg_hsel_w <= 'b0;
+        ram_hsel <= 'b0;
+
+        reg_hsel_r  <= 'b0;
+        reg_haddr_r <= 'b0;
 
         reg_hrdata <= 'b0;
 
         mbox_ctrl_0 <= 'b0;
     end else begin
-        ram_hsel   <=  haddr[15] & hsel;
-        reg_hsel_w <= !haddr[15] & hsel & hwrite;
+        ram_hsel <= haddr[15] & hsel;
 
-        if (wr_en) begin
-            case (haddr[7:0])
+        reg_hsel_r  <= !haddr[15] & hsel & hwrite;
+        reg_haddr_r <=  haddr;
+
+        if (reg_hsel_r) begin
+            case (reg_haddr_r[7:0])
                 8'h00: begin
                     mbox_ctrl_0 <= hwdata;
                 end
