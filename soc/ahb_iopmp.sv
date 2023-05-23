@@ -119,10 +119,13 @@ pmp_conf_t pmp_conf_1_5;
 pmp_conf_t pmp_conf_1_6;
 pmp_conf_t pmp_conf_1_7;
 
-wire rd_en = hsel & !hwrite;
+logic [7:0] pmp_addr_0_hit;
+logic [7:0] pmp_addr_1_hit;
 
 logic                  hsel_r;
 logic [ADDR_WIDTH-1:0] haddr_r;
+
+wire rd_en = hsel & !hwrite;
 
 assign hresp  = AHB_RESP_OKAY;
 assign hready = 'b1;
@@ -130,7 +133,7 @@ assign hready = 'b1;
 assign m0_haddr  = s0_haddr;
 assign m0_hprot  = s0_hprot;
 assign m0_hsize  = s0_hsize;
-assign m0_htrans = |(pmp_ctrl_0.en & pmp_ctrl_0.hit) ? s0_htrans : AHB_TRANS_IDLE;
+assign m0_htrans = |pmp_addr_0_hit ? s0_htrans : AHB_TRANS_IDLE;
 assign m0_hburst = s0_hburst;
 assign m0_hwrite = s0_hwrite;
 assign m0_hwdata = s0_hwdata;
@@ -138,7 +141,7 @@ assign m0_hwdata = s0_hwdata;
 assign m1_haddr  = s1_haddr;
 assign m1_hprot  = s1_hprot;
 assign m1_hsize  = s1_hsize;
-assign m1_htrans = |(pmp_ctrl_1.en & pmp_ctrl_1.hit) ? s1_htrans : AHB_TRANS_IDLE;
+assign m1_htrans = |pmp_addr_1_hit ? s1_htrans : AHB_TRANS_IDLE;
 assign m1_hburst = s1_hburst;
 assign m1_hwrite = s1_hwrite;
 assign m1_hwdata = s1_hwdata;
@@ -153,23 +156,23 @@ assign s1_hgrant = m1_hgrant;
 assign s1_hready = m1_hready;
 assign s1_hrdata = m1_hrdata;
 
-assign pmp_ctrl_0.hit[0] = (s0_haddr & pmp_conf_0_0.mask) == pmp_conf_0_0.base;
-assign pmp_ctrl_0.hit[1] = (s0_haddr & pmp_conf_0_1.mask) == pmp_conf_0_1.base;
-assign pmp_ctrl_0.hit[2] = (s0_haddr & pmp_conf_0_2.mask) == pmp_conf_0_2.base;
-assign pmp_ctrl_0.hit[3] = (s0_haddr & pmp_conf_0_3.mask) == pmp_conf_0_3.base;
-assign pmp_ctrl_0.hit[4] = (s0_haddr & pmp_conf_0_4.mask) == pmp_conf_0_4.base;
-assign pmp_ctrl_0.hit[5] = (s0_haddr & pmp_conf_0_5.mask) == pmp_conf_0_5.base;
-assign pmp_ctrl_0.hit[6] = (s0_haddr & pmp_conf_0_6.mask) == pmp_conf_0_6.base;
-assign pmp_ctrl_0.hit[7] = (s0_haddr & pmp_conf_0_7.mask) == pmp_conf_0_7.base;
+assign pmp_addr_0_hit[0] = pmp_ctrl_0.en[0] & ((s0_haddr & pmp_conf_0_0.mask) == pmp_conf_0_0.base);
+assign pmp_addr_0_hit[1] = pmp_ctrl_0.en[1] & ((s0_haddr & pmp_conf_0_1.mask) == pmp_conf_0_1.base);
+assign pmp_addr_0_hit[2] = pmp_ctrl_0.en[2] & ((s0_haddr & pmp_conf_0_2.mask) == pmp_conf_0_2.base);
+assign pmp_addr_0_hit[3] = pmp_ctrl_0.en[3] & ((s0_haddr & pmp_conf_0_3.mask) == pmp_conf_0_3.base);
+assign pmp_addr_0_hit[4] = pmp_ctrl_0.en[4] & ((s0_haddr & pmp_conf_0_4.mask) == pmp_conf_0_4.base);
+assign pmp_addr_0_hit[5] = pmp_ctrl_0.en[5] & ((s0_haddr & pmp_conf_0_5.mask) == pmp_conf_0_5.base);
+assign pmp_addr_0_hit[6] = pmp_ctrl_0.en[6] & ((s0_haddr & pmp_conf_0_6.mask) == pmp_conf_0_6.base);
+assign pmp_addr_0_hit[7] = pmp_ctrl_0.en[7] & ((s0_haddr & pmp_conf_0_7.mask) == pmp_conf_0_7.base);
 
-assign pmp_ctrl_1.hit[0] = (s1_haddr & pmp_conf_1_0.mask) == pmp_conf_1_0.base;
-assign pmp_ctrl_1.hit[1] = (s1_haddr & pmp_conf_1_1.mask) == pmp_conf_1_1.base;
-assign pmp_ctrl_1.hit[2] = (s1_haddr & pmp_conf_1_2.mask) == pmp_conf_1_2.base;
-assign pmp_ctrl_1.hit[3] = (s1_haddr & pmp_conf_1_3.mask) == pmp_conf_1_3.base;
-assign pmp_ctrl_1.hit[4] = (s1_haddr & pmp_conf_1_4.mask) == pmp_conf_1_4.base;
-assign pmp_ctrl_1.hit[5] = (s1_haddr & pmp_conf_1_5.mask) == pmp_conf_1_5.base;
-assign pmp_ctrl_1.hit[6] = (s1_haddr & pmp_conf_1_6.mask) == pmp_conf_1_6.base;
-assign pmp_ctrl_1.hit[7] = (s1_haddr & pmp_conf_1_7.mask) == pmp_conf_1_7.base;
+assign pmp_addr_1_hit[0] = pmp_ctrl_1.en[0] & ((s1_haddr & pmp_conf_1_0.mask) == pmp_conf_1_0.base);
+assign pmp_addr_1_hit[1] = pmp_ctrl_1.en[1] & ((s1_haddr & pmp_conf_1_1.mask) == pmp_conf_1_1.base);
+assign pmp_addr_1_hit[2] = pmp_ctrl_1.en[2] & ((s1_haddr & pmp_conf_1_2.mask) == pmp_conf_1_2.base);
+assign pmp_addr_1_hit[3] = pmp_ctrl_1.en[3] & ((s1_haddr & pmp_conf_1_3.mask) == pmp_conf_1_3.base);
+assign pmp_addr_1_hit[4] = pmp_ctrl_1.en[4] & ((s1_haddr & pmp_conf_1_4.mask) == pmp_conf_1_4.base);
+assign pmp_addr_1_hit[5] = pmp_ctrl_1.en[5] & ((s1_haddr & pmp_conf_1_5.mask) == pmp_conf_1_5.base);
+assign pmp_addr_1_hit[6] = pmp_ctrl_1.en[6] & ((s1_haddr & pmp_conf_1_6.mask) == pmp_conf_1_6.base);
+assign pmp_addr_1_hit[7] = pmp_ctrl_1.en[7] & ((s1_haddr & pmp_conf_1_7.mask) == pmp_conf_1_7.base);
 
 always_ff @(posedge hclk or negedge hresetn)
 begin
@@ -203,13 +206,16 @@ begin
         hsel_r  <= hsel & hwrite;
         haddr_r <= haddr;
 
+        pmp_ctrl_0.hit <= |pmp_addr_0_hit ? pmp_addr_0_hit : pmp_ctrl_0.hit;
+        pmp_ctrl_1.hit <= |pmp_addr_1_hit ? pmp_addr_1_hit : pmp_ctrl_1.hit;
+
         if (hsel_r) begin
             case (haddr_r[7:0])
                 8'h00: begin
-                    pmp_ctrl_0[7:0] <= hwdata;
+                    pmp_ctrl_0.en <= hwdata;
                 end
                 8'h04: begin
-                    pmp_ctrl_1[7:0] <= hwdata;
+                    pmp_ctrl_1.en <= hwdata;
                 end
                 8'h10: begin
                     pmp_conf_0_0.base <= hwdata;
