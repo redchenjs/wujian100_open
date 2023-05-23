@@ -9,8 +9,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 */
 module core_top #(
-  parameter IBUS_BASE = 12'h000,
-  parameter IBUS_MASK = 12'he00,
+  parameter IBUS_BASE = 16'h0000,
+  parameter IBUS_MASK = 16'h0000,
   parameter RESET_VECTOR = 32'h0000_0000
 ) (
   apb0_dummy1_intr,
@@ -314,8 +314,8 @@ wire            main_imemdummy0_intr;
 wire    [31:0]  pad_biu_hrdata;        
 wire            pad_biu_hready;        
 wire            pad_biu_hresp;         
-wire    [11:0]  pad_bmu_iahbl_base;    
-wire    [11:0]  pad_bmu_iahbl_mask;    
+wire    [15:0]  pad_bmu_iahbl_base;    
+wire    [15:0]  pad_bmu_iahbl_mask;    
 wire    [63:0]  pad_clic_int_cfg;      
 wire    [63:0]  pad_clic_int_vld;      
 wire            pad_core_clk;          
@@ -482,8 +482,8 @@ end
 assign pll_core_cpuclk             = pll_cpu_clk;
 assign pad_cpu_rst_b               = pad_core_rst_b;
 assign clk_en                      = 1'b1;
-assign pad_bmu_iahbl_base[11:0]    = IBUS_BASE;
-assign pad_bmu_iahbl_mask[11:0]    = IBUS_MASK;
+assign pad_bmu_iahbl_base[15:0]    = IBUS_BASE;
+assign pad_bmu_iahbl_mask[15:0]    = IBUS_MASK;
 assign cpu_wic_ctim_int_vld        = ctim_pad_int_vld;
 assign cpu_pmu_sleep_b	   	   = & sysio_pad_lpmd_b[1:0];
 assign pad_vic_int_cfg[63:0]       = ip_cpu_int_cfg[63:0];
