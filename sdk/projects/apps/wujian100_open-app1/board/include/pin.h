@@ -20,7 +20,7 @@
 extern "C" {
 #endif
 
-#define CLOCK_GETTIME_USE_TIMER_ID 0
+#define CLOCK_GETTIME_USE_TIMER_ID 2
 #define UART_TXD0       1
 #define UART_RXD0       2
 

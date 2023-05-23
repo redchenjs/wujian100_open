@@ -220,23 +220,23 @@ begin
         haddr_r <= haddr;
 
         if (pmp_ctrl_0.rst) begin
-            pmp_ctrl_0.hit  <= |pmp_addr_0_hit ? pmp_addr_0_hit : pmp_ctrl_0.hit;
-            pmp_ctrl_0.err  <= !(|pmp_addr_0_hit) & (s0_htrans != AHB_TRANS_IDLE) ? 'b1 : pmp_ctrl_0.err;
-            pmp_dump_0.addr <= !(|pmp_addr_0_hit) & (s0_htrans != AHB_TRANS_IDLE) ? s0_haddr : pmp_dump_0.addr;
-        end else begin
             pmp_ctrl_0.hit  <= 'b0;
             pmp_ctrl_0.err  <= 'b0;
             pmp_dump_0.addr <= 'b0;
+        end else begin
+            pmp_ctrl_0.hit  <= |pmp_addr_0_hit ? pmp_addr_0_hit : pmp_ctrl_0.hit;
+            pmp_ctrl_0.err  <= !(|pmp_addr_0_hit) & (s0_htrans != AHB_TRANS_IDLE) ? 'b1 : pmp_ctrl_0.err;
+            pmp_dump_0.addr <= !(|pmp_addr_0_hit) & (s0_htrans != AHB_TRANS_IDLE) ? s0_haddr : pmp_dump_0.addr;
         end
 
         if (pmp_ctrl_1.rst) begin
-            pmp_ctrl_1.hit  <= |pmp_addr_1_hit ? pmp_addr_1_hit : pmp_ctrl_1.hit;
-            pmp_ctrl_1.err  <= !(|pmp_addr_1_hit) & (s1_htrans != AHB_TRANS_IDLE) ? 'b1 : pmp_ctrl_1.err;
-            pmp_dump_1.addr <= !(|pmp_addr_1_hit) & (s1_htrans != AHB_TRANS_IDLE) ? s1_haddr : pmp_dump_1.addr;
-        end else begin
             pmp_ctrl_1.hit  <= 'b0;
             pmp_ctrl_1.err  <= 'b0;
             pmp_dump_1.addr <= 'b0;
+        end else begin
+            pmp_ctrl_1.hit  <= |pmp_addr_1_hit ? pmp_addr_1_hit : pmp_ctrl_1.hit;
+            pmp_ctrl_1.err  <= !(|pmp_addr_1_hit) & (s1_htrans != AHB_TRANS_IDLE) ? 'b1 : pmp_ctrl_1.err;
+            pmp_dump_1.addr <= !(|pmp_addr_1_hit) & (s1_htrans != AHB_TRANS_IDLE) ? s1_haddr : pmp_dump_1.addr;
         end
 
         if (hsel_r) begin

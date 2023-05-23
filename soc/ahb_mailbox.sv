@@ -32,14 +32,14 @@ module ahb_mailbox #(
 
 typedef struct packed {
     logic         intr;
-    logic         resp; // 0: normal, 1: ack
     logic         full; // 0: empty, 1: full
-    logic [28:23] rsvd;
+    logic [29:23] rsvd;
     logic  [22:8] size;
     logic   [7:0] id;
 } mbox_ctrl_t;
 
 mbox_ctrl_t mbox_ctrl_0;
+mbox_ctrl_t mbox_ctrl_1;
 
 logic                  ram_hsel;
 logic            [1:0] ram_hresp;
@@ -60,7 +60,7 @@ assign hresp  = ram_hsel ? ram_hresp  : reg_hresp;
 assign hready = ram_hsel ? ram_hready : reg_hready;
 assign hrdata = ram_hsel ? ram_hrdata : reg_hrdata;
 
-assign mailbox_intr = mbox_ctrl_0.intr;
+assign mailbox_intr = mbox_ctrl_0.intr | mbox_ctrl_1.intr;
 
 sms_bank_64k_top #(
   .WIDTH(32),
@@ -96,6 +96,7 @@ begin
         reg_hrdata <= 'b0;
 
         mbox_ctrl_0 <= 'b0;
+        mbox_ctrl_1 <= 'b0;
     end else begin
         ram_hsel <= haddr[15] & hsel;
 
@@ -107,6 +108,9 @@ begin
                 8'h00: begin
                     mbox_ctrl_0 <= hwdata;
                 end
+                8'h04: begin
+                    mbox_ctrl_1 <= hwdata;
+                end
             endcase
         end
 
@@ -114,6 +118,9 @@ begin
             case (haddr[7:0])
                 8'h00: begin
                     reg_hrdata <= mbox_ctrl_0;
+                end
+                8'h04: begin
+                    reg_hrdata <= mbox_ctrl_1;
                 end
                 default: begin
                     reg_hrdata <= 'b0;

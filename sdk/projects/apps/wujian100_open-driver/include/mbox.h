@@ -16,7 +16,7 @@ extern void mbox_init(uint8_t core_id);
 extern bool mbox_check_acked(void);
 extern bool mbox_check_pending(void);
 
-extern int mbox_read_ack(void);
+extern int mbox_read_ack(uint8_t *id);
 extern int mbox_read_message(uint8_t *id, void *buff, uint32_t buff_size);
 
 extern int mbox_send_ack(uint8_t id);

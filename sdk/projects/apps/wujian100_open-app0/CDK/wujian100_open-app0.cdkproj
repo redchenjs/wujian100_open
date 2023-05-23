@@ -580,7 +580,7 @@
     </BuildConfig>
   </BuildConfigs>
   <DebugSessions>
-    <watchExpressions>mail_acked:1;mail_pending:1;MBOX_L_CTRL_REG:1;MBOX_R_CTRL_REG:1</watchExpressions>
+    <watchExpressions/>
     <memoryExpressions>0x10000000;;;</memoryExpressions>
     <statistics>;;32;;MHZ;;up</statistics>
     <peripheralTabs/>
