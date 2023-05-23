@@ -88,9 +88,11 @@ module ahb_iopmp #(
 );
 
 typedef struct packed {
-    logic [31:17] rsvd;
+    logic [31:24] rsvd_1;
+    logic [23:16] hit;
+    logic [15:10] rsvd_0;
     logic         err;
-    logic  [15:8] hit;
+    logic         rst;
     logic   [7:0] en;
 } pmp_ctrl_t;
 
@@ -217,22 +219,33 @@ begin
         hsel_r  <= hsel & hwrite;
         haddr_r <= haddr;
 
-        pmp_ctrl_0.hit <= |pmp_addr_0_hit ? pmp_addr_0_hit : pmp_ctrl_0.hit;
-        pmp_ctrl_1.hit <= |pmp_addr_1_hit ? pmp_addr_1_hit : pmp_ctrl_1.hit;
+        if (pmp_ctrl_0.rst) begin
+            pmp_ctrl_0.hit  <= |pmp_addr_0_hit ? pmp_addr_0_hit : pmp_ctrl_0.hit;
+            pmp_ctrl_0.err  <= !(|pmp_addr_0_hit) & (s0_htrans != AHB_TRANS_IDLE) ? 'b1 : pmp_ctrl_0.err;
+            pmp_dump_0.addr <= !(|pmp_addr_0_hit) & (s0_htrans != AHB_TRANS_IDLE) ? s0_haddr : pmp_dump_0.addr;
+        end else begin
+            pmp_ctrl_0.hit  <= 'b0;
+            pmp_ctrl_0.err  <= 'b0;
+            pmp_dump_0.addr <= 'b0;
+        end
 
-        pmp_ctrl_0.err <= !(|pmp_addr_0_hit) & (s0_htrans != AHB_TRANS_IDLE) ? 'b1 : pmp_ctrl_0.err;
-        pmp_ctrl_1.err <= !(|pmp_addr_1_hit) & (s1_htrans != AHB_TRANS_IDLE) ? 'b1 : pmp_ctrl_1.err;
-
-        pmp_dump_0.addr <= !(|pmp_addr_0_hit) & (s0_htrans != AHB_TRANS_IDLE) ? s0_haddr : pmp_dump_0.addr;
-        pmp_dump_1.addr <= !(|pmp_addr_1_hit) & (s1_htrans != AHB_TRANS_IDLE) ? s1_haddr : pmp_dump_1.addr;
+        if (pmp_ctrl_1.rst) begin
+            pmp_ctrl_1.hit  <= |pmp_addr_1_hit ? pmp_addr_1_hit : pmp_ctrl_1.hit;
+            pmp_ctrl_1.err  <= !(|pmp_addr_1_hit) & (s1_htrans != AHB_TRANS_IDLE) ? 'b1 : pmp_ctrl_1.err;
+            pmp_dump_1.addr <= !(|pmp_addr_1_hit) & (s1_htrans != AHB_TRANS_IDLE) ? s1_haddr : pmp_dump_1.addr;
+        end else begin
+            pmp_ctrl_1.hit  <= 'b0;
+            pmp_ctrl_1.err  <= 'b0;
+            pmp_dump_1.addr <= 'b0;
+        end
 
         if (hsel_r) begin
             case (haddr_r[7:0])
                 8'h00: begin
-                    pmp_ctrl_0.en <= hwdata;
+                    {pmp_ctrl_0.rst, pmp_ctrl_0.en} <= hwdata;
                 end
                 8'h04: begin
-                    pmp_ctrl_1.en <= hwdata;
+                    {pmp_ctrl_1.rst, pmp_ctrl_1.en} <= hwdata;
                 end
                 8'h10: begin
                     pmp_conf_0_0.base <= hwdata;

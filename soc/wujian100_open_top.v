@@ -1091,8 +1091,6 @@ pdu_top  x_pdu_top (
   .wdt_wic_intr          (wdt_wic_intr         )
 );
 core_top #(
-  .IBUS_BASE(12'h000),
-  .IBUS_MASK(12'he00),
   .RESET_VECTOR(32'h0000_0000)
 ) x_cpu_top (
   .apb0_dummy1_intr      (apb0_dummy1_intr     ),
@@ -1186,8 +1184,6 @@ core_top #(
   .mailbox_intr          (mailbox0_intr        )
 );
 core_top #(
-  .IBUS_BASE(12'h200),
-  .IBUS_MASK(12'he00),
   .RESET_VECTOR(32'h2000_0000)
 ) x_cpu_top_1 (
   .apb0_dummy1_intr      (apb0_dummy1_intr     ),

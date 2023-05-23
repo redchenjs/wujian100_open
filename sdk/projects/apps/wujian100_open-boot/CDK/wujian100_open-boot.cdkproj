@@ -1021,6 +1021,46 @@
           </File>
         </VirtualDirectory>
       </VirtualDirectory>
+      <VirtualDirectory Name="driver">
+        <File Name="../../wujian100_open-driver/gpio.c">
+          <FileOption/>
+        </File>
+        <VirtualDirectory Name="include">
+          <File Name="../../wujian100_open-driver/include/gpio.h">
+            <FileOption/>
+          </File>
+          <File Name="../../wujian100_open-driver/include/mbox.h">
+            <FileOption/>
+          </File>
+          <File Name="../../wujian100_open-driver/include/pmp.h">
+            <FileOption/>
+          </File>
+          <File Name="../../wujian100_open-driver/include/pmu.h">
+            <FileOption/>
+          </File>
+          <File Name="../../wujian100_open-driver/include/pwm.h">
+            <FileOption/>
+          </File>
+          <File Name="../../wujian100_open-driver/include/spi.h">
+            <FileOption/>
+          </File>
+        </VirtualDirectory>
+        <File Name="../../wujian100_open-driver/mbox.c">
+          <FileOption/>
+        </File>
+        <File Name="../../wujian100_open-driver/pmp.c">
+          <FileOption/>
+        </File>
+        <File Name="../../wujian100_open-driver/pmu.c">
+          <FileOption/>
+        </File>
+        <File Name="../../wujian100_open-driver/pwm.c">
+          <FileOption/>
+        </File>
+        <File Name="../../wujian100_open-driver/spi.c">
+          <FileOption/>
+        </File>
+      </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="board">
       <File Name="../board/board_init.c">
@@ -1048,6 +1088,7 @@
   <MonitorProgress>
     <DebugLaunch>40</DebugLaunch>
   </MonitorProgress>
+  <Dependencies Name="BuildSet"/>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -1148,7 +1189,7 @@
         <Undefine/>
         <Optim>Optimize size (-Os)</Optim>
         <DebugLevel>Maximum (-g3)</DebugLevel>
-        <IncludePath>$(ProjectPath);$(ProjectPath)/../../../../csi_core/include;$(ProjectPath)/../../../../csi_driver/include;$(ProjectPath)/../../../../csi_driver/wujian100_open/include;$(ProjectPath)/../../../../csi_kernel/include;$(ProjectPath)/../../../../libs/include;$(ProjectPath)/../../../../projects/tests/driver/configs;$(ProjectPath)/../../../../projects/tests/driver/include;$(ProjectPath)/../../../../projects/tests/dtest/include;$(ProjectPath)/../../wujian100_open-app1/configs;$(ProjectPath)/../../wujian100_open-app1/src;$(ProjectPath)/../board/include;$(ProjectPath)/../configs;$(ProjectPath)/../src/configs;$(ProjectPath)/../src/include;$(ProjectPath)/../src/library;$(ProjectPath)/../src/mbedtls/configs;$(ProjectPath)/../src/mbedtls/include;$(ProjectPath)/../src/mbedtls/library</IncludePath>
+        <IncludePath>$(ProjectPath);$(ProjectPath)/../../../../csi_core/include;$(ProjectPath)/../../../../csi_driver/include;$(ProjectPath)/../../../../csi_driver/wujian100_open/include;$(ProjectPath)/../../../../csi_kernel/include;$(ProjectPath)/../../../../libs/include;$(ProjectPath)/../../../../projects/tests/driver/configs;$(ProjectPath)/../../../../projects/tests/driver/include;$(ProjectPath)/../../../../projects/tests/dtest/include;$(ProjectPath)/../../wujian100_open-app1/configs;$(ProjectPath)/../../wujian100_open-app1/src;$(ProjectPath)/../../wujian100_open-driver/include;$(ProjectPath)/../board/include;$(ProjectPath)/../configs;$(ProjectPath)/../src/configs;$(ProjectPath)/../src/include;$(ProjectPath)/../src/library;$(ProjectPath)/../src/mbedtls/configs;$(ProjectPath)/../src/mbedtls/include;$(ProjectPath)/../src/mbedtls/library</IncludePath>
         <OtherFlags>-ffunction-sections -fdata-sections</OtherFlags>
         <Verbose>no</Verbose>
         <Ansi>no</Ansi>
@@ -1165,7 +1206,7 @@
       <Asm>
         <Define/>
         <Undefine/>
-        <IncludePath>;$(ProjectPath);$(ProjectPath)/../../../../projects/tests/driver/configs;$(ProjectPath)/../../wujian100_open-app1/configs;$(ProjectPath)/../../wujian100_open-app1/src;$(ProjectPath)/../board/include;$(ProjectPath)/../configs;$(ProjectPath)/../src/configs;$(ProjectPath)/../src/include/mbedtls;$(ProjectPath)/../src/include/psa;$(ProjectPath)/../src/library;$(ProjectPath)/../src/mbedtls/configs;$(ProjectPath)/../src/mbedtls/include/mbedtls;$(ProjectPath)/../src/mbedtls/include/psa;$(ProjectPath)/../src/mbedtls/library</IncludePath>
+        <IncludePath>$(ProjectPath);$(ProjectPath)/../../../../projects/tests/driver/configs;$(ProjectPath)/../../wujian100_open-app1/configs;$(ProjectPath)/../../wujian100_open-app1/src;$(ProjectPath)/../../wujian100_open-driver/include;$(ProjectPath)/../board/include;$(ProjectPath)/../configs;$(ProjectPath)/../src/configs;$(ProjectPath)/../src/include/mbedtls;$(ProjectPath)/../src/include/psa;$(ProjectPath)/../src/library;$(ProjectPath)/../src/mbedtls/configs;$(ProjectPath)/../src/mbedtls/include/mbedtls;$(ProjectPath)/../src/mbedtls/include/psa;$(ProjectPath)/../src/mbedtls/library</IncludePath>
         <OtherFlags/>
         <DebugLevel>gdwarf2</DebugLevel>
       </Asm>
@@ -1251,7 +1292,7 @@
         <Program>yes</Program>
         <Verify>no</Verify>
         <ResetAndRun>no</ResetAndRun>
-        <ResetType/>
+        <ResetType>Soft Reset</ResetType>
         <SoftResetVal/>
         <External>no</External>
         <Command/>
@@ -1259,10 +1300,9 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
-  <Dependencies Name="BuildSet"/>
   <DebugSessions>
-    <watchExpressions>firmware_app0_size:1;firmware_app1_size:1</watchExpressions>
-    <memoryExpressions>0x40010000;0;;</memoryExpressions>
+    <watchExpressions/>
+    <memoryExpressions>0x00000000;0;;</memoryExpressions>
     <statistics>;;32;;MHZ;;up</statistics>
     <peripheralTabs/>
     <WatchDisplayFormat>1</WatchDisplayFormat>
