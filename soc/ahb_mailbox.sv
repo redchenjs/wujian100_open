@@ -33,7 +33,7 @@ module ahb_mailbox #(
 typedef struct packed {
     logic         intr;
     logic         resp; // 0: normal, 1: ack
-    logic         flag; // 0: empty, 1: full
+    logic         full; // 0: empty, 1: full
     logic [28:23] rsvd;
     logic  [22:8] size;
     logic   [7:0] id;

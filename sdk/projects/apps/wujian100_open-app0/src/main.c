@@ -46,7 +46,7 @@ void pmu_set_reset(int val)
 
 #define MBOX_INTR_BIT        (0x80000000)
 #define MBOX_RESP_BIT        (0x40000000)
-#define MBOX_FLAG_BIT        (0x20000000)
+#define MBOX_FULL_BIT        (0x20000000)
 
 #define MBOX_L_CTRL_REG_BASE (MBOX_0_CTRL_REG_BASE)
 #define MBOX_L_DATA_RAM_BASE (MBOX_0_DATA_RAM_BASE)
@@ -85,7 +85,7 @@ int mailbox_read_ack(void)
 
     mail_acked = false;
 
-    MBOX_L_CTRL_REG &=~MBOX_FLAG_BIT;
+    MBOX_L_CTRL_REG &=~MBOX_FULL_BIT;
 
     return id;
 }
@@ -104,25 +104,25 @@ int mailbox_read_message(uint8_t *id, void *buff, uint32_t buff_size)
 
     mail_pending = false;
 
-    MBOX_L_CTRL_REG &=~MBOX_FLAG_BIT;
+    MBOX_L_CTRL_REG &=~MBOX_FULL_BIT;
 
     return size;
 }
 
 int mailbox_send_ack(uint8_t id)
 {
-    if (MBOX_R_CTRL_REG & MBOX_FLAG_BIT) {
+    if (MBOX_R_CTRL_REG & MBOX_FULL_BIT) {
         return -1;
     }
 
-    MBOX_R_CTRL_REG = id | MBOX_FLAG_BIT | MBOX_RESP_BIT | MBOX_INTR_BIT;
+    MBOX_R_CTRL_REG = id | MBOX_FULL_BIT | MBOX_RESP_BIT | MBOX_INTR_BIT;
 
     return 0;
 }
 
 int mailbox_send_message(uint8_t id, const void *buff, uint32_t len)
 {
-    if (MBOX_R_CTRL_REG & MBOX_FLAG_BIT) {
+    if (MBOX_R_CTRL_REG & MBOX_FULL_BIT) {
         return -1;
     }
 
@@ -132,7 +132,7 @@ int mailbox_send_message(uint8_t id, const void *buff, uint32_t len)
 
     memcpy((void *)MBOX_R_DATA_RAM_BASE, buff, len);
 
-    MBOX_R_CTRL_REG = id | (len << 8) | MBOX_FLAG_BIT | MBOX_INTR_BIT;
+    MBOX_R_CTRL_REG = id | (len << 8) | MBOX_FULL_BIT | MBOX_INTR_BIT;
 
     return len;
 }
