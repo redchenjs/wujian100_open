@@ -75,6 +75,8 @@ void mailbox_irq_handler(void)
 
 void mailbox_init(void)
 {
+    MBOX_L_CTRL_REG = 0x00000000;
+
     drv_irq_register(MAILBOX_IRQ_NUM, mailbox_irq_handler);
     drv_irq_enable(MAILBOX_IRQ_NUM);
 }
@@ -94,7 +96,7 @@ int mailbox_read_message(uint8_t *id, void *buff, uint32_t buff_size)
 {
     uint16_t size = (MBOX_L_CTRL_REG & 0x7fff00) >> 8;
 
-    if (size < buff_size) {
+    if (size > buff_size) {
         return -1;
     }
 
@@ -141,6 +143,9 @@ int mailbox_send_message(uint8_t id, const void *buff, uint32_t len)
 #define PMP_CTRL_0_REG_BASE (0x40100000)
 #define PMP_CTRL_1_REG_BASE (0x40100004)
 
+#define PMP_DUMP_0_REG_BASE (0x40100008)
+#define PMP_DUMP_1_REG_BASE (0x4010000C)
+
 #define PMP_CONF_0_0_BASE_REG_BASE (0x40100010)
 #define PMP_CONF_0_0_MASK_REG_BASE (0x40100014)
 #define PMP_CONF_0_1_BASE_REG_BASE (0x40100018)
@@ -178,6 +183,9 @@ int mailbox_send_message(uint8_t id, const void *buff, uint32_t len)
 #define PMP_CTRL_0_REG        (*(volatile uint32_t *)PMP_CTRL_0_REG_BASE)
 #define PMP_CTRL_1_REG        (*(volatile uint32_t *)PMP_CTRL_1_REG_BASE)
 
+#define PMP_DUMP_0_REG        (*(volatile uint32_t *)PMP_DUMP_0_REG_BASE)
+#define PMP_DUMP_1_REG        (*(volatile uint32_t *)PMP_DUMP_1_REG_BASE)
+
 #define PMP_CONF_0_0_BASE_REG (*(volatile uint32_t *)PMP_CONF_0_0_BASE_REG_BASE)
 #define PMP_CONF_0_0_MASK_REG (*(volatile uint32_t *)PMP_CONF_0_0_MASK_REG_BASE)
 #define PMP_CONF_0_1_BASE_REG (*(volatile uint32_t *)PMP_CONF_0_1_BASE_REG_BASE)
@@ -212,21 +220,13 @@ int mailbox_send_message(uint8_t id, const void *buff, uint32_t len)
 #define PMP_CONF_1_7_BASE_REG (*(volatile uint32_t *)PMP_CONF_1_7_BASE_REG_BASE)
 #define PMP_CONF_1_7_MASK_REG (*(volatile uint32_t *)PMP_CONF_1_7_MASK_REG_BASE)
 
-typedef struct {
-    uint32_t rsvd :16;
-    uint32_t hit  :8;
-    uint32_t en   :8;
-} __attribute__((packed)) pmp_ctrl_t;
-
-typedef struct {
-    uint32_t mask;
-    uint32_t base;
-} __attribute__((packed)) pmp_conf_t;
-
 void pmp_init(void)
 {
-    PMP_CONF_0_0_BASE_REG = 0x20000000;
-    PMP_CONF_0_0_MASK_REG = 0xffff0000;
+    PMP_CTRL_0_REG = 0x00;
+    PMP_CTRL_1_REG = 0x00;
+
+    PMP_CONF_0_0_BASE_REG = 0x20000000; // IRAM-APP1
+    PMP_CONF_0_0_MASK_REG = 0xFFFF0000; // 0x20000000 - 0x2000FFFF
     PMP_CONF_0_1_BASE_REG = 0x00000000;
     PMP_CONF_0_1_MASK_REG = 0x00000000;
     PMP_CONF_0_2_BASE_REG = 0x00000000;
@@ -242,25 +242,25 @@ void pmp_init(void)
     PMP_CONF_0_7_BASE_REG = 0x00000000;
     PMP_CONF_0_7_MASK_REG = 0x00000000;
 
-    PMP_CONF_1_0_BASE_REG = 0x20020000;
-    PMP_CONF_1_0_MASK_REG = 0xffff0000;
-    PMP_CONF_1_1_BASE_REG = 0x00000000;
-    PMP_CONF_1_1_MASK_REG = 0x00000000;
-    PMP_CONF_1_2_BASE_REG = 0x00000000;
-    PMP_CONF_1_2_MASK_REG = 0x00000000;
-    PMP_CONF_1_3_BASE_REG = 0x00000000;
-    PMP_CONF_1_3_MASK_REG = 0x00000000;
-    PMP_CONF_1_4_BASE_REG = 0x00000000;
-    PMP_CONF_1_4_MASK_REG = 0x00000000;
-    PMP_CONF_1_5_BASE_REG = 0x00000000;
-    PMP_CONF_1_5_MASK_REG = 0x00000000;
-    PMP_CONF_1_6_BASE_REG = 0x00000000;
-    PMP_CONF_1_6_MASK_REG = 0x00000000;
-    PMP_CONF_1_7_BASE_REG = 0x00000000;
-    PMP_CONF_1_7_MASK_REG = 0x00000000;
+    PMP_CONF_1_0_BASE_REG = 0x20000000; // IRAM-APP1
+    PMP_CONF_1_0_MASK_REG = 0xFFFF0000; // 0x20000000 - 0x2000FFFF
+    PMP_CONF_1_1_BASE_REG = 0x20020000; // SRAM-APP1
+    PMP_CONF_1_1_MASK_REG = 0xFFFF0000; // 0x20020000 - 0x2002FFFF
+    PMP_CONF_1_2_BASE_REG = 0x40010000; // MAILBOX_0
+    PMP_CONF_1_2_MASK_REG = 0xFFFF0000; // 0x40010000 - 0x4001FFFF
+    PMP_CONF_1_3_BASE_REG = 0x40020000; // MAILBOX_1
+    PMP_CONF_1_3_MASK_REG = 0xFFFF0000; // 0x40020000 - 0x4002FFFF
+    PMP_CONF_1_4_BASE_REG = 0x60028000; // USI_1
+    PMP_CONF_1_4_MASK_REG = 0xFFFFF000; // 0x60028000 - 0x60028FFF
+    PMP_CONF_1_5_BASE_REG = 0x60029000; // GPIO
+    PMP_CONF_1_5_MASK_REG = 0xFFFFF000; // 0x60029000 - 0x60029FFF
+    PMP_CONF_1_6_BASE_REG = 0xE000E000; // TCIP
+    PMP_CONF_1_6_MASK_REG = 0xFFFFE000; // 0xE000E000 - 0xE000FFFF
+    PMP_CONF_1_7_BASE_REG = 0x00000000; // DCC
+    PMP_CONF_1_7_MASK_REG = 0x00000000; // 0xE0011000 - 0xE001FFFF
 
-    PMP_CTRL_0_REG = 0x01;
-    PMP_CTRL_1_REG = 0x01;
+    PMP_CTRL_0_REG = 0x81;
+    PMP_CTRL_1_REG = 0xff;
 }
 
 uint8_t pmp_get_hit(uint8_t idx)
@@ -269,6 +269,24 @@ uint8_t pmp_get_hit(uint8_t idx)
         return PMP_CTRL_1_REG >> 8;
     } else {
         return PMP_CTRL_0_REG >> 8;
+    }
+}
+
+uint8_t pmp_get_err(uint8_t idx)
+{
+    if (idx) {
+        return PMP_CTRL_1_REG >> 16;
+    } else {
+        return PMP_CTRL_0_REG >> 16;
+    }
+}
+
+uint32_t pmp_get_dump(uint8_t idx)
+{
+    if (idx) {
+        return PMP_DUMP_1_REG;
+    } else {
+        return PMP_DUMP_0_REG;
     }
 }
 
@@ -326,9 +344,11 @@ void gpio_toggle(void)
 
 int main(void)
 {
-    int loop_count = 1;
+    int loop_count = 100;
     uint8_t mail_id = 0;
     uint8_t mail_buff[1024] = {0};
+
+    pmu_set_reset(0);
 
     pwm_init();
     pmp_init();
@@ -340,6 +360,14 @@ int main(void)
 
     printf("app0: start core 1...\n");
 
+    snprintf((char *)mail_buff, sizeof(mail_buff), "Hello from core 0! The message id is %u\n", loop_count);
+
+    while (mailbox_send_message(loop_count, mail_buff, strlen((char *)mail_buff)) < 0) {
+        mdelay(625);
+    }
+
+    printf("app0: mail %u is sent to remote core\n", loop_count);
+
     do {
         printf("app0: loop count: %d\n", loop_count++);
 
@@ -350,7 +378,9 @@ int main(void)
 
             snprintf((char *)mail_buff, sizeof(mail_buff), "Hello from core 0! The message id is %u\n", loop_count);
 
-            mailbox_send_message(loop_count, mail_buff, strlen((char *)mail_buff));
+            while (mailbox_send_message(loop_count, mail_buff, strlen((char *)mail_buff)) < 0) {
+                mdelay(625);
+            }
 
             printf("app0: mail %u is sent to remote core\n", loop_count);
         }
@@ -360,13 +390,22 @@ int main(void)
 
             printf("app0: mail %u is received: %s\n", mail_id, (char *)mail_buff);
 
-            mailbox_send_ack(mail_id);
+            while (mailbox_send_ack(mail_id) < 0) {
+                mdelay(625);
+            }
 
             printf("app0: mail %u is acked\n", mail_id);
         }
 
-        printf("app0: iopmp port 0 status: %02x\n", pmp_get_hit(0));
-        printf("app0: iopmp port 1 status: %02x\n", pmp_get_hit(1));
+        if (pmp_get_err(0)) {
+            printf("app0: iopmp port 0 hit: 0x%02x\n", pmp_get_hit(0));
+            printf("app0: iopmp port 0 err: 0x%08x\n", pmp_get_dump(0));
+        }
+
+        if (pmp_get_err(1)) {
+            printf("app0: iopmp port 1 hit: 0x%02x\n", pmp_get_hit(1));
+            printf("app0: iopmp port 1 err: 0x%08x\n", pmp_get_dump(1));
+        }
 
         mdelay(1000);
     } while (1);

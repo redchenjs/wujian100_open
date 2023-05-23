@@ -67,7 +67,7 @@ sms_bank_64k_top #(
   .DEPTH(8192)
 ) mbox_32k_top (
   .big_endian_b (1'b1),
-  .mem_haddr(haddr[14:0]),
+  .mem_haddr(haddr),
   .mem_hclk(hclk),
   .mem_hprot(hprot),
   .mem_hrdata(ram_hrdata),
@@ -75,11 +75,11 @@ sms_bank_64k_top #(
   .mem_hready_resp(ram_hready),
   .mem_hresp(ram_hresp),
   .mem_hrst_b(hresetn),
-  .mem_hsel(haddr[15] & hsel),
+  .mem_hsel(hsel),
   .mem_hsize(hsize),
   .mem_htrans(htrans),
   .mem_hwdata(hwdata),
-  .mem_hwrite(hwrite),
+  .mem_hwrite(hwrite & haddr[15]),
   .region_rd_deny_flag(1'b0),
   .region_wr_deny_flag(1'b0),
   .sms_idle0()

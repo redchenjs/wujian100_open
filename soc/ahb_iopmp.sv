@@ -88,10 +88,15 @@ module ahb_iopmp #(
 );
 
 typedef struct packed {
-    logic [31:16] rsvd;
+    logic [31:17] rsvd;
+    logic         err;
     logic  [15:8] hit;
     logic   [7:0] en;
 } pmp_ctrl_t;
+
+typedef struct packed {
+    logic [31:0] addr;
+} pmp_dump_t;
 
 typedef struct packed {
     logic [31:0] mask;
@@ -100,6 +105,9 @@ typedef struct packed {
 
 pmp_ctrl_t pmp_ctrl_0;
 pmp_ctrl_t pmp_ctrl_1;
+
+pmp_dump_t pmp_dump_0;
+pmp_dump_t pmp_dump_1;
 
 pmp_conf_t pmp_conf_0_0;
 pmp_conf_t pmp_conf_0_1;
@@ -185,6 +193,9 @@ begin
         pmp_ctrl_0 <= 'b0;
         pmp_ctrl_1 <= 'b0;
 
+        pmp_dump_0 <= 'b0;
+        pmp_dump_1 <= 'b0;
+
         pmp_conf_0_0 <= 'b0;
         pmp_conf_0_1 <= 'b0;
         pmp_conf_0_2 <= 'b0;
@@ -208,6 +219,12 @@ begin
 
         pmp_ctrl_0.hit <= |pmp_addr_0_hit ? pmp_addr_0_hit : pmp_ctrl_0.hit;
         pmp_ctrl_1.hit <= |pmp_addr_1_hit ? pmp_addr_1_hit : pmp_ctrl_1.hit;
+
+        pmp_ctrl_0.err <= !(|pmp_addr_0_hit) & (s0_htrans != AHB_TRANS_IDLE) ? 'b1 : pmp_ctrl_0.err;
+        pmp_ctrl_1.err <= !(|pmp_addr_1_hit) & (s1_htrans != AHB_TRANS_IDLE) ? 'b1 : pmp_ctrl_1.err;
+
+        pmp_dump_0.addr <= !(|pmp_addr_0_hit) & (s0_htrans != AHB_TRANS_IDLE) ? s0_haddr : pmp_dump_0.addr;
+        pmp_dump_1.addr <= !(|pmp_addr_1_hit) & (s1_htrans != AHB_TRANS_IDLE) ? s1_haddr : pmp_dump_1.addr;
 
         if (hsel_r) begin
             case (haddr_r[7:0])
@@ -323,6 +340,12 @@ begin
                 end
                 8'h04: begin
                     hrdata <= pmp_ctrl_1;
+                end
+                8'h08: begin
+                    hrdata <= pmp_dump_0;
+                end
+                8'h0C: begin
+                    hrdata <= pmp_dump_1;
                 end
                 8'h10: begin
                     hrdata <= pmp_conf_0_0.base;

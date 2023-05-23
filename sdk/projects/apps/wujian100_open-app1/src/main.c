@@ -60,6 +60,8 @@ void mailbox_irq_handler(void)
 
 void mailbox_init(void)
 {
+    MBOX_L_CTRL_REG = 0x00000000;
+
     drv_irq_register(MAILBOX_IRQ_NUM, mailbox_irq_handler);
     drv_irq_enable(MAILBOX_IRQ_NUM);
 }
@@ -79,7 +81,7 @@ int mailbox_read_message(uint8_t *id, void *buff, uint32_t buff_size)
 {
     uint16_t size = (MBOX_L_CTRL_REG & 0x7fff00) >> 8;
 
-    if (size < buff_size) {
+    if (size > buff_size) {
         return -1;
     }
 
@@ -117,7 +119,7 @@ int mailbox_send_message(uint8_t id, const void *buff, uint32_t len)
 
     memcpy((void *)MBOX_R_DATA_RAM_BASE, buff, len);
 
-    MBOX_R_CTRL_REG = id | (len << 8) | MBOX_FLAG_BIT | MBOX_INTR_BIT;
+    MBOX_R_CTRL_REG = id | (len << 8) | MBOX_FULL_BIT | MBOX_INTR_BIT;
     
     return len;
 }
@@ -176,7 +178,7 @@ void gpio_toggle(void)
 
 int main(void)
 {
-    int loop_count = 1;
+    int loop_count = 200;
     uint8_t mail_id = 0;
     uint8_t mail_buff[1024] = {0};
 
@@ -184,6 +186,14 @@ int main(void)
     mailbox_init();
 
     printf("app1: started.\n");
+
+    snprintf((char *)mail_buff, sizeof(mail_buff), "Hello from core 1! The message id is %u\n", loop_count);
+
+    while (mailbox_send_message(loop_count, mail_buff, strlen((char *)mail_buff)) < 0) {
+        mdelay(625);
+    }
+
+    printf("app1: mail %u is sent to remote core\n", loop_count);
 
     do {
         printf("app1: loop count: %d\n", loop_count++);
@@ -195,7 +205,9 @@ int main(void)
 
             snprintf((char *)mail_buff, sizeof(mail_buff), "Hello from core 1! The message id is %u\n", loop_count);
 
-            mailbox_send_message(loop_count, mail_buff, strlen((char *)mail_buff));
+            while (mailbox_send_message(loop_count, mail_buff, strlen((char *)mail_buff)) < 0) {
+                mdelay(625);
+            }
 
             printf("app1: mail %u is sent to remote core\n", loop_count);
         }
@@ -205,7 +217,9 @@ int main(void)
 
             printf("app1: mail %u is received: %s\n", mail_id, (char *)mail_buff);
 
-            mailbox_send_ack(mail_id);
+            while (mailbox_send_ack(mail_id) < 0) {
+                mdelay(625);
+            }
 
             printf("app1: mail %u is acked\n", mail_id);
         }
