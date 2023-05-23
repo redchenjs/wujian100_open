@@ -12,8 +12,8 @@
 #include <string.h>
 #include <sys/stat.h>
 
-#define FIRMWARE_SIZE_APP_0_MAX  (64 * 1024)
-#define FIRMWARE_SIZE_APP_1_MAX  (64 * 1024)
+#define FIRMWARE_SIZE_APP_0_PADDING  (0x00100000)
+#define FIRMWARE_SIZE_APP_1_PADDING  (0x00100000)
 
 int main(int argc, char *argv[])
 {
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
     data_buf = NULL;
 
     // firmware 0 padding
-    size = FIRMWARE_SIZE_APP_0_MAX - st.st_size - 4 - 256;
+    size = FIRMWARE_SIZE_APP_0_PADDING - st.st_size - 4 - 256;
     data_buf = calloc(1, size);
     fwrite(data_buf, 1, size, fd_outfile);
     free(data_buf);
@@ -106,7 +106,7 @@ int main(int argc, char *argv[])
     data_buf = NULL;
 
     // firmware 1 padding
-    size = FIRMWARE_SIZE_APP_1_MAX - st.st_size - 4 - 256;
+    size = FIRMWARE_SIZE_APP_1_PADDING - st.st_size - 4 - 256;
     data_buf = calloc(1, size);
     fwrite(data_buf, 1, size, fd_outfile);
     free(data_buf);
