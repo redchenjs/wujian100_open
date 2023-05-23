@@ -39,7 +39,7 @@ uint8_t mail_id = 0;
 bool mail_acked = false;
 bool mail_pending = false;
 
-void mailbox_irq_handler(void)
+void mbox_irq_handler(void)
 {
     if (MBOX_L_CTRL_REG & MBOX_RESP_BIT) {
         mail_acked = true;
@@ -50,7 +50,7 @@ void mailbox_irq_handler(void)
     MBOX_L_CTRL_REG &=~MBOX_INTR_BIT;
 }
 
-void mailbox_init(uint8_t core_id)
+void mbox_init(uint8_t core_id)
 {
     if (core_id == 0) {
         MBOX_L_CTRL_REG_BASE = (volatile uint32_t *)MBOX_0_CTRL_REG_BASE;
@@ -68,21 +68,21 @@ void mailbox_init(uint8_t core_id)
 
     MBOX_L_CTRL_REG = 0x00000000;
 
-    drv_irq_register(MAILBOX_IRQ_NUM, mailbox_irq_handler);
+    drv_irq_register(MAILBOX_IRQ_NUM, mbox_irq_handler);
     drv_irq_enable(MAILBOX_IRQ_NUM);
 }
 
-bool mailbox_check_acked(void)
+bool mbox_check_acked(void)
 {
     return mail_acked;
 }
 
-bool mailbox_check_pending(void)
+bool mbox_check_pending(void)
 {
     return mail_pending;
 }
 
-int mailbox_read_ack(void)
+int mbox_read_ack(void)
 {
     uint8_t id = MBOX_L_CTRL_REG & 0xff;
 
@@ -93,7 +93,7 @@ int mailbox_read_ack(void)
     return id;
 }
 
-int mailbox_read_message(uint8_t *id, void *buff, uint32_t buff_size)
+int mbox_read_message(uint8_t *id, void *buff, uint32_t buff_size)
 {
     uint16_t size = (MBOX_L_CTRL_REG & 0x7fff00) >> 8;
 
@@ -112,7 +112,7 @@ int mailbox_read_message(uint8_t *id, void *buff, uint32_t buff_size)
     return size;
 }
 
-int mailbox_send_ack(uint8_t id)
+int mbox_send_ack(uint8_t id)
 {
     if (MBOX_R_CTRL_REG & MBOX_FULL_BIT) {
         return -1;
@@ -123,7 +123,7 @@ int mailbox_send_ack(uint8_t id)
     return 0;
 }
 
-int mailbox_send_message(uint8_t id, const void *buff, uint32_t len)
+int mbox_send_message(uint8_t id, const void *buff, uint32_t len)
 {
     if (MBOX_R_CTRL_REG & MBOX_FULL_BIT) {
         return -1;

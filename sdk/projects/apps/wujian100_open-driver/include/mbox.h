@@ -11,15 +11,15 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-extern void mailbox_init(uint8_t core_id);
+extern void mbox_init(uint8_t core_id);
 
-extern bool mailbox_check_acked(void);
-extern bool mailbox_check_pending(void);
+extern bool mbox_check_acked(void);
+extern bool mbox_check_pending(void);
 
-extern int mailbox_read_ack(void);
-extern int mailbox_read_message(uint8_t *id, void *buff, uint32_t buff_size);
+extern int mbox_read_ack(void);
+extern int mbox_read_message(uint8_t *id, void *buff, uint32_t buff_size);
 
-extern int mailbox_send_ack(uint8_t id);
-extern int mailbox_send_message(uint8_t id, const void *buff, uint32_t len);
+extern int mbox_send_ack(uint8_t id);
+extern int mbox_send_message(uint8_t id, const void *buff, uint32_t len);
 
 #endif /* INC_DRIVER_MBOX_H_ */

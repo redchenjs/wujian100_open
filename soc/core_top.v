@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 module core_top #(
   parameter IBUS_BASE = 12'h000,
-  parameter IBUS_MASK = 12'h000,
+  parameter IBUS_MASK = 12'he00,
   parameter RESET_VECTOR = 32'h0000_0000
 ) (
   apb0_dummy1_intr,

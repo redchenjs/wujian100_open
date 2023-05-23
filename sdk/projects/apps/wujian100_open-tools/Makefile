@@ -35,4 +35,5 @@ clean:
 	@$(RM) -f rsa_sign
 	@echo RM rsa_verify
 	@$(RM) -f rsa_verify
+	@$(RM) -f flash.bin
 	@$(RM) -rf $(OBJDIR)
