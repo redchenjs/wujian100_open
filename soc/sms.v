@@ -103,7 +103,7 @@ end
 assign byte_wen_b[3:0] =  byte_sel_b[3:0] | {4{mbk_wen_b}};
 ram_sp #(
   .INIT(1),
-  .FILE("D:\\Works\\Xilinx\\wujian100_open\\soc\\brom.txt"),
+  .FILE("brom.txt"),
   .WIDTH(WIDTH),
   .DEPTH(DEPTH),
   .OUT_REG(1)
