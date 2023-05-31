@@ -1092,7 +1092,7 @@ pdu_top  x_pdu_top (
 );
 core_top #(
   .IBUS_BASE(16'h0000),
-  .IBUS_MASK(16'he000),
+  .IBUS_MASK(16'hefff),
   .RESET_VECTOR(32'h0000_0000)
 ) x_cpu_top (
   .apb0_dummy1_intr      (apb0_dummy1_intr     ),
