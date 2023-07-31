@@ -1,8 +1,8 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0xF711373EC949725F",
-      "device": "xc7z020clg400-2",
+      "boundary_crc": "0x3C8DEE8E8623AC83",
+      "device": "xc7z020clg400-3",
       "gen_directory": "../../../../wujian100_open.gen/sources_1/bd/design_1",
       "name": "design_1",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
@@ -11,8 +11,8 @@
       "validated": "true"
     },
     "design_tree": {
-      "processing_system7_0": "",
       "clk_wiz_0": "",
+      "processing_system7_0": "",
       "util_vector_logic_0": "",
       "util_vector_logic_1": "",
       "wujian100_open_top_0": ""
@@ -251,16 +251,16 @@
       "EXT_JTAG_TMS_1": {
         "direction": "IO"
       },
-      "EXT_FLASH_NSS_0": {
+      "EXT_SPI_NSS_0": {
         "direction": "IO"
       },
-      "EXT_FLASH_SCK": {
+      "EXT_SPI_SCK": {
         "direction": "IO"
       },
-      "EXT_FLASH_SDO": {
+      "EXT_SPI_SDO": {
         "direction": "IO"
       },
-      "EXT_FLASH_SDI": {
+      "EXT_SPI_SDI": {
         "direction": "IO"
       },
       "EXT_UART_TXD_0": {
@@ -338,7 +338,7 @@
           }
         }
       },
-      "EXT_FLASH_NSS_1": {
+      "EXT_SPI_NSS_1": {
         "direction": "IO"
       },
       "EXT_BEEP": {
@@ -361,6 +361,113 @@
       }
     },
     "components": {
+      "clk_wiz_0": {
+        "vlnv": "xilinx.com:ip:clk_wiz:6.0",
+        "xci_name": "design_1_clk_wiz_0_0",
+        "xci_path": "ip\\design_1_clk_wiz_0_0\\design_1_clk_wiz_0_0.xci",
+        "inst_hier_path": "clk_wiz_0",
+        "parameters": {
+          "CLKIN1_JITTER_PS": {
+            "value": "200.0"
+          },
+          "CLKOUT1_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT1_JITTER": {
+            "value": "249.363"
+          },
+          "CLKOUT1_PHASE_ERROR": {
+            "value": "164.985"
+          },
+          "CLKOUT1_REQUESTED_OUT_FREQ": {
+            "value": "20.000"
+          },
+          "CLKOUT2_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT2_JITTER": {
+            "value": "943.481"
+          },
+          "CLKOUT2_PHASE_ERROR": {
+            "value": "919.522"
+          },
+          "CLKOUT2_REQUESTED_OUT_FREQ": {
+            "value": "100.000"
+          },
+          "CLKOUT2_USED": {
+            "value": "false"
+          },
+          "CLKOUT3_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT4_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT5_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT6_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "CLKOUT7_DRIVES": {
+            "value": "BUFGCE"
+          },
+          "ENABLE_CLOCK_MONITOR": {
+            "value": "false"
+          },
+          "FEEDBACK_SOURCE": {
+            "value": "FDBK_AUTO"
+          },
+          "MMCM_BANDWIDTH": {
+            "value": "OPTIMIZED"
+          },
+          "MMCM_CLKFBOUT_MULT_F": {
+            "value": "20.000"
+          },
+          "MMCM_CLKIN1_PERIOD": {
+            "value": "20.000"
+          },
+          "MMCM_CLKIN2_PERIOD": {
+            "value": "10.0"
+          },
+          "MMCM_CLKOUT0_DIVIDE_F": {
+            "value": "50.000"
+          },
+          "MMCM_CLKOUT1_DIVIDE": {
+            "value": "1"
+          },
+          "MMCM_COMPENSATION": {
+            "value": "ZHOLD"
+          },
+          "MMCM_DIVCLK_DIVIDE": {
+            "value": "1"
+          },
+          "NUM_OUT_CLKS": {
+            "value": "1"
+          },
+          "PRIMITIVE": {
+            "value": "MMCM"
+          },
+          "USE_CLKFB_STOPPED": {
+            "value": "false"
+          },
+          "USE_INCLK_STOPPED": {
+            "value": "false"
+          },
+          "USE_LOCKED": {
+            "value": "false"
+          },
+          "USE_POWER_DOWN": {
+            "value": "false"
+          },
+          "USE_RESET": {
+            "value": "false"
+          },
+          "USE_SAFE_CLOCK_STARTUP": {
+            "value": "true"
+          }
+        }
+      },
       "processing_system7_0": {
         "vlnv": "xilinx.com:ip:processing_system7:5.5",
         "xci_name": "design_1_processing_system7_0_0",
@@ -368,7 +475,7 @@
         "inst_hier_path": "processing_system7_0",
         "parameters": {
           "PCW_ACT_APU_PERIPHERAL_FREQMHZ": {
-            "value": "766.666687"
+            "value": "50.000000"
           },
           "PCW_ACT_CAN0_PERIPHERAL_FREQMHZ": {
             "value": "23.8095"
@@ -380,7 +487,7 @@
             "value": "10.000000"
           },
           "PCW_ACT_DCI_PERIPHERAL_FREQMHZ": {
-            "value": "10.158730"
+            "value": "10.062893"
           },
           "PCW_ACT_ENET0_PERIPHERAL_FREQMHZ": {
             "value": "10.000000"
@@ -422,22 +529,22 @@
             "value": "200.000000"
           },
           "PCW_ACT_TTC0_CLK0_PERIPHERAL_FREQMHZ": {
-            "value": "127.777786"
+            "value": "8.333334"
           },
           "PCW_ACT_TTC0_CLK1_PERIPHERAL_FREQMHZ": {
-            "value": "127.777786"
+            "value": "8.333334"
           },
           "PCW_ACT_TTC0_CLK2_PERIPHERAL_FREQMHZ": {
-            "value": "127.777786"
+            "value": "8.333334"
           },
           "PCW_ACT_TTC1_CLK0_PERIPHERAL_FREQMHZ": {
-            "value": "127.777786"
+            "value": "8.333334"
           },
           "PCW_ACT_TTC1_CLK1_PERIPHERAL_FREQMHZ": {
-            "value": "127.777786"
+            "value": "8.333334"
           },
           "PCW_ACT_TTC1_CLK2_PERIPHERAL_FREQMHZ": {
-            "value": "127.777786"
+            "value": "8.333334"
           },
           "PCW_ACT_TTC_PERIPHERAL_FREQMHZ": {
             "value": "50"
@@ -452,13 +559,13 @@
             "value": "60"
           },
           "PCW_ACT_WDT_PERIPHERAL_FREQMHZ": {
-            "value": "127.777786"
+            "value": "8.333334"
           },
           "PCW_APU_CLK_RATIO_ENABLE": {
             "value": "6:2:1"
           },
           "PCW_APU_PERIPHERAL_FREQMHZ": {
-            "value": "767"
+            "value": "50"
           },
           "PCW_CAN0_PERIPHERAL_CLKSRC": {
             "value": "External"
@@ -491,7 +598,7 @@
             "value": "10000000"
           },
           "PCW_CPU_CPU_6X4X_MAX_RANGE": {
-            "value": "767"
+            "value": "867"
           },
           "PCW_CPU_PERIPHERAL_CLKSRC": {
             "value": "ARM PLL"
@@ -1194,7 +1301,7 @@
             "value": "1"
           },
           "PCW_UIPARAM_ACT_DDR_FREQ_MHZ": {
-            "value": "533.333374"
+            "value": "400.000000"
           },
           "PCW_UIPARAM_DDR_ADV_ENABLE": {
             "value": "0"
@@ -1347,7 +1454,7 @@
             "value": "1"
           },
           "PCW_UIPARAM_DDR_FREQ_MHZ": {
-            "value": "534"
+            "value": "400"
           },
           "PCW_UIPARAM_DDR_HIGH_TEMP": {
             "value": "Normal (0-85)"
@@ -1471,113 +1578,6 @@
           },
           "PCW_WDT_PERIPHERAL_ENABLE": {
             "value": "0"
-          }
-        }
-      },
-      "clk_wiz_0": {
-        "vlnv": "xilinx.com:ip:clk_wiz:6.0",
-        "xci_name": "design_1_clk_wiz_0_0",
-        "xci_path": "ip\\design_1_clk_wiz_0_0\\design_1_clk_wiz_0_0.xci",
-        "inst_hier_path": "clk_wiz_0",
-        "parameters": {
-          "CLKIN1_JITTER_PS": {
-            "value": "200.0"
-          },
-          "CLKOUT1_DRIVES": {
-            "value": "BUFGCE"
-          },
-          "CLKOUT1_JITTER": {
-            "value": "249.363"
-          },
-          "CLKOUT1_PHASE_ERROR": {
-            "value": "164.985"
-          },
-          "CLKOUT1_REQUESTED_OUT_FREQ": {
-            "value": "20.000"
-          },
-          "CLKOUT2_DRIVES": {
-            "value": "BUFGCE"
-          },
-          "CLKOUT2_JITTER": {
-            "value": "943.481"
-          },
-          "CLKOUT2_PHASE_ERROR": {
-            "value": "919.522"
-          },
-          "CLKOUT2_REQUESTED_OUT_FREQ": {
-            "value": "100.000"
-          },
-          "CLKOUT2_USED": {
-            "value": "false"
-          },
-          "CLKOUT3_DRIVES": {
-            "value": "BUFGCE"
-          },
-          "CLKOUT4_DRIVES": {
-            "value": "BUFGCE"
-          },
-          "CLKOUT5_DRIVES": {
-            "value": "BUFGCE"
-          },
-          "CLKOUT6_DRIVES": {
-            "value": "BUFGCE"
-          },
-          "CLKOUT7_DRIVES": {
-            "value": "BUFGCE"
-          },
-          "ENABLE_CLOCK_MONITOR": {
-            "value": "false"
-          },
-          "FEEDBACK_SOURCE": {
-            "value": "FDBK_AUTO"
-          },
-          "MMCM_BANDWIDTH": {
-            "value": "OPTIMIZED"
-          },
-          "MMCM_CLKFBOUT_MULT_F": {
-            "value": "20.000"
-          },
-          "MMCM_CLKIN1_PERIOD": {
-            "value": "20.000"
-          },
-          "MMCM_CLKIN2_PERIOD": {
-            "value": "10.0"
-          },
-          "MMCM_CLKOUT0_DIVIDE_F": {
-            "value": "50.000"
-          },
-          "MMCM_CLKOUT1_DIVIDE": {
-            "value": "1"
-          },
-          "MMCM_COMPENSATION": {
-            "value": "ZHOLD"
-          },
-          "MMCM_DIVCLK_DIVIDE": {
-            "value": "1"
-          },
-          "NUM_OUT_CLKS": {
-            "value": "1"
-          },
-          "PRIMITIVE": {
-            "value": "MMCM"
-          },
-          "USE_CLKFB_STOPPED": {
-            "value": "false"
-          },
-          "USE_INCLK_STOPPED": {
-            "value": "false"
-          },
-          "USE_LOCKED": {
-            "value": "false"
-          },
-          "USE_POWER_DOWN": {
-            "value": "false"
-          },
-          "USE_RESET": {
-            "value": "false"
-          },
-          "USE_SAFE_CLOCK_STARTUP": {
-            "value": "true"
           }
         }
       },
@@ -1916,25 +1916,25 @@
       },
       "Net": {
         "ports": [
-          "EXT_FLASH_SCK",
+          "EXT_SPI_SCK",
           "wujian100_open_top_0/PAD_USI2_SCLK"
         ]
       },
       "Net1": {
         "ports": [
-          "EXT_FLASH_SDI",
+          "EXT_SPI_SDI",
           "wujian100_open_top_0/PAD_USI2_SD1"
         ]
       },
       "Net2": {
         "ports": [
-          "EXT_FLASH_NSS_0",
+          "EXT_SPI_NSS_0",
           "wujian100_open_top_0/PAD_GPIO_1"
         ]
       },
       "Net3": {
         "ports": [
-          "EXT_FLASH_SDO",
+          "EXT_SPI_SDO",
           "wujian100_open_top_0/PAD_USI2_SD0"
         ]
       },
@@ -2000,7 +2000,7 @@
       },
       "Net14": {
         "ports": [
-          "EXT_FLASH_NSS_1",
+          "EXT_SPI_NSS_1",
           "wujian100_open_top_0/PAD_GPIO_2"
         ]
       },

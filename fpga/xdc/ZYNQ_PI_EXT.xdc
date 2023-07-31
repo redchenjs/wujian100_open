@@ -1,8 +1,17 @@
-create_clock -period 20 [get_ports {PL_CLK_50M}]
+create_generated_clock -name CLK_CORE_HS [get_pins design_1_i/clk_wiz_0/inst/mmcm_adv_inst/CLKOUT0]
+
+# create_clock -name CLK_CORE_HS   -period    20 [get_ports {PL_CLK_50M}]
+create_clock -name CLK_CORE_LS   -period 30517 [get_ports {PL_CLK_32K}]
+create_clock -name CLK_JTAG_CK_0 -period   500 [get_ports {EXT_JTAG_TCK_0}]
+create_clock -name CLK_JTAG_CK_1 -period   500 [get_ports {EXT_JTAG_TCK_1}]
 
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {PL_CLK_32K}]
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {EXT_JTAG_TCK_0}]
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets {EXT_JTAG_TCK_1}]
+
+# set_clock_groups -asynchronous -group [get_clocks CLK_CORE_HS] -group [get_clocks CLK_CORE_LS]
+# set_clock_groups -asynchronous -group [get_clocks CLK_CORE_HS] -group [get_clocks CLK_JTAG_CK_0]
+# set_clock_groups -asynchronous -group [get_clocks CLK_CORE_HS] -group [get_clocks CLK_JTAG_CK_1]
 
 set_property -dict {PACKAGE_PIN K17 IOSTANDARD LVCMOS33} [get_ports {PL_CLK_50M}]
 set_property -dict {PACKAGE_PIN W10 IOSTANDARD LVCMOS33} [get_ports {PL_CLK_32K}]

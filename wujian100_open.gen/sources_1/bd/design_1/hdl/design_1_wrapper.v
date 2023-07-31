@@ -2,7 +2,7 @@
 //Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2023.1.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
-//Date        : Mon Jul 31 12:06:04 2023
+//Date        : Mon Jul 31 17:23:38 2023
 //Host        : ThinPC running 64-bit major release  (build 9200)
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
@@ -27,11 +27,6 @@ module design_1_wrapper
     DDR_reset_n,
     DDR_we_n,
     EXT_BEEP,
-    EXT_FLASH_NSS_0,
-    EXT_FLASH_NSS_1,
-    EXT_FLASH_SCK,
-    EXT_FLASH_SDI,
-    EXT_FLASH_SDO,
     EXT_JTAG_TCK_0,
     EXT_JTAG_TCK_1,
     EXT_JTAG_TMS_0,
@@ -48,6 +43,11 @@ module design_1_wrapper
     EXT_LED_2,
     EXT_LED_3,
     EXT_LED_4,
+    EXT_SPI_NSS_0,
+    EXT_SPI_NSS_1,
+    EXT_SPI_SCK,
+    EXT_SPI_SDI,
+    EXT_SPI_SDO,
     EXT_UART_RXD_0,
     EXT_UART_RXD_1,
     EXT_UART_TXD_0,
@@ -77,11 +77,6 @@ module design_1_wrapper
   inout DDR_reset_n;
   inout DDR_we_n;
   inout EXT_BEEP;
-  inout EXT_FLASH_NSS_0;
-  inout EXT_FLASH_NSS_1;
-  inout EXT_FLASH_SCK;
-  inout EXT_FLASH_SDI;
-  inout EXT_FLASH_SDO;
   inout EXT_JTAG_TCK_0;
   inout EXT_JTAG_TCK_1;
   inout EXT_JTAG_TMS_0;
@@ -98,6 +93,11 @@ module design_1_wrapper
   inout EXT_LED_2;
   output EXT_LED_3;
   inout EXT_LED_4;
+  inout EXT_SPI_NSS_0;
+  inout EXT_SPI_NSS_1;
+  inout EXT_SPI_SCK;
+  inout EXT_SPI_SDI;
+  inout EXT_SPI_SDO;
   inout EXT_UART_RXD_0;
   inout EXT_UART_RXD_1;
   inout EXT_UART_TXD_0;
@@ -128,11 +128,6 @@ module design_1_wrapper
   wire DDR_reset_n;
   wire DDR_we_n;
   wire EXT_BEEP;
-  wire EXT_FLASH_NSS_0;
-  wire EXT_FLASH_NSS_1;
-  wire EXT_FLASH_SCK;
-  wire EXT_FLASH_SDI;
-  wire EXT_FLASH_SDO;
   wire EXT_JTAG_TCK_0;
   wire EXT_JTAG_TCK_1;
   wire EXT_JTAG_TMS_0;
@@ -149,6 +144,11 @@ module design_1_wrapper
   wire EXT_LED_2;
   wire EXT_LED_3;
   wire EXT_LED_4;
+  wire EXT_SPI_NSS_0;
+  wire EXT_SPI_NSS_1;
+  wire EXT_SPI_SCK;
+  wire EXT_SPI_SDI;
+  wire EXT_SPI_SDO;
   wire EXT_UART_RXD_0;
   wire EXT_UART_RXD_1;
   wire EXT_UART_TXD_0;
@@ -180,11 +180,6 @@ module design_1_wrapper
         .DDR_reset_n(DDR_reset_n),
         .DDR_we_n(DDR_we_n),
         .EXT_BEEP(EXT_BEEP),
-        .EXT_FLASH_NSS_0(EXT_FLASH_NSS_0),
-        .EXT_FLASH_NSS_1(EXT_FLASH_NSS_1),
-        .EXT_FLASH_SCK(EXT_FLASH_SCK),
-        .EXT_FLASH_SDI(EXT_FLASH_SDI),
-        .EXT_FLASH_SDO(EXT_FLASH_SDO),
         .EXT_JTAG_TCK_0(EXT_JTAG_TCK_0),
         .EXT_JTAG_TCK_1(EXT_JTAG_TCK_1),
         .EXT_JTAG_TMS_0(EXT_JTAG_TMS_0),
@@ -201,6 +196,11 @@ module design_1_wrapper
         .EXT_LED_2(EXT_LED_2),
         .EXT_LED_3(EXT_LED_3),
         .EXT_LED_4(EXT_LED_4),
+        .EXT_SPI_NSS_0(EXT_SPI_NSS_0),
+        .EXT_SPI_NSS_1(EXT_SPI_NSS_1),
+        .EXT_SPI_SCK(EXT_SPI_SCK),
+        .EXT_SPI_SDI(EXT_SPI_SDI),
+        .EXT_SPI_SDO(EXT_SPI_SDO),
         .EXT_UART_RXD_0(EXT_UART_RXD_0),
         .EXT_UART_RXD_1(EXT_UART_RXD_1),
         .EXT_UART_TXD_0(EXT_UART_TXD_0),
