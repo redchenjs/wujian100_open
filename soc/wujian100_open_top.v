@@ -1416,34 +1416,34 @@ PAD_DIG_IO  x_PAD_GPIO_1 (
   .OEN                     (pad_gpio_oen[1]        ),
   .PAD                     (PAD_GPIO_1             )
 );
-// PAD_DIG_IO  x_PAD_GPIO_2 (
-//   .ID                      (ioctl_gpio_ext_porta[2]),
-//   .IEN                     (pad_gpio_ien[2]        ),
-//   .OD                      (gpio_ioctl_porta_dr[2] ),
-//   .OEN                     (pad_gpio_oen[2]        ),
-//   .PAD                     (PAD_GPIO_2             )
-// );
-// PAD_DIG_IO  x_PAD_GPIO_3 (
-//   .ID                      (ioctl_gpio_ext_porta[3]),
-//   .IEN                     (pad_gpio_ien[3]        ),
-//   .OD                      (gpio_ioctl_porta_dr[3] ),
-//   .OEN                     (pad_gpio_oen[3]        ),
-//   .PAD                     (PAD_GPIO_3             )
-// );
-// PAD_DIG_IO  x_PAD_GPIO_4 (
-//   .ID                      (ioctl_gpio_ext_porta[4]),
-//   .IEN                     (pad_gpio_ien[4]        ),
-//   .OD                      (gpio_ioctl_porta_dr[4] ),
-//   .OEN                     (pad_gpio_oen[4]        ),
-//   .PAD                     (PAD_GPIO_4             )
-// );
-// PAD_DIG_IO  x_PAD_GPIO_5 (
-//   .ID                      (ioctl_gpio_ext_porta[5]),
-//   .IEN                     (pad_gpio_ien[5]        ),
-//   .OD                      (gpio_ioctl_porta_dr[5] ),
-//   .OEN                     (pad_gpio_oen[5]        ),
-//   .PAD                     (PAD_GPIO_5             )
-// );
+PAD_DIG_IO  x_PAD_GPIO_2 (
+  .ID                      (ioctl_gpio_ext_porta[2]),
+  .IEN                     (pad_gpio_ien[2]        ),
+  .OD                      (gpio_ioctl_porta_dr[2] ),
+  .OEN                     (pad_gpio_oen[2]        ),
+  .PAD                     (PAD_GPIO_2             )
+);
+PAD_DIG_IO  x_PAD_GPIO_3 (
+  .ID                      (ioctl_gpio_ext_porta[3]),
+  .IEN                     (pad_gpio_ien[3]        ),
+  .OD                      (gpio_ioctl_porta_dr[3] ),
+  .OEN                     (pad_gpio_oen[3]        ),
+  .PAD                     (PAD_GPIO_3             )
+);
+PAD_DIG_IO  x_PAD_GPIO_4 (
+  .ID                      (ioctl_gpio_ext_porta[4]),
+  .IEN                     (pad_gpio_ien[4]        ),
+  .OD                      (gpio_ioctl_porta_dr[4] ),
+  .OEN                     (pad_gpio_oen[4]        ),
+  .PAD                     (PAD_GPIO_4             )
+);
+PAD_DIG_IO  x_PAD_GPIO_5 (
+  .ID                      (ioctl_gpio_ext_porta[5]),
+  .IEN                     (pad_gpio_ien[5]        ),
+  .OD                      (gpio_ioctl_porta_dr[5] ),
+  .OEN                     (pad_gpio_oen[5]        ),
+  .PAD                     (PAD_GPIO_5             )
+);
 // PAD_DIG_IO  x_PAD_GPIO_6 (
 //   .ID                      (ioctl_gpio_ext_porta[6]),
 //   .IEN                     (pad_gpio_ien[6]        ),
@@ -1652,20 +1652,20 @@ PAD_DIG_IO  x_PAD_PWM_CH0 (
   .OEN                (pwm_ioctl_ch0_oe_n),
   .PAD                (PAD_PWM_CH0       )
 );
-// PAD_DIG_IO  x_PAD_PWM_CH1 (
-//   .ID                 (pwm_indata1       ),
-//   .IEN                (pwm_ioctl_ch1_ie_n),
-//   .OD                 (pwm_ioctl_ch1     ),
-//   .OEN                (pwm_ioctl_ch1_oe_n),
-//   .PAD                (PAD_PWM_CH1       )
-// );
-// PAD_DIG_IO  x_PAD_PWM_CH2 (
-//   .ID                 (ioctl_pwm_cap2    ),
-//   .IEN                (pwm_ioctl_ch2_ie_n),
-//   .OD                 (pwm_ioctl_ch2     ),
-//   .OEN                (pwm_ioctl_ch2_oe_n),
-//   .PAD                (PAD_PWM_CH2       )
-// );
+PAD_DIG_IO  x_PAD_PWM_CH1 (
+  .ID                 (pwm_indata1       ),
+  .IEN                (pwm_ioctl_ch1_ie_n),
+  .OD                 (pwm_ioctl_ch1     ),
+  .OEN                (pwm_ioctl_ch1_oe_n),
+  .PAD                (PAD_PWM_CH1       )
+);
+PAD_DIG_IO  x_PAD_PWM_CH2 (
+  .ID                 (ioctl_pwm_cap2    ),
+  .IEN                (pwm_ioctl_ch2_ie_n),
+  .OD                 (pwm_ioctl_ch2     ),
+  .OEN                (pwm_ioctl_ch2_oe_n),
+  .PAD                (PAD_PWM_CH2       )
+);
 // PAD_DIG_IO  x_PAD_PWM_CH3 (
 //   .ID                 (pwm_indata3       ),
 //   .IEN                (pwm_ioctl_ch3_ie_n),

@@ -48,7 +48,7 @@ const char pubkey_e[] = "010001";
 // Core Functions
 extern void mdelay(uint32_t ms);
 
-void board_deinit(void)
+static void board_deinit(void)
 {
     extern usart_handle_t console_handle;
     csi_usart_uninitialize(console_handle);
@@ -58,7 +58,7 @@ void board_deinit(void)
 }
 
 // RSA / SHA-256 Signature
-bool firmware_verify(void *data, uint32_t data_size, uint8_t *sign, uint32_t sign_size)
+static bool firmware_verify(void *data, uint32_t data_size, uint8_t *sign, uint32_t sign_size)
 {
     mbedtls_rsa_context rsa;
     unsigned char hash[32] = {0};
@@ -105,6 +105,25 @@ bool firmware_verify(void *data, uint32_t data_size, uint8_t *sign, uint32_t sig
     return true;
 }
 
+static void led_blink(int ms, int count)
+{
+    if (count < 0) {
+        while (1) {
+            pwm_test();
+            gpio_toggle();
+
+            mdelay(ms);
+        }
+    } else {
+        for (int i = count; i > 0; i--) {
+            pwm_test();
+            gpio_toggle();
+
+            mdelay(ms);
+        }
+    }
+}
+
 int main(void)
 {
     uint32_t firmware_app0_size = 0;
@@ -124,49 +143,46 @@ int main(void)
     spi_flash_read(FIRMWARE_SIZE_APP_0_ADDR, &firmware_app0_size, sizeof(firmware_app0_size));
     spi_flash_read(FIRMWARE_SIGN_APP_0_ADDR, firmware_app0_sign, sizeof(firmware_app0_sign));
     // load firmware 0 data
-    spi_flash_read(FIRMWARE_DATA_APP_0_ADDR, firmware_app0, firmware_app0_size);
+    if (0 < firmware_app0_size && firmware_app0_size <= FIRMWARE_SIZE_APP_0_MAX) {
+        spi_flash_read(FIRMWARE_DATA_APP_0_ADDR, firmware_app0, firmware_app0_size);
+    } else {
+        printf("brom: firmware 0 is invalid.\n");
+
+        led_blink(250, -1);
+    }
 
     printf("brom: firmware 0 loaded, size: %u\n", firmware_app0_size);
-
-    // load firmware 1 size and sign
-    spi_flash_read(FIRMWARE_SIZE_APP_1_ADDR, &firmware_app1_size, sizeof(firmware_app1_size));
-    spi_flash_read(FIRMWARE_SIGN_APP_1_ADDR, firmware_app1_sign, sizeof(firmware_app1_sign));
-    // load firmware 1 data
-    spi_flash_read(FIRMWARE_DATA_APP_1_ADDR, firmware_app1, firmware_app1_size);
-
-    printf("brom: firmware 1 loaded, size: %u\n", firmware_app1_size);
 
     if (firmware_verify(firmware_app0, firmware_app0_size, firmware_app0_sign, sizeof(firmware_app0_sign))) {
         printf("brom: firmware 0 is signed.\n");
 
+        // load firmware 1 size and sign
+        spi_flash_read(FIRMWARE_SIZE_APP_1_ADDR, &firmware_app1_size, sizeof(firmware_app1_size));
+        spi_flash_read(FIRMWARE_SIGN_APP_1_ADDR, firmware_app1_sign, sizeof(firmware_app1_sign));
+        // load firmware 1 data
+        if (0 < firmware_app1_size && firmware_app1_size <= FIRMWARE_SIZE_APP_1_MAX) {
+            spi_flash_read(FIRMWARE_DATA_APP_1_ADDR, firmware_app1, firmware_app1_size);
+        } else {
+            printf("brom: firmware 1 is invalid.\n");
+
+            led_blink(250, -1);
+        }
+
+        printf("brom: firmware 1 loaded, size: %u\n", firmware_app1_size);
+
         if (firmware_verify(firmware_app0, firmware_app0_size, firmware_app0_sign, sizeof(firmware_app1_sign))) {
             printf("brom: firmware 1 is signed.\n");
 
-            for (int i = 20; i > 0; i--) {
-                pwm_test();
-                gpio_toggle();
-
-                mdelay(50);
-            }
+            led_blink(50, 20);
         } else {
             printf("brom: firmware 1 is not signed.\n");
 
-            while (1) {
-                pwm_test();
-                gpio_toggle();
-
-                mdelay(500);
-            }
+            led_blink(500, -1);
         }
     } else {
         printf("brom: firmware 0 is not signed.\n");
 
-        while (1) {
-            pwm_test();
-            gpio_toggle();
-
-            mdelay(250);
-        }
+        led_blink(500, -1);
     }
 
     printf("brom: boot from firmware 0...\n");
