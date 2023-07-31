@@ -41,6 +41,7 @@ module wujian100_open_top(
   PAD_GPIO_7,
   PAD_GPIO_8,
   PAD_GPIO_9,
+  PAD_WS2812,
   PAD_JTAG_TCLK,
   PAD_JTAG_TMS,
   PAD_MCURST,
@@ -115,6 +116,7 @@ inout           PAD_GPIO_6;
 inout           PAD_GPIO_7;            
 inout           PAD_GPIO_8;            
 inout           PAD_GPIO_9;            
+output          PAD_WS2812;
 inout           PAD_JTAG_TCLK;         
 inout           PAD_JTAG_TMS;          
 input           PAD_MCURST;            
@@ -180,6 +182,7 @@ wire            PAD_GPIO_6;
 wire            PAD_GPIO_7;            
 wire            PAD_GPIO_8;            
 wire            PAD_GPIO_9;            
+wire            PAD_WS2812;
 wire            PAD_JTAG_TCLK;         
 wire            PAD_JTAG_TMS;          
 wire            PAD_MCURST;            

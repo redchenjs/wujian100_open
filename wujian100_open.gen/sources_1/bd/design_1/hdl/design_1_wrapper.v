@@ -1,7 +1,8 @@
-//Copyright 1986-2023 Xilinx, Inc. All Rights Reserved.
+//Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+//Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
-//Tool Version: Vivado v.2022.2.2 (win64) Build 3788238 Tue Feb 21 20:00:34 MST 2023
-//Date        : Wed May 31 13:57:23 2023
+//Tool Version: Vivado v.2023.1.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
+//Date        : Mon Jul 31 12:06:04 2023
 //Host        : ThinPC running 64-bit major release  (build 9200)
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
@@ -25,7 +26,9 @@ module design_1_wrapper
     DDR_ras_n,
     DDR_reset_n,
     DDR_we_n,
-    EXT_FLASH_NSS,
+    EXT_BEEP,
+    EXT_FLASH_NSS_0,
+    EXT_FLASH_NSS_1,
     EXT_FLASH_SCK,
     EXT_FLASH_SDI,
     EXT_FLASH_SDO,
@@ -35,16 +38,21 @@ module design_1_wrapper
     EXT_JTAG_TMS_1,
     EXT_KEY_1,
     EXT_KEY_2,
+    EXT_KEY_3,
+    EXT_KEY_4,
+    EXT_LCD_BL,
+    EXT_LCD_CS,
+    EXT_LCD_DC,
+    EXT_LCD_RST,
     EXT_LED_1,
     EXT_LED_2,
     EXT_LED_3,
     EXT_LED_4,
-    EXT_MCU_NRST_0,
-    EXT_MCU_NRST_1,
     EXT_UART_RXD_0,
     EXT_UART_RXD_1,
     EXT_UART_TXD_0,
     EXT_UART_TXD_1,
+    EXT_WS2812,
     FIXED_IO_ddr_vrn,
     FIXED_IO_ddr_vrp,
     FIXED_IO_mio,
@@ -68,7 +76,9 @@ module design_1_wrapper
   inout DDR_ras_n;
   inout DDR_reset_n;
   inout DDR_we_n;
-  inout EXT_FLASH_NSS;
+  inout EXT_BEEP;
+  inout EXT_FLASH_NSS_0;
+  inout EXT_FLASH_NSS_1;
   inout EXT_FLASH_SCK;
   inout EXT_FLASH_SDI;
   inout EXT_FLASH_SDO;
@@ -78,16 +88,21 @@ module design_1_wrapper
   inout EXT_JTAG_TMS_1;
   input EXT_KEY_1;
   input EXT_KEY_2;
+  input EXT_KEY_3;
+  input EXT_KEY_4;
+  inout EXT_LCD_BL;
+  inout EXT_LCD_CS;
+  inout EXT_LCD_DC;
+  inout EXT_LCD_RST;
   output EXT_LED_1;
   inout EXT_LED_2;
   output EXT_LED_3;
   inout EXT_LED_4;
-  input EXT_MCU_NRST_0;
-  input EXT_MCU_NRST_1;
   inout EXT_UART_RXD_0;
   inout EXT_UART_RXD_1;
   inout EXT_UART_TXD_0;
   inout EXT_UART_TXD_1;
+  output EXT_WS2812;
   inout FIXED_IO_ddr_vrn;
   inout FIXED_IO_ddr_vrp;
   inout [53:0]FIXED_IO_mio;
@@ -112,7 +127,9 @@ module design_1_wrapper
   wire DDR_ras_n;
   wire DDR_reset_n;
   wire DDR_we_n;
-  wire EXT_FLASH_NSS;
+  wire EXT_BEEP;
+  wire EXT_FLASH_NSS_0;
+  wire EXT_FLASH_NSS_1;
   wire EXT_FLASH_SCK;
   wire EXT_FLASH_SDI;
   wire EXT_FLASH_SDO;
@@ -122,16 +139,21 @@ module design_1_wrapper
   wire EXT_JTAG_TMS_1;
   wire EXT_KEY_1;
   wire EXT_KEY_2;
+  wire EXT_KEY_3;
+  wire EXT_KEY_4;
+  wire EXT_LCD_BL;
+  wire EXT_LCD_CS;
+  wire EXT_LCD_DC;
+  wire EXT_LCD_RST;
   wire EXT_LED_1;
   wire EXT_LED_2;
   wire EXT_LED_3;
   wire EXT_LED_4;
-  wire EXT_MCU_NRST_0;
-  wire EXT_MCU_NRST_1;
   wire EXT_UART_RXD_0;
   wire EXT_UART_RXD_1;
   wire EXT_UART_TXD_0;
   wire EXT_UART_TXD_1;
+  wire EXT_WS2812;
   wire FIXED_IO_ddr_vrn;
   wire FIXED_IO_ddr_vrp;
   wire [53:0]FIXED_IO_mio;
@@ -157,7 +179,9 @@ module design_1_wrapper
         .DDR_ras_n(DDR_ras_n),
         .DDR_reset_n(DDR_reset_n),
         .DDR_we_n(DDR_we_n),
-        .EXT_FLASH_NSS(EXT_FLASH_NSS),
+        .EXT_BEEP(EXT_BEEP),
+        .EXT_FLASH_NSS_0(EXT_FLASH_NSS_0),
+        .EXT_FLASH_NSS_1(EXT_FLASH_NSS_1),
         .EXT_FLASH_SCK(EXT_FLASH_SCK),
         .EXT_FLASH_SDI(EXT_FLASH_SDI),
         .EXT_FLASH_SDO(EXT_FLASH_SDO),
@@ -167,16 +191,21 @@ module design_1_wrapper
         .EXT_JTAG_TMS_1(EXT_JTAG_TMS_1),
         .EXT_KEY_1(EXT_KEY_1),
         .EXT_KEY_2(EXT_KEY_2),
+        .EXT_KEY_3(EXT_KEY_3),
+        .EXT_KEY_4(EXT_KEY_4),
+        .EXT_LCD_BL(EXT_LCD_BL),
+        .EXT_LCD_CS(EXT_LCD_CS),
+        .EXT_LCD_DC(EXT_LCD_DC),
+        .EXT_LCD_RST(EXT_LCD_RST),
         .EXT_LED_1(EXT_LED_1),
         .EXT_LED_2(EXT_LED_2),
         .EXT_LED_3(EXT_LED_3),
         .EXT_LED_4(EXT_LED_4),
-        .EXT_MCU_NRST_0(EXT_MCU_NRST_0),
-        .EXT_MCU_NRST_1(EXT_MCU_NRST_1),
         .EXT_UART_RXD_0(EXT_UART_RXD_0),
         .EXT_UART_RXD_1(EXT_UART_RXD_1),
         .EXT_UART_TXD_0(EXT_UART_TXD_0),
         .EXT_UART_TXD_1(EXT_UART_TXD_1),
+        .EXT_WS2812(EXT_WS2812),
         .FIXED_IO_ddr_vrn(FIXED_IO_ddr_vrn),
         .FIXED_IO_ddr_vrp(FIXED_IO_ddr_vrp),
         .FIXED_IO_mio(FIXED_IO_mio),
