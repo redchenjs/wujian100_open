@@ -1,7 +1,7 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.83953",
-   "Default View_TopLeft":"105,580",
+   "Default View_ScaleFactor":"0.317915",
+   "Default View_TopLeft":"-1551,3",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.5.8 2022-09-21 7111 VDI=41 GEI=38 GUI=JA:10.0
 #  -string -flagsOSRD
@@ -36,6 +36,8 @@ preplace port port-id_EXT_LCD_RST -pg 1 -lvl 3 -x 710 -y 640 -defaultsOSRD
 preplace port port-id_EXT_LCD_DC -pg 1 -lvl 3 -x 710 -y 700 -defaultsOSRD
 preplace port port-id_EXT_LCD_CS -pg 1 -lvl 3 -x 710 -y 720 -defaultsOSRD
 preplace port port-id_EXT_WS2812 -pg 1 -lvl 3 -x 710 -y 820 -defaultsOSRD
+preplace port port-id_EXT_SW_0 -pg 1 -lvl 0 -x 0 -y 20 -defaultsOSRD
+preplace port port-id_EXT_SW_1 -pg 1 -lvl 0 -x 0 -y 40 -defaultsOSRD
 preplace inst clk_wiz_0 -pg 1 -lvl 1 -x 170 -y 920 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 2 -x 510 -y 70 -defaultsOSRD
 preplace inst util_vector_logic_0 -pg 1 -lvl 1 -x 170 -y 670 -defaultsOSRD

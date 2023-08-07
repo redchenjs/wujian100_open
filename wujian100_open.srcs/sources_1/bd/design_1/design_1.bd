@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x3C8DEE8E8623AC83",
+      "boundary_crc": "0x9D3A5169F2D6C956",
       "device": "xc7z020clg400-3",
       "gen_directory": "../../../../wujian100_open.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -358,6 +358,12 @@
       },
       "EXT_WS2812": {
         "direction": "O"
+      },
+      "EXT_SW_0": {
+        "direction": "I"
+      },
+      "EXT_SW_1": {
+        "direction": "I"
       }
     },
     "components": {

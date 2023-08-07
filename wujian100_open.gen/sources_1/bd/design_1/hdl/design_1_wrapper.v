@@ -2,7 +2,7 @@
 //Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2023.1.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
-//Date        : Mon Jul 31 20:45:57 2023
+//Date        : Mon Aug  7 14:54:05 2023
 //Host        : ThinPC running 64-bit major release  (build 9200)
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
@@ -48,6 +48,8 @@ module design_1_wrapper
     EXT_SPI_SCK,
     EXT_SPI_SDI,
     EXT_SPI_SDO,
+    EXT_SW_0,
+    EXT_SW_1,
     EXT_UART_RXD_0,
     EXT_UART_RXD_1,
     EXT_UART_TXD_0,
@@ -98,6 +100,8 @@ module design_1_wrapper
   inout EXT_SPI_SCK;
   inout EXT_SPI_SDI;
   inout EXT_SPI_SDO;
+  input EXT_SW_0;
+  input EXT_SW_1;
   inout EXT_UART_RXD_0;
   inout EXT_UART_RXD_1;
   inout EXT_UART_TXD_0;
@@ -149,6 +153,8 @@ module design_1_wrapper
   wire EXT_SPI_SCK;
   wire EXT_SPI_SDI;
   wire EXT_SPI_SDO;
+  wire EXT_SW_0;
+  wire EXT_SW_1;
   wire EXT_UART_RXD_0;
   wire EXT_UART_RXD_1;
   wire EXT_UART_TXD_0;
@@ -201,6 +207,8 @@ module design_1_wrapper
         .EXT_SPI_SCK(EXT_SPI_SCK),
         .EXT_SPI_SDI(EXT_SPI_SDI),
         .EXT_SPI_SDO(EXT_SPI_SDO),
+        .EXT_SW_0(EXT_SW_0),
+        .EXT_SW_1(EXT_SW_1),
         .EXT_UART_RXD_0(EXT_UART_RXD_0),
         .EXT_UART_RXD_1(EXT_UART_RXD_1),
         .EXT_UART_TXD_0(EXT_UART_TXD_0),

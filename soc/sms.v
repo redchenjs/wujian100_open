@@ -102,11 +102,11 @@ begin
 end
 assign byte_wen_b[3:0] =  byte_sel_b[3:0] | {4{mbk_wen_b}};
 ram_sp #(
-  .INIT(1),
+  .INIT('b1),
   .FILE("brom.txt"),
   .WIDTH(WIDTH),
   .DEPTH(DEPTH),
-  .OUT_REG(1)
+  .OUT_REG('b1)
 ) ram_sp (
   .rw_clk_i(ram_clk),
 

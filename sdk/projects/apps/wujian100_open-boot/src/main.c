@@ -146,7 +146,7 @@ int main(void)
     if (0 < firmware_app0_size && firmware_app0_size <= FIRMWARE_SIZE_APP_0_MAX) {
         spi_flash_read(FIRMWARE_DATA_APP_0_ADDR, firmware_app0, firmware_app0_size);
     } else {
-        printf("brom: firmware 0 is invalid.\n");
+        printf("brom: firmware 0 has invalid size: %u\n", firmware_app0_size);
 
         led_blink(250, -1);
     }
@@ -163,7 +163,7 @@ int main(void)
         if (0 < firmware_app1_size && firmware_app1_size <= FIRMWARE_SIZE_APP_1_MAX) {
             spi_flash_read(FIRMWARE_DATA_APP_1_ADDR, firmware_app1, firmware_app1_size);
         } else {
-            printf("brom: firmware 1 is invalid.\n");
+            printf("brom: firmware 1 has invalid size: %u\n", firmware_app1_size);
 
             led_blink(250, -1);
         }
