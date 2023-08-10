@@ -45,10 +45,10 @@ set_property -dict {PACKAGE_PIN M20 IOSTANDARD LVCMOS33 PULLDOWN true} [get_port
 
 set_property -dict {PACKAGE_PIN W11 IOSTANDARD LVCMOS33 PULLDOWN true} [get_ports {EXT_JTAG_TCK_0}]
 set_property -dict {PACKAGE_PIN Y11 IOSTANDARD LVCMOS33 PULLUP   true} [get_ports {EXT_JTAG_TMS_0}]
-set_property -dict {PACKAGE_PIN Y8  IOSTANDARD LVCMOS33 PULLUP   true} [get_ports {EXT_UART_TXD_0}]
-set_property -dict {PACKAGE_PIN Y9  IOSTANDARD LVCMOS33 PULLUP   true} [get_ports {EXT_UART_RXD_0}]
+set_property -dict {PACKAGE_PIN Y9  IOSTANDARD LVCMOS33 PULLUP   true} [get_ports {EXT_UART_TXD_0}]
+set_property -dict {PACKAGE_PIN Y8  IOSTANDARD LVCMOS33 PULLUP   true} [get_ports {EXT_UART_RXD_0}]
 
 set_property -dict {PACKAGE_PIN Y12 IOSTANDARD LVCMOS33 PULLDOWN true} [get_ports {EXT_JTAG_TCK_1}]
 set_property -dict {PACKAGE_PIN Y13 IOSTANDARD LVCMOS33 PULLUP   true} [get_ports {EXT_JTAG_TMS_1}]
-set_property -dict {PACKAGE_PIN U8  IOSTANDARD LVCMOS33 PULLUP   true} [get_ports {EXT_UART_TXD_1}]
-set_property -dict {PACKAGE_PIN U9  IOSTANDARD LVCMOS33 PULLUP   true} [get_ports {EXT_UART_RXD_1}]
+set_property -dict {PACKAGE_PIN U9  IOSTANDARD LVCMOS33 PULLUP   true} [get_ports {EXT_UART_TXD_1}]
+set_property -dict {PACKAGE_PIN U8  IOSTANDARD LVCMOS33 PULLUP   true} [get_ports {EXT_UART_RXD_1}]

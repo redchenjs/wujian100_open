@@ -6,19 +6,19 @@
  */
 
 module apb_pmu #(
-    parameter ADDR_WIDTH = 32,
-    parameter DATA_WIDTH = 32
+    parameter A_WIDTH = 32,
+    parameter D_WIDTH = 32
 ) (
     input logic pclk,
     input logic presetn,
 
-    input logic                  psel,
-    input logic [ADDR_WIDTH-1:0] paddr,
-    input logic                  pwrite,
-    input logic [DATA_WIDTH-1:0] pwdata,
-    input logic                  penable,
+    input logic               psel,
+    input logic [A_WIDTH-1:0] paddr,
+    input logic               pwrite,
+    input logic [D_WIDTH-1:0] pwdata,
+    input logic               penable,
 
-    output logic [DATA_WIDTH-1:0] prdata,
+    output logic [D_WIDTH-1:0] prdata,
 
     output logic sys_rst_n
 );

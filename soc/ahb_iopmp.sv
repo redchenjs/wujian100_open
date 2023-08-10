@@ -8,83 +8,83 @@
 import ahb_enum::*;
 
 module ahb_iopmp #(
-    parameter ADDR_WIDTH = 32,
-    parameter DATA_WIDTH = 32
+    parameter A_WIDTH = 32,
+    parameter D_WIDTH = 32
 ) (
     input logic hclk,
     input logic hresetn,
 
     // Config port
-    input logic                  hsel,
-    input logic [ADDR_WIDTH-1:0] haddr,
-    input logic            [3:0] hprot,
-    input logic            [2:0] hsize,
-    input logic            [1:0] htrans,
-    input logic            [2:0] hburst,
-    input logic                  hwrite,
-    input logic [DATA_WIDTH-1:0] hwdata,
+    input logic               hsel,
+    input logic [A_WIDTH-1:0] haddr,
+    input logic         [3:0] hprot,
+    input logic         [2:0] hsize,
+    input logic         [1:0] htrans,
+    input logic         [2:0] hburst,
+    input logic               hwrite,
+    input logic [D_WIDTH-1:0] hwdata,
 
-    output logic            [1:0] hresp,
-    output logic                  hready,
-    output logic [DATA_WIDTH-1:0] hrdata,
+    output logic         [1:0] hresp,
+    output logic               hready,
+    output logic [D_WIDTH-1:0] hrdata,
 
     // Slave port 0
-    input logic [ADDR_WIDTH-1:0] s0_haddr,
-    input logic            [3:0] s0_hprot,
-    input logic            [2:0] s0_hsize,
-    input logic            [1:0] s0_htrans,
-    input logic            [2:0] s0_hburst,
-    input logic                  s0_hwrite,
-    input logic [DATA_WIDTH-1:0] s0_hwdata,
+    input logic [A_WIDTH-1:0] s0_haddr,
+    input logic         [3:0] s0_hprot,
+    input logic         [2:0] s0_hsize,
+    input logic         [1:0] s0_htrans,
+    input logic         [2:0] s0_hburst,
+    input logic               s0_hwrite,
+    input logic [D_WIDTH-1:0] s0_hwdata,
 
-    output logic            [1:0] s0_hresp,
-    output logic                  s0_hgrant,
-    output logic                  s0_hready,
-    output logic [DATA_WIDTH-1:0] s0_hrdata,
+    output logic         [1:0] s0_hresp,
+    output logic               s0_hgrant,
+    output logic               s0_hready,
+    output logic [D_WIDTH-1:0] s0_hrdata,
 
     // Slave port 1
-    input logic [ADDR_WIDTH-1:0] s1_haddr,
-    input logic            [3:0] s1_hprot,
-    input logic            [2:0] s1_hsize,
-    input logic            [1:0] s1_htrans,
-    input logic            [2:0] s1_hburst,
-    input logic                  s1_hwrite,
-    input logic [DATA_WIDTH-1:0] s1_hwdata,
+    input logic [A_WIDTH-1:0] s1_haddr,
+    input logic         [3:0] s1_hprot,
+    input logic         [2:0] s1_hsize,
+    input logic         [1:0] s1_htrans,
+    input logic         [2:0] s1_hburst,
+    input logic               s1_hwrite,
+    input logic [D_WIDTH-1:0] s1_hwdata,
 
-    output logic            [1:0] s1_hresp,
-    output logic                  s1_hgrant,
-    output logic                  s1_hready,
-    output logic [DATA_WIDTH-1:0] s1_hrdata,
+    output logic         [1:0] s1_hresp,
+    output logic               s1_hgrant,
+    output logic               s1_hready,
+    output logic [D_WIDTH-1:0] s1_hrdata,
 
     // Master port 0
-    output logic                  m0_hsel,
-    output logic [ADDR_WIDTH-1:0] m0_haddr,
-    output logic            [3:0] m0_hprot,
-    output logic            [2:0] m0_hsize,
-    output logic            [1:0] m0_htrans,
-    output logic            [2:0] m0_hburst,
-    output logic                  m0_hwrite,
-    output logic [DATA_WIDTH-1:0] m0_hwdata,
+    output logic               m0_hsel,
+    output logic [A_WIDTH-1:0] m0_haddr,
+    output logic         [3:0] m0_hprot,
+    output logic         [2:0] m0_hsize,
+    output logic         [1:0] m0_htrans,
+    output logic         [2:0] m0_hburst,
+    output logic               m0_hwrite,
+    output logic [D_WIDTH-1:0] m0_hwdata,
 
-    input logic            [1:0] m0_hresp,
-    input logic                  m0_hgrant,
-    input logic                  m0_hready,
-    input logic [DATA_WIDTH-1:0] m0_hrdata,
+    input logic         [1:0] m0_hresp,
+    input logic               m0_hgrant,
+    input logic               m0_hready,
+    input logic [D_WIDTH-1:0] m0_hrdata,
 
     // Master port 1
-    output logic                  m1_hsel,
-    output logic [ADDR_WIDTH-1:0] m1_haddr,
-    output logic            [3:0] m1_hprot,
-    output logic            [2:0] m1_hsize,
-    output logic            [1:0] m1_htrans,
-    output logic            [2:0] m1_hburst,
-    output logic                  m1_hwrite,
-    output logic [DATA_WIDTH-1:0] m1_hwdata,
+    output logic               m1_hsel,
+    output logic [A_WIDTH-1:0] m1_haddr,
+    output logic         [3:0] m1_hprot,
+    output logic         [2:0] m1_hsize,
+    output logic         [1:0] m1_htrans,
+    output logic         [2:0] m1_hburst,
+    output logic               m1_hwrite,
+    output logic [D_WIDTH-1:0] m1_hwdata,
 
-    input logic            [1:0] m1_hresp,
-    input logic                  m1_hgrant,
-    input logic                  m1_hready,
-    input logic [DATA_WIDTH-1:0] m1_hrdata
+    input logic         [1:0] m1_hresp,
+    input logic               m1_hgrant,
+    input logic               m1_hready,
+    input logic [D_WIDTH-1:0] m1_hrdata
 );
 
 typedef struct packed {
@@ -132,8 +132,8 @@ pmp_conf_t pmp_conf_1_7;
 logic [7:0] pmp_addr_0_hit;
 logic [7:0] pmp_addr_1_hit;
 
-logic                  hsel_r;
-logic [ADDR_WIDTH-1:0] haddr_r;
+logic               hsel_r;
+logic [A_WIDTH-1:0] haddr_r;
 
 wire rd_en = hsel & !hwrite;
 

@@ -8,26 +8,26 @@
 import ahb_enum::*;
 
 module ahb_mailbox #(
-    parameter ADDR_WIDTH = 32,
-    parameter DATA_WIDTH = 32
+    parameter A_WIDTH = 32,
+    parameter D_WIDTH = 32
 ) (
     input logic hclk,
     input logic hresetn,
 
-    input logic                  hsel,
-    input logic [ADDR_WIDTH-1:0] haddr,
-    input logic            [3:0] hprot,
-    input logic            [2:0] hsize,
-    input logic            [1:0] htrans,
-    input logic            [2:0] hburst,
-    input logic                  hwrite,
-    input logic [DATA_WIDTH-1:0] hwdata,
+    input logic               hsel,
+    input logic [A_WIDTH-1:0] haddr,
+    input logic         [3:0] hprot,
+    input logic         [2:0] hsize,
+    input logic         [1:0] htrans,
+    input logic         [2:0] hburst,
+    input logic               hwrite,
+    input logic [D_WIDTH-1:0] hwdata,
 
-    output logic            [1:0] hresp,
-    output logic                  hready,
-    output logic [DATA_WIDTH-1:0] hrdata,
+    output logic         [1:0] hresp,
+    output logic               hready,
+    output logic [D_WIDTH-1:0] hrdata,
 
-    output logic mailbox_intr
+    output logic irq_o
 );
 
 typedef struct packed {
@@ -41,15 +41,15 @@ typedef struct packed {
 mbox_ctrl_t mbox_ctrl_0;
 mbox_ctrl_t mbox_ctrl_1;
 
-logic                  ram_hsel;
-logic            [1:0] ram_hresp;
-logic                  ram_hready;
-logic [DATA_WIDTH-1:0] ram_hrdata;
+logic               ram_hsel;
+logic         [1:0] ram_hresp;
+logic               ram_hready;
+logic [D_WIDTH-1:0] ram_hrdata;
 
-logic [DATA_WIDTH-1:0] reg_hrdata;
+logic [D_WIDTH-1:0] reg_hrdata;
 
-logic                  reg_hsel_r;
-logic [ADDR_WIDTH-1:0] reg_haddr_r;
+logic               reg_hsel_r;
+logic [A_WIDTH-1:0] reg_haddr_r;
 
 wire rd_en = !haddr[15] & hsel & !hwrite;
 
@@ -60,7 +60,7 @@ assign hresp  = ram_hsel ? ram_hresp  : reg_hresp;
 assign hready = ram_hsel ? ram_hready : reg_hready;
 assign hrdata = ram_hsel ? ram_hrdata : reg_hrdata;
 
-assign mailbox_intr = mbox_ctrl_0.intr | mbox_ctrl_1.intr;
+assign irq_o = mbox_ctrl_0.intr | mbox_ctrl_1.intr;
 
 sms_bank_64k_top #(
   .WIDTH(32),

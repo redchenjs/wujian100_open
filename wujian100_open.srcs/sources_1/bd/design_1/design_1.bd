@@ -481,7 +481,7 @@
         "inst_hier_path": "processing_system7_0",
         "parameters": {
           "PCW_ACT_APU_PERIPHERAL_FREQMHZ": {
-            "value": "50.000000"
+            "value": "866.666687"
           },
           "PCW_ACT_CAN0_PERIPHERAL_FREQMHZ": {
             "value": "23.8095"
@@ -493,7 +493,7 @@
             "value": "10.000000"
           },
           "PCW_ACT_DCI_PERIPHERAL_FREQMHZ": {
-            "value": "10.062893"
+            "value": "10.158730"
           },
           "PCW_ACT_ENET0_PERIPHERAL_FREQMHZ": {
             "value": "10.000000"
@@ -535,22 +535,22 @@
             "value": "200.000000"
           },
           "PCW_ACT_TTC0_CLK0_PERIPHERAL_FREQMHZ": {
-            "value": "8.333334"
+            "value": "144.444443"
           },
           "PCW_ACT_TTC0_CLK1_PERIPHERAL_FREQMHZ": {
-            "value": "8.333334"
+            "value": "144.444443"
           },
           "PCW_ACT_TTC0_CLK2_PERIPHERAL_FREQMHZ": {
-            "value": "8.333334"
+            "value": "144.444443"
           },
           "PCW_ACT_TTC1_CLK0_PERIPHERAL_FREQMHZ": {
-            "value": "8.333334"
+            "value": "144.444443"
           },
           "PCW_ACT_TTC1_CLK1_PERIPHERAL_FREQMHZ": {
-            "value": "8.333334"
+            "value": "144.444443"
           },
           "PCW_ACT_TTC1_CLK2_PERIPHERAL_FREQMHZ": {
-            "value": "8.333334"
+            "value": "144.444443"
           },
           "PCW_ACT_TTC_PERIPHERAL_FREQMHZ": {
             "value": "50"
@@ -565,13 +565,13 @@
             "value": "60"
           },
           "PCW_ACT_WDT_PERIPHERAL_FREQMHZ": {
-            "value": "8.333334"
+            "value": "144.444443"
           },
           "PCW_APU_CLK_RATIO_ENABLE": {
             "value": "6:2:1"
           },
           "PCW_APU_PERIPHERAL_FREQMHZ": {
-            "value": "50"
+            "value": "867"
           },
           "PCW_CAN0_PERIPHERAL_CLKSRC": {
             "value": "External"
@@ -912,6 +912,9 @@
           "PCW_INCLUDE_ACP_TRANS_CHECK": {
             "value": "0"
           },
+          "PCW_IRQ_F2P_MODE": {
+            "value": "DIRECT"
+          },
           "PCW_MIO_1_IOTYPE": {
             "value": "LVCMOS 3.3V"
           },
@@ -1225,6 +1228,18 @@
           "PCW_SPI_PERIPHERAL_VALID": {
             "value": "0"
           },
+          "PCW_S_AXI_HP0_DATA_WIDTH": {
+            "value": "64"
+          },
+          "PCW_S_AXI_HP1_DATA_WIDTH": {
+            "value": "64"
+          },
+          "PCW_S_AXI_HP2_DATA_WIDTH": {
+            "value": "64"
+          },
+          "PCW_S_AXI_HP3_DATA_WIDTH": {
+            "value": "64"
+          },
           "PCW_TPIU_PERIPHERAL_CLKSRC": {
             "value": "External"
           },
@@ -1307,7 +1322,7 @@
             "value": "1"
           },
           "PCW_UIPARAM_ACT_DDR_FREQ_MHZ": {
-            "value": "400.000000"
+            "value": "533.333374"
           },
           "PCW_UIPARAM_DDR_ADV_ENABLE": {
             "value": "0"
@@ -1460,7 +1475,7 @@
             "value": "1"
           },
           "PCW_UIPARAM_DDR_FREQ_MHZ": {
-            "value": "400"
+            "value": "534"
           },
           "PCW_UIPARAM_DDR_HIGH_TEMP": {
             "value": "Normal (0-85)"
@@ -2013,13 +2028,13 @@
       "Net15": {
         "ports": [
           "EXT_BEEP",
-          "wujian100_open_top_0/PAD_PWM_CH1"
+          "wujian100_open_top_0/PAD_PWM_CH2"
         ]
       },
       "Net16": {
         "ports": [
           "EXT_LCD_BL",
-          "wujian100_open_top_0/PAD_PWM_CH2"
+          "wujian100_open_top_0/PAD_PWM_CH4"
         ]
       },
       "Net17": {

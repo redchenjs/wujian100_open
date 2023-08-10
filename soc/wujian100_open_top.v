@@ -1652,13 +1652,13 @@ PAD_DIG_IO  x_PAD_PWM_CH0 (
   .OEN                (pwm_ioctl_ch0_oe_n),
   .PAD                (PAD_PWM_CH0       )
 );
-PAD_DIG_IO  x_PAD_PWM_CH1 (
-  .ID                 (pwm_indata1       ),
-  .IEN                (pwm_ioctl_ch1_ie_n),
-  .OD                 (pwm_ioctl_ch1     ),
-  .OEN                (pwm_ioctl_ch1_oe_n),
-  .PAD                (PAD_PWM_CH1       )
-);
+//PAD_DIG_IO  x_PAD_PWM_CH1 (
+//  .ID                 (pwm_indata1       ),
+//  .IEN                (pwm_ioctl_ch1_ie_n),
+//  .OD                 (pwm_ioctl_ch1     ),
+//  .OEN                (pwm_ioctl_ch1_oe_n),
+//  .PAD                (PAD_PWM_CH1       )
+//);
 PAD_DIG_IO  x_PAD_PWM_CH2 (
   .ID                 (ioctl_pwm_cap2    ),
   .IEN                (pwm_ioctl_ch2_ie_n),
@@ -1673,13 +1673,13 @@ PAD_DIG_IO  x_PAD_PWM_CH2 (
 //   .OEN                (pwm_ioctl_ch3_oe_n),
 //   .PAD                (PAD_PWM_CH3       )
 // );
-// PAD_DIG_IO  x_PAD_PWM_CH4 (
-//   .ID                 (ioctl_pwm_cap4    ),
-//   .IEN                (pwm_ioctl_ch4_ie_n),
-//   .OD                 (pwm_ioctl_ch4     ),
-//   .OEN                (pwm_ioctl_ch4_oe_n),
-//   .PAD                (PAD_PWM_CH4       )
-// );
+ PAD_DIG_IO  x_PAD_PWM_CH4 (
+   .ID                 (ioctl_pwm_cap4    ),
+   .IEN                (pwm_ioctl_ch4_ie_n),
+   .OD                 (pwm_ioctl_ch4     ),
+   .OEN                (pwm_ioctl_ch4_oe_n),
+   .PAD                (PAD_PWM_CH4       )
+ );
 // PAD_DIG_IO  x_PAD_PWM_CH5 (
 //   .ID                 (pwm_indata5       ),
 //   .IEN                (pwm_ioctl_ch5_ie_n),

@@ -1044,6 +1044,9 @@
           <File Name="../../wujian100_open-driver/include/spi.h">
             <FileOption/>
           </File>
+          <File Name="../../wujian100_open-driver/include/beep.h">
+            <FileOption/>
+          </File>
         </VirtualDirectory>
         <File Name="../../wujian100_open-driver/mbox.c">
           <FileOption/>
@@ -1058,6 +1061,9 @@
           <FileOption/>
         </File>
         <File Name="../../wujian100_open-driver/spi.c">
+          <FileOption/>
+        </File>
+        <File Name="../../wujian100_open-driver/beep.c">
           <FileOption/>
         </File>
       </VirtualDirectory>

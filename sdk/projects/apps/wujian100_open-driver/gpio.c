@@ -12,7 +12,7 @@
 // GPIO Functions
 #define GPIO_TEST_PIN 0
 
-gpio_pin_handle_t pin_handle = NULL;
+static gpio_pin_handle_t pin_handle = NULL;
 
 void gpio_init(void)
 {

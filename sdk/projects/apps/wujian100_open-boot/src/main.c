@@ -13,6 +13,7 @@
 #include "pmu.h"
 #include "spi.h"
 #include "pwm.h"
+#include "beep.h"
 #include "gpio.h"
 
 #include "drv_usart.h"
@@ -109,14 +110,16 @@ static void led_blink(int ms, int count)
 {
     if (count < 0) {
         while (1) {
-            pwm_test();
+            pwm_toggle();
+            beep_toggle();
             gpio_toggle();
 
             mdelay(ms);
         }
     } else {
         for (int i = count; i > 0; i--) {
-            pwm_test();
+            pwm_toggle();
+            beep_toggle();
             gpio_toggle();
 
             mdelay(ms);
@@ -135,6 +138,7 @@ int main(void)
 
     spi_init();
     pwm_init();
+    beep_init();
     gpio_init();
 
     printf("brom: started.\n");
@@ -148,7 +152,7 @@ int main(void)
     } else {
         printf("brom: firmware 0 has invalid size: %u\n", firmware_app0_size);
 
-        led_blink(250, -1);
+        led_blink(500, -1);
     }
 
     printf("brom: firmware 0 loaded, size: %u\n", firmware_app0_size);
@@ -165,7 +169,7 @@ int main(void)
         } else {
             printf("brom: firmware 1 has invalid size: %u\n", firmware_app1_size);
 
-            led_blink(250, -1);
+            led_blink(500, -1);
         }
 
         printf("brom: firmware 1 loaded, size: %u\n", firmware_app1_size);
@@ -177,12 +181,12 @@ int main(void)
         } else {
             printf("brom: firmware 1 is not signed.\n");
 
-            led_blink(500, -1);
+            led_blink(250, -1);
         }
     } else {
         printf("brom: firmware 0 is not signed.\n");
 
-        led_blink(500, -1);
+        led_blink(250, -1);
     }
 
     printf("brom: boot from firmware 0...\n");

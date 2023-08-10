@@ -123,8 +123,8 @@ module ahb_matrix_top(
   lsbus_hmain0_s10_hready,
   lsbus_hmain0_s10_hresp,
   main_dmemdummy0_intr,
-  mailbox0_intr,
-  mailbox1_intr,
+  mailbox0_irq,
+  mailbox1_irq,
   main_dummy0_intr,
   main_dummy1_intr,
   main_dummy2_intr,
@@ -307,8 +307,8 @@ output  [1 :0]  hmain0_smc_s4_htrans;
 output  [31:0]  hmain0_smc_s4_hwdata;       
 output          hmain0_smc_s4_hwrite;       
 output          main_dmemdummy0_intr;       
-output          mailbox0_intr;
-output          mailbox1_intr;
+output          mailbox0_irq;
+output          mailbox1_irq;
 output          main_dummy0_intr;           
 output          main_dummy1_intr;           
 output          main_dummy2_intr;           
@@ -680,8 +680,8 @@ wire    [31:0]  lsbus_hmain0_s10_hrdata;
 wire            lsbus_hmain0_s10_hready;    
 wire    [1 :0]  lsbus_hmain0_s10_hresp;     
 wire            main_dmemdummy0_intr;       
-wire            mailbox0_intr;
-wire            mailbox1_intr;
+wire            mailbox0_irq;
+wire            mailbox1_irq;
 wire            main_dummy0_intr;           
 wire            main_dummy1_intr;           
 wire            main_dummy2_intr;           
@@ -1277,7 +1277,7 @@ ahb_mailbox #(
   .hready(mailbox0_hmain0_s7_hready),
   .hrdata(mailbox0_hmain0_s7_hrdata),
 
-  .mailbox_intr(mailbox0_intr)
+  .irq_o(mailbox0_irq)
 );
 ahb_mailbox #(
   .ADDR_WIDTH(32),
@@ -1299,7 +1299,7 @@ ahb_mailbox #(
   .hready(mailbox1_hmain0_s8_hready),
   .hrdata(mailbox1_hmain0_s8_hrdata),
 
-  .mailbox_intr(mailbox1_intr)
+  .irq_o(mailbox1_irq)
 );
 ahb_dummy_top  x_main_dummy_top2 (
   .haddr                   (hmain0_dummy2_s9_haddr ),
