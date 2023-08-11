@@ -515,21 +515,21 @@ assign  pmu_tim7_p1rst_b = soc_p1rst_b;
 assign  pmu_usi1_p1rst_b = soc_p1rst_b;
 
 apb_pmu #(
-  .ADDR_WIDTH(32),
-  .DATA_WIDTH(32)
+  .A_WIDTH(32),
+  .D_WIDTH(32)
 ) apb_pmu (
-  .pclk(dft_clk),
-  .presetn(sys_rst_b),
+  .pclk_i(dft_clk),
+  .presetn_i(sys_rst_b),
 
-  .psel(psel),
-  .paddr(paddr),
-  .pwrite(pwrite),
-  .penable(penable),
+  .psel_i(psel),
+  .paddr_i(paddr),
+  .pwrite_i(pwrite),
+  .pwdata_i(pwdata),
+  .penable_i(penable),
 
-  .pwdata(pwdata),
-  .prdata(prdata),
+  .prdata_o(prdata),
 
-  .sys_rst_n(sys_rst_b_1)
+  .rst_n_o(sys_rst_b_1)
 );
 
 endmodule
