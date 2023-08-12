@@ -285,20 +285,36 @@ ahb_matrix_1_6_sub  x_sub_ls_top (
   .sub_hclk                 (pmu_sub3_s3clk          ),
   .sub_hresetn              (pmu_sub3_s3rst_b        )
 );
-ahb_dummy_top  x_lsbus_dummy_top0 (
-  .haddr                  (lsbus_dummy0_s0_haddr ),
-  .hclk                   (pmu_dummy0_s3clk      ),
-  .hprot                  (lsbus_dummy0_s0_hprot ),
-  .hrdata                 (dummy0_lsbus_s0_hrdata),
-  .hready                 (dummy0_lsbus_s0_hready),
-  .hresp                  (dummy0_lsbus_s0_hresp ),
-  .hrst_b                 (pmu_dummy0_s3rst_b    ),
-  .hsel                   (lsbus_dummy0_s0_hsel  ),
-  .hsize                  (lsbus_dummy0_s0_hsize ),
-  .htrans                 (lsbus_dummy0_s0_htrans),
-  .hwdata                 (lsbus_dummy0_s0_hwdata),
-  .hwrite                 (lsbus_dummy0_s0_hwrite),
-  .intr                   (lsbus_dummy0_intr     )
+//ahb_dummy_top  x_lsbus_dummy_top0 (
+//  .haddr                  (lsbus_dummy0_s0_haddr ),
+//  .hclk                   (pmu_dummy0_s3clk      ),
+//  .hprot                  (lsbus_dummy0_s0_hprot ),
+//  .hrdata                 (dummy0_lsbus_s0_hrdata),
+//  .hready                 (dummy0_lsbus_s0_hready),
+//  .hresp                  (dummy0_lsbus_s0_hresp ),
+//  .hrst_b                 (pmu_dummy0_s3rst_b    ),
+//  .hsel                   (lsbus_dummy0_s0_hsel  ),
+//  .hsize                  (lsbus_dummy0_s0_hsize ),
+//  .htrans                 (lsbus_dummy0_s0_htrans),
+//  .hwdata                 (lsbus_dummy0_s0_hwdata),
+//  .hwrite                 (lsbus_dummy0_s0_hwrite),
+//  .intr                   (lsbus_dummy0_intr     )
+//);
+ahb_sha2 ahb_sha2(
+    .hclk_i(pmu_dummy0_s3clk),
+    .hresetn_i(pmu_dummy0_s3rst_b),
+
+    .hsel_i(lsbus_dummy0_s0_hsel),
+    .hsize_i(lsbus_dummy0_s0_hsize),
+    .haddr_i(lsbus_dummy0_s0_haddr),
+    .hprot_i(lsbus_dummy0_s0_hprot),
+    .htrans_i(lsbus_dummy0_s0_htrans),
+    .hwdata_i(lsbus_dummy0_s0_hwdata),
+    .hwrite_i(lsbus_dummy0_s0_hwrite),
+
+    .hresp_o(dummy0_lsbus_s0_hresp),
+    .hready_o(dummy0_lsbus_s0_hready),
+    .hrdata_o(dummy0_lsbus_s0_hrdata)
 );
 ahb_dummy_top  x_lsbus_dummy_top1 (
   .haddr                  (lsbus_dummy1_s1_haddr ),

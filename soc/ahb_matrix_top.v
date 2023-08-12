@@ -755,83 +755,6 @@ assign dmac0_hmain0_m3_hprot_tmp[3:0] = dmac0_hmain0_m3_hprot[3:0];
 assign mdummy0_hmain0_m4_hprot_tmp[3:0] = mdummy0_hmain0_m4_hprot[3:0];
 assign mdummy1_hmain0_m5_hprot_tmp[3:0] = mdummy1_hmain0_m5_hprot[3:0];
 assign mdummy2_hmain0_m6_hprot_tmp[3:0] = mdummy2_hmain0_m6_hprot[3:0];
-ahb_iopmp #(
-  .A_WIDTH(32),
-  .D_WIDTH(32)
-) ahb_iopmp (
-  .hclk_i(pmu_hmain0_hclk),
-  .hresetn_i(pmu_hmain0_hrst_b),
-
-  // Config port
-  .hsel_i(hmain0_iopmp_s9_hsel),
-  .haddr_i(hmain0_iopmp_s9_haddr),
-  .hprot_i(hmain0_iopmp_s9_hprot),
-  .hsize_i(hmain0_iopmp_s9_hsize),
-  .htrans_i(hmain0_iopmp_s9_htrans),
-  .hburst_i(hmain0_iopmp_s9_hburst),
-  .hwrite_i(hmain0_iopmp_s9_hwrite),
-  .hwdata_i(hmain0_iopmp_s9_hwdata),
-
-  .hresp_o(iopmp_hmain0_s9_hresp),
-  .hready_o(iopmp_hmain0_s9_hready),
-  .hrdata_o(iopmp_hmain0_s9_hrdata),
-
-  // Slave port 0
-  .s0_haddr_i(cpu_hmain0_m4_haddr),
-  .s0_hprot_i(cpu_hmain0_m4_hprot_tmp),
-  .s0_hsize_i(cpu_hmain0_m4_hsize),
-  .s0_htrans_i(cpu_hmain0_m4_htrans),
-  .s0_hburst_i(cpu_hmain0_m4_hburst),
-  .s0_hwrite_i(cpu_hmain0_m4_hwrite),
-  .s0_hwdata_i(cpu_hmain0_m4_hwdata),
-
-  .s0_hresp_o(hmain0_cpu_m4_hresp),
-  .s0_hgrant_o(hmain0_cpu_m4_hgrant),
-  .s0_hready_o(hmain0_cpu_m4_hready),
-  .s0_hrdata_o(hmain0_cpu_m4_hrdata),
-
-  // Slave port 1
-  .s1_haddr_i(cpu_hmain0_m6_haddr),
-  .s1_hprot_i(cpu_hmain0_m6_hprot_tmp),
-  .s1_hsize_i(cpu_hmain0_m6_hsize),
-  .s1_htrans_i(cpu_hmain0_m6_htrans),
-  .s1_hburst_i(cpu_hmain0_m6_hburst),
-  .s1_hwrite_i(cpu_hmain0_m6_hwrite),
-  .s1_hwdata_i(cpu_hmain0_m6_hwdata),
-
-  .s1_hresp_o(hmain0_cpu_m6_hresp),
-  .s1_hgrant_o(hmain0_cpu_m6_hgrant),
-  .s1_hready_o(hmain0_cpu_m6_hready),
-  .s1_hrdata_o(hmain0_cpu_m6_hrdata),
-
-  // Master port 0
-  .m0_haddr_o(cpu_hmain0_m4_haddr_iopmp),
-  .m0_hprot_o(cpu_hmain0_m4_hprot_iopmp),
-  .m0_hsize_o(cpu_hmain0_m4_hsize_iopmp),
-  .m0_htrans_o(cpu_hmain0_m4_htrans_iopmp),
-  .m0_hburst_o(cpu_hmain0_m4_hburst_iopmp),
-  .m0_hwrite_o(cpu_hmain0_m4_hwrite_iopmp),
-  .m0_hwdata_o(cpu_hmain0_m4_hwdata_iopmp),
-
-  .m0_hresp_i(hmain0_cpu_m4_hresp_iopmp),
-  .m0_hgrant_i(hmain0_cpu_m4_hgrant_iopmp),
-  .m0_hready_i(hmain0_cpu_m4_hready_iopmp),
-  .m0_hrdata_i(hmain0_cpu_m4_hrdata_iopmp),
-
-  // Master port 1
-  .m1_haddr_o(cpu_hmain0_m6_haddr_iopmp),
-  .m1_hprot_o(cpu_hmain0_m6_hprot_iopmp),
-  .m1_hsize_o(cpu_hmain0_m6_hsize_iopmp),
-  .m1_htrans_o(cpu_hmain0_m6_htrans_iopmp),
-  .m1_hburst_o(cpu_hmain0_m6_hburst_iopmp),
-  .m1_hwrite_o(cpu_hmain0_m6_hwrite_iopmp),
-  .m1_hwdata_o(cpu_hmain0_m6_hwdata_iopmp),
-
-  .m1_hresp_i(hmain0_cpu_m6_hresp_iopmp),
-  .m1_hgrant_i(hmain0_cpu_m6_hgrant_iopmp),
-  .m1_hready_i(hmain0_cpu_m6_hready_iopmp),
-  .m1_hrdata_i(hmain0_cpu_m6_hrdata_iopmp)
-);
 ahb_matrix_7_12_main  x_ahb_matrix_7_12_main (
   .hclk                        (pmu_hmain0_hclk            ),
   .hresetn                     (pmu_hmain0_hrst_b          ),
@@ -1300,6 +1223,83 @@ ahb_mailbox #(
   .hrdata_o(mailbox1_hmain0_s8_hrdata),
 
   .irq_o(mailbox1_intr)
+);
+ahb_iopmp #(
+  .A_WIDTH(32),
+  .D_WIDTH(32)
+) ahb_iopmp (
+  .hclk_i(pmu_hmain0_hclk),
+  .hresetn_i(pmu_hmain0_hrst_b),
+
+  // Config port
+  .hsel_i(hmain0_iopmp_s9_hsel),
+  .haddr_i(hmain0_iopmp_s9_haddr),
+  .hprot_i(hmain0_iopmp_s9_hprot),
+  .hsize_i(hmain0_iopmp_s9_hsize),
+  .htrans_i(hmain0_iopmp_s9_htrans),
+  .hburst_i(hmain0_iopmp_s9_hburst),
+  .hwrite_i(hmain0_iopmp_s9_hwrite),
+  .hwdata_i(hmain0_iopmp_s9_hwdata),
+
+  .hresp_o(iopmp_hmain0_s9_hresp),
+  .hready_o(iopmp_hmain0_s9_hready),
+  .hrdata_o(iopmp_hmain0_s9_hrdata),
+
+  // Slave port 0
+  .s0_haddr_i(cpu_hmain0_m4_haddr),
+  .s0_hprot_i(cpu_hmain0_m4_hprot_tmp),
+  .s0_hsize_i(cpu_hmain0_m4_hsize),
+  .s0_htrans_i(cpu_hmain0_m4_htrans),
+  .s0_hburst_i(cpu_hmain0_m4_hburst),
+  .s0_hwrite_i(cpu_hmain0_m4_hwrite),
+  .s0_hwdata_i(cpu_hmain0_m4_hwdata),
+
+  .s0_hresp_o(hmain0_cpu_m4_hresp),
+  .s0_hgrant_o(hmain0_cpu_m4_hgrant),
+  .s0_hready_o(hmain0_cpu_m4_hready),
+  .s0_hrdata_o(hmain0_cpu_m4_hrdata),
+
+  // Slave port 1
+  .s1_haddr_i(cpu_hmain0_m6_haddr),
+  .s1_hprot_i(cpu_hmain0_m6_hprot_tmp),
+  .s1_hsize_i(cpu_hmain0_m6_hsize),
+  .s1_htrans_i(cpu_hmain0_m6_htrans),
+  .s1_hburst_i(cpu_hmain0_m6_hburst),
+  .s1_hwrite_i(cpu_hmain0_m6_hwrite),
+  .s1_hwdata_i(cpu_hmain0_m6_hwdata),
+
+  .s1_hresp_o(hmain0_cpu_m6_hresp),
+  .s1_hgrant_o(hmain0_cpu_m6_hgrant),
+  .s1_hready_o(hmain0_cpu_m6_hready),
+  .s1_hrdata_o(hmain0_cpu_m6_hrdata),
+
+  // Master port 0
+  .m0_haddr_o(cpu_hmain0_m4_haddr_iopmp),
+  .m0_hprot_o(cpu_hmain0_m4_hprot_iopmp),
+  .m0_hsize_o(cpu_hmain0_m4_hsize_iopmp),
+  .m0_htrans_o(cpu_hmain0_m4_htrans_iopmp),
+  .m0_hburst_o(cpu_hmain0_m4_hburst_iopmp),
+  .m0_hwrite_o(cpu_hmain0_m4_hwrite_iopmp),
+  .m0_hwdata_o(cpu_hmain0_m4_hwdata_iopmp),
+
+  .m0_hresp_i(hmain0_cpu_m4_hresp_iopmp),
+  .m0_hgrant_i(hmain0_cpu_m4_hgrant_iopmp),
+  .m0_hready_i(hmain0_cpu_m4_hready_iopmp),
+  .m0_hrdata_i(hmain0_cpu_m4_hrdata_iopmp),
+
+  // Master port 1
+  .m1_haddr_o(cpu_hmain0_m6_haddr_iopmp),
+  .m1_hprot_o(cpu_hmain0_m6_hprot_iopmp),
+  .m1_hsize_o(cpu_hmain0_m6_hsize_iopmp),
+  .m1_htrans_o(cpu_hmain0_m6_htrans_iopmp),
+  .m1_hburst_o(cpu_hmain0_m6_hburst_iopmp),
+  .m1_hwrite_o(cpu_hmain0_m6_hwrite_iopmp),
+  .m1_hwdata_o(cpu_hmain0_m6_hwdata_iopmp),
+
+  .m1_hresp_i(hmain0_cpu_m6_hresp_iopmp),
+  .m1_hgrant_i(hmain0_cpu_m6_hgrant_iopmp),
+  .m1_hready_i(hmain0_cpu_m6_hready_iopmp),
+  .m1_hrdata_i(hmain0_cpu_m6_hrdata_iopmp)
 );
 ahb_dummy_top  x_main_dummy_top2 (
   .haddr                   (hmain0_dummy2_s9_haddr ),
