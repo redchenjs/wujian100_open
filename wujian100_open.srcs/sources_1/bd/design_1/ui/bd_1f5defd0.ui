@@ -1,7 +1,7 @@
 {
    "ActiveEmotionalView":"Default View",
-   "Default View_ScaleFactor":"0.317915",
-   "Default View_TopLeft":"-1551,3",
+   "Default View_ScaleFactor":"2.11143",
+   "Default View_TopLeft":"568,726",
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 7.5.8 2022-09-21 7111 VDI=41 GEI=38 GUI=JA:10.0
 #  -string -flagsOSRD
@@ -30,8 +30,8 @@ preplace port port-id_EXT_LED_3 -pg 1 -lvl 3 -x 710 -y 940 -defaultsOSRD
 preplace port port-id_EXT_KEY_3 -pg 1 -lvl 0 -x 0 -y 780 -defaultsOSRD
 preplace port port-id_EXT_KEY_4 -pg 1 -lvl 0 -x 0 -y 800 -defaultsOSRD
 preplace port port-id_EXT_SPI_NSS_1 -pg 1 -lvl 3 -x 710 -y 420 -defaultsOSRD
-preplace port port-id_EXT_BEEP -pg 1 -lvl 3 -x 710 -y 1040 -defaultsOSRD
-preplace port port-id_EXT_LCD_BL -pg 1 -lvl 3 -x 710 -y 1080 -defaultsOSRD
+preplace port port-id_EXT_BEEP -pg 1 -lvl 3 -x 710 -y 760 -defaultsOSRD
+preplace port port-id_EXT_LCD_BL -pg 1 -lvl 3 -x 710 -y 740 -defaultsOSRD
 preplace port port-id_EXT_LCD_RST -pg 1 -lvl 3 -x 710 -y 640 -defaultsOSRD
 preplace port port-id_EXT_LCD_DC -pg 1 -lvl 3 -x 710 -y 700 -defaultsOSRD
 preplace port port-id_EXT_LCD_CS -pg 1 -lvl 3 -x 710 -y 720 -defaultsOSRD
@@ -62,8 +62,6 @@ preplace netloc Net11 1 2 1 NJ 960
 preplace netloc Net12 1 2 1 NJ 900
 preplace netloc Net13 1 2 1 NJ 920
 preplace netloc Net14 1 2 1 NJ 420
-preplace netloc Net15 1 2 1 NJ 1040
-preplace netloc Net16 1 2 1 NJ 1080
 preplace netloc Net17 1 2 1 NJ 640
 preplace netloc Net18 1 2 1 NJ 700
 preplace netloc Net19 1 2 1 NJ 720
@@ -75,6 +73,8 @@ preplace netloc util_vector_logic_1_Res 1 1 1 320 790n
 preplace netloc wujian100_open_top_0_PAD_MCURST_OUT 1 2 1 NJ 880
 preplace netloc wujian100_open_top_0_PAD_MCURST_OUT_1 1 2 1 NJ 940
 preplace netloc wujian100_open_top_0_PAD_WS2812 1 2 1 NJ 820
+preplace netloc Net15 1 2 1 NJ 740
+preplace netloc Net16 1 2 1 NJ 760
 preplace netloc processing_system7_0_DDR 1 2 1 NJ 60
 preplace netloc processing_system7_0_FIXED_IO 1 2 1 NJ 80
 levelinfo -pg 1 0 170 510 710

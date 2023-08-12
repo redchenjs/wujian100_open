@@ -56,7 +56,7 @@ int main(void)
     do {
         printf("app0: loop count: %d\n", loop++);
 
-        pwm_test();
+        pwm_toggle();
 
         if (mbox_check_acked()) {
             mbox_read_ack(&mail_id);

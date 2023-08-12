@@ -2027,14 +2027,14 @@
       },
       "Net15": {
         "ports": [
-          "EXT_BEEP",
-          "wujian100_open_top_0/PAD_PWM_CH2"
+          "EXT_LCD_BL",
+          "wujian100_open_top_0/PAD_GPIO_6"
         ]
       },
       "Net16": {
         "ports": [
-          "EXT_LCD_BL",
-          "wujian100_open_top_0/PAD_PWM_CH4"
+          "EXT_BEEP",
+          "wujian100_open_top_0/PAD_GPIO_7"
         ]
       },
       "Net17": {

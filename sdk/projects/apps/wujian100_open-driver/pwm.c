@@ -47,9 +47,9 @@ void pwm_toggle(void)
         state = !state;
 
         if (state) {
-            csi_pwm_config(pwm_handle, PWM_TEST_CH, pwm_period, pwm_period - 1);
-        } else {
             csi_pwm_config(pwm_handle, PWM_TEST_CH, pwm_period, 1);
+        } else {
+            csi_pwm_config(pwm_handle, PWM_TEST_CH, pwm_period, 2499);
         }
     }
 }
