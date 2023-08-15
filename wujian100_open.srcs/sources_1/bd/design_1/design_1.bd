@@ -912,9 +912,6 @@
           "PCW_INCLUDE_ACP_TRANS_CHECK": {
             "value": "0"
           },
-          "PCW_IRQ_F2P_MODE": {
-            "value": "DIRECT"
-          },
           "PCW_MIO_1_IOTYPE": {
             "value": "LVCMOS 3.3V"
           },
@@ -1227,18 +1224,6 @@
           },
           "PCW_SPI_PERIPHERAL_VALID": {
             "value": "0"
-          },
-          "PCW_S_AXI_HP0_DATA_WIDTH": {
-            "value": "64"
-          },
-          "PCW_S_AXI_HP1_DATA_WIDTH": {
-            "value": "64"
-          },
-          "PCW_S_AXI_HP2_DATA_WIDTH": {
-            "value": "64"
-          },
-          "PCW_S_AXI_HP3_DATA_WIDTH": {
-            "value": "64"
           },
           "PCW_TPIU_PERIPHERAL_CLKSRC": {
             "value": "External"
@@ -1599,6 +1584,9 @@
           },
           "PCW_WDT_PERIPHERAL_ENABLE": {
             "value": "0"
+          },
+          "preset": {
+            "value": "None"
           }
         }
       },
@@ -1615,8 +1603,8 @@
       },
       "util_vector_logic_1": {
         "vlnv": "xilinx.com:ip:util_vector_logic:2.0",
-        "xci_name": "design_1_util_vector_logic_0_1",
-        "xci_path": "ip\\design_1_util_vector_logic_0_1\\design_1_util_vector_logic_0_1.xci",
+        "xci_name": "design_1_util_vector_logic_1_0",
+        "xci_path": "ip\\design_1_util_vector_logic_1_0\\design_1_util_vector_logic_1_0.xci",
         "inst_hier_path": "util_vector_logic_1",
         "parameters": {
           "C_SIZE": {
