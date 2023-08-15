@@ -16,6 +16,8 @@
 #include "pwm.h"
 #include "mbox.h"
 
+#include "ssd1331.h"
+
 // Core Functions
 extern void mdelay(uint32_t ms);
 
@@ -37,6 +39,9 @@ int main(void)
     pmp_init();
     pwm_init();
     mbox_init(0);
+
+    ssd1331_init();
+    ssd1331_show_rainbow();
 
     printf("app0: started.\n");
 

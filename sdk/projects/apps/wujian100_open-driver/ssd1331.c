@@ -19,9 +19,9 @@
 
 #define SPI_DEV_IDX 2
 
+#define LCD_RST_PIN 3
 #define LCD_DC_PIN  4
 #define LCD_CS_PIN  5
-#define LCD_RST_PIN 6
 
 static spi_handle_t spi_handle = NULL;
 
@@ -455,12 +455,12 @@ void ssd1331_continuous_scrolling(unsigned char chYpos, unsigned char chHeight, 
         return;
     }
 
-//    ssd1331_write_byte(HORIZONTAL_SCROLLING_SETUP, SSD1331_CMD);
-//    ssd1331_write_byte(chDirection, SSD1331_DATA);
-//    ssd1331_write_byte(chYpos, SSD1331_DATA);
-//    ssd1331_write_byte(chHeight, SSD1331_DATA);
-//    ssd1331_write_byte(0x00, SSD1331_DATA);
-//    ssd1331_write_byte(chInterval, SSD1331_DATA);
+    ssd1331_write_byte(CONTINUOUS_SCROLLING_SETUP, SSD1331_CMD);
+    ssd1331_write_byte(chDirection, SSD1331_DATA);
+    ssd1331_write_byte(chYpos, SSD1331_DATA);
+    ssd1331_write_byte(chHeight, SSD1331_DATA);
+    ssd1331_write_byte(0x00, SSD1331_DATA);
+    ssd1331_write_byte(chInterval, SSD1331_DATA);
 
     ssd1331_write_byte(ACTIVATE_SCROLLING, SSD1331_CMD);
 }
@@ -500,28 +500,28 @@ void ssd1331_show_checkerboard(void)
 
 void ssd1331_show_rainbow(void)
 {
-    // White => Column 0~11
+    // White
     ssd1331_fill_rect(0x00, 0x00, 0x0C, SSD1331_HEIGHT, White);
 
-    // Yellow => Column 12~23
+    // Yellow
     ssd1331_fill_rect(0x0C, 0x00, 0x0C, SSD1331_HEIGHT, Yellow);
 
-    // Purple => Column 24~35
-    ssd1331_fill_rect(0x18, 0x00, 0x0C, SSD1331_HEIGHT, Magenta);
+    // Cyan
+    ssd1331_fill_rect(0x18, 0x00, 0x0C, SSD1331_HEIGHT, Cyan);
 
-    // Cyan => Column 36~47
-    ssd1331_fill_rect(0x24, 0x00, 0x0C, SSD1331_HEIGHT, Cyan);
+    // Green
+    ssd1331_fill_rect(0x24, 0x00, 0x0C, SSD1331_HEIGHT, Lime);
 
-    // Red => Column 48~59
-    ssd1331_fill_rect(0x30, 0x00, 0x0C, SSD1331_HEIGHT, Red);
+    // Magenta
+    ssd1331_fill_rect(0x30, 0x00, 0x0C, SSD1331_HEIGHT, Magenta);
 
-    // Green => Column 60~71
-    ssd1331_fill_rect(0x3C, 0x00, 0x0C, SSD1331_HEIGHT, Lime);
+    // Red
+    ssd1331_fill_rect(0x3C, 0x00, 0x0C, SSD1331_HEIGHT, Red);
 
-    // Blue => Column 72~83
+    // Blue
     ssd1331_fill_rect(0x48, 0x00, 0x0C, SSD1331_HEIGHT, Blue);
 
-    // Black => Column 84~95
+    // Black
     ssd1331_fill_rect(0x54, 0x00, 0x0C, SSD1331_HEIGHT, Black);
 }
 
@@ -671,7 +671,7 @@ void ssd1331_init(void)
     ssd1331_write_byte(SET_CONTRAST_C, SSD1331_CMD);            // Set Contrast Current for Color C
     ssd1331_write_byte(0x7D, SSD1331_CMD);                      // 125 0x7D
 
-    ssd1331_set_gray_scale_table();                             // Set Pulse Width for Gray Scale Table
+//    ssd1331_set_gray_scale_table();                             // Set Pulse Width for Gray Scale Table
 
     ssd1331_clear_gram();
 
