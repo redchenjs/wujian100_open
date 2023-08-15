@@ -351,7 +351,8 @@ module pdu_top(
   usi2_ioctl_sd1_out,
   usi2_wic_intr,
   wdt_pmu_rst_b,
-  wdt_wic_intr
+  wdt_wic_intr,
+  ws28xx_o
 );
 input   [31:0]  cpu_hmain0_m0_haddr;    
 input   [2 :0]  cpu_hmain0_m0_hburst;   
@@ -696,6 +697,7 @@ output          usi2_ioctl_sd1_out;
 output          usi2_wic_intr;          
 output          wdt_pmu_rst_b;          
 output          wdt_wic_intr;           
+output          ws28xx_o;
 wire            apb0_dummy1_intr;       
 wire            apb0_dummy2_intr;       
 wire            apb0_dummy3_intr;       
@@ -1071,7 +1073,8 @@ wire            usi2_ioctl_sd1_oe_n;
 wire            usi2_ioctl_sd1_out;     
 wire            usi2_wic_intr;          
 wire            wdt_pmu_rst_b;          
-wire            wdt_wic_intr;           
+wire            wdt_wic_intr;
+wire            ws28xx_o;
 ahb_matrix_top  x_main_bus_top (
   .cpu_hmain0_m0_haddr     (cpu_hmain0_m0_haddr    ),
   .cpu_hmain0_m0_hburst    (cpu_hmain0_m0_hburst   ),
@@ -1275,7 +1278,8 @@ ls_sub_top  x_sub_ls_top (
   .pmu_lsbus_hclk          (pmu_lsbus_hclk         ),
   .pmu_lsbus_hrst_b        (pmu_lsbus_hrst_b       ),
   .pmu_sub3_s3clk          (pmu_sub3_s3clk         ),
-  .pmu_sub3_s3rst_b        (pmu_sub3_s3rst_b       )
+  .pmu_sub3_s3rst_b        (pmu_sub3_s3rst_b       ),
+  .ws28xx_o                (ws28xx_o               )
 );
 apb0_sub_top  x_sub_apb0_top (
   .apb0_dummy1_intr     (apb0_dummy1_intr    ),

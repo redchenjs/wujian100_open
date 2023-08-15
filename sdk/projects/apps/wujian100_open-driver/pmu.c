@@ -8,7 +8,7 @@
 #include <stdint.h>
 
 // PMU Functions
-#define PMU_CTRL_REG_BASE (0x60030000)
+#define PMU_CTRL_REG_BASE (0x60030000UL)
 #define PMU_RST_N_BIT     (0x00000001)
 
 #define PMU_CTRL_REG      (*(volatile uint32_t *)PMU_CTRL_REG_BASE)

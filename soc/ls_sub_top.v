@@ -57,7 +57,8 @@ module ls_sub_top(
   pmu_lsbus_hclk,
   pmu_lsbus_hrst_b,
   pmu_sub3_s3clk,
-  pmu_sub3_s3rst_b
+  pmu_sub3_s3rst_b,
+  ws28xx_o
 );
 input   [31:0]  apb0_lsbus_s2_hrdata;   
 input           apb0_lsbus_s2_hready;   
@@ -108,6 +109,7 @@ output          lsbus_dummy3_intr;
 output  [31:0]  lsbus_hmain0_s10_hrdata; 
 output          lsbus_hmain0_s10_hready; 
 output  [1 :0]  lsbus_hmain0_s10_hresp; 
+output          ws28xx_o;
 wire    [31:0]  apb0_lsbus_s2_hrdata;   
 wire            apb0_lsbus_s2_hready;   
 wire    [1 :0]  apb0_lsbus_s2_hresp;    
@@ -201,6 +203,7 @@ wire            pmu_lsbus_hclk;
 wire            pmu_lsbus_hrst_b;       
 wire            pmu_sub3_s3clk;         
 wire            pmu_sub3_s3rst_b;       
+wire            ws28xx_o;
 ahb_matrix_1_6_sub  x_sub_ls_top (
   .m_haddr                  (hmain0_lsbus_s10_haddr  ),
   .m_hburst                 (hmain0_lsbus_s10_hburst ),
@@ -300,6 +303,21 @@ ahb_matrix_1_6_sub  x_sub_ls_top (
 //  .hwrite                 (lsbus_dummy0_s0_hwrite),
 //  .intr                   (lsbus_dummy0_intr     )
 //);
+//ahb_dummy_top  x_lsbus_dummy_top1 (
+//  .haddr                  (lsbus_dummy1_s1_haddr ),
+//  .hclk                   (pmu_dummy1_s3clk      ),
+//  .hprot                  (lsbus_dummy1_s1_hprot ),
+//  .hrdata                 (dummy1_lsbus_s1_hrdata),
+//  .hready                 (dummy1_lsbus_s1_hready),
+//  .hresp                  (dummy1_lsbus_s1_hresp ),
+//  .hrst_b                 (pmu_dummy1_s3rst_b    ),
+//  .hsel                   (lsbus_dummy1_s1_hsel  ),
+//  .hsize                  (lsbus_dummy1_s1_hsize ),
+//  .htrans                 (lsbus_dummy1_s1_htrans),
+//  .hwdata                 (lsbus_dummy1_s1_hwdata),
+//  .hwrite                 (lsbus_dummy1_s1_hwrite),
+//  .intr                   (lsbus_dummy1_intr     )
+//);
 ahb_sha2 ahb_sha2(
     .hclk_i(pmu_dummy0_s3clk),
     .hresetn_i(pmu_dummy0_s3rst_b),
@@ -316,20 +334,24 @@ ahb_sha2 ahb_sha2(
     .hready_o(dummy0_lsbus_s0_hready),
     .hrdata_o(dummy0_lsbus_s0_hrdata)
 );
-ahb_dummy_top  x_lsbus_dummy_top1 (
-  .haddr                  (lsbus_dummy1_s1_haddr ),
-  .hclk                   (pmu_dummy1_s3clk      ),
-  .hprot                  (lsbus_dummy1_s1_hprot ),
-  .hrdata                 (dummy1_lsbus_s1_hrdata),
-  .hready                 (dummy1_lsbus_s1_hready),
-  .hresp                  (dummy1_lsbus_s1_hresp ),
-  .hrst_b                 (pmu_dummy1_s3rst_b    ),
-  .hsel                   (lsbus_dummy1_s1_hsel  ),
-  .hsize                  (lsbus_dummy1_s1_hsize ),
-  .htrans                 (lsbus_dummy1_s1_htrans),
-  .hwdata                 (lsbus_dummy1_s1_hwdata),
-  .hwrite                 (lsbus_dummy1_s1_hwrite),
-  .intr                   (lsbus_dummy1_intr     )
+
+ahb_ws28xx ahb_ws28xx(
+    .hclk_i(pmu_dummy1_s3clk),
+    .hresetn_i(pmu_dummy1_s3rst_b),
+
+    .hsel_i(lsbus_dummy1_s1_hsel),
+    .hsize_i(lsbus_dummy1_s1_hsize),
+    .haddr_i(lsbus_dummy1_s1_haddr),
+    .hprot_i(lsbus_dummy1_s1_hprot),
+    .htrans_i(lsbus_dummy1_s1_htrans),
+    .hwdata_i(lsbus_dummy1_s1_hwdata),
+    .hwrite_i(lsbus_dummy1_s1_hwrite),
+
+    .hresp_o(dummy1_lsbus_s1_hresp),
+    .hready_o(dummy1_lsbus_s1_hready),
+    .hrdata_o(dummy1_lsbus_s1_hrdata),
+
+    .ws28xx_o(ws28xx_o)
 );
 ahb_dummy_top  x_lsbus_dummy_top2 (
   .haddr                  (lsbus_dummy2_s4_haddr ),

@@ -1047,6 +1047,12 @@
           <File Name="../../wujian100_open-driver/include/beep.h">
             <FileOption/>
           </File>
+          <File Name="../../wujian100_open-driver/include/sha2.h">
+            <FileOption/>
+          </File>
+          <File Name="../../wujian100_open-driver/include/ws28xx.h">
+            <FileOption/>
+          </File>
         </VirtualDirectory>
         <File Name="../../wujian100_open-driver/mbox.c">
           <FileOption/>
@@ -1064,6 +1070,12 @@
           <FileOption/>
         </File>
         <File Name="../../wujian100_open-driver/beep.c">
+          <FileOption/>
+        </File>
+        <File Name="../../wujian100_open-driver/sha2.c">
+          <FileOption/>
+        </File>
+        <File Name="../../wujian100_open-driver/ws28xx.c">
           <FileOption/>
         </File>
       </VirtualDirectory>
@@ -1307,13 +1319,14 @@
     </BuildConfig>
   </BuildConfigs>
   <DebugSessions>
-    <watchExpressions/>
-    <memoryExpressions>0x00000000;0;;</memoryExpressions>
+    <watchExpressions>(uint32_t *)temp:1</watchExpressions>
+    <memoryExpressions>0x40200000;0;;</memoryExpressions>
     <statistics>;;32;;MHZ;;up</statistics>
     <peripheralTabs/>
     <WatchDisplayFormat>1</WatchDisplayFormat>
     <LocalDisplayFormat>1</LocalDisplayFormat>
     <debugLayout/>
     <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+    <QuickWatchDisplayFormat>1</QuickWatchDisplayFormat>
   </DebugSessions>
 </Project>

@@ -16,6 +16,9 @@
 #include "beep.h"
 #include "gpio.h"
 
+#include "sha2.h"
+#include "ws28xx.h"
+
 #include "drv_usart.h"
 
 #include "mbedtls/md.h"
@@ -45,6 +48,20 @@ const void (*firmware_entry)(void) = (const void (*)())(FIRMWARE_LOAD_APP_0_ADDR
 
 const char pubkey_n[] = "DC1B56F36E933EC234545C4715370B14CAE00EA9376E9F65DE2C1361F116F05A4C2FF556FF0052F8E2D3434FF5E843A6B246449DE6C8F04C7CA821EFFBAA1DBCC7A1B903A05B7671BB6D0FD8639D492C5B74C2C91510E3B006B227CBF14A694C21A98A4B1A2474613ECD29405863716CF3DF5D3160ED0B992A25B35626E67FF1AA9242ED3A1F7EAD7C638B26DBE3624B6712055E101C07761FA6EFE38D915006F52BB4D76E52F13EAD7D04B046FB4ACFC02A57E02CF28CC1AFC3D22B572669A99EE7D357B840BC8BFA4EB1BBAD287824D93AC259D59EBBAA798ED0F026E5A0E05392683A68B16964160DF9366AF79B0AA8D95FA996E636022E584863A3F4E0D1";
 const char pubkey_e[] = "010001";
+
+uint32_t data_blk_0[16] = {
+    0x0a112001, 0x00000080, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x20000000
+};
+
+uint32_t data_blk_1[16] = {
+    0x0a112001, 0x00000080, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x20020000
+};
 
 // Core Functions
 extern void mdelay(uint32_t ms);
@@ -133,6 +150,7 @@ int main(void)
     uint32_t firmware_app1_size = 0;
     uint8_t firmware_app0_sign[256] = { 0 };
     uint8_t firmware_app1_sign[256] = { 0 };
+	uint8_t result[64] = { 0 };
 
     pmu_set_reset(0);
 
@@ -140,6 +158,13 @@ int main(void)
     pwm_init();
     beep_init();
     gpio_init();
+    ws28xx_init();
+
+    ws28xx_write_block(ws28xx_pattern_wait);
+
+	sha2_init();
+
+	sha2_calc_data(SHA2_MODE_SHA_256, (uint8_t *)data_blk_0, 4, (uint32_t *)result);
 
     printf("brom: started.\n");
 

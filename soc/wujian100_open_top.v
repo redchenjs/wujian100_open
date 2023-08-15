@@ -1091,7 +1091,8 @@ pdu_top  x_pdu_top (
   .usi2_ioctl_sd1_out    (usi2_ioctl_sd1_out   ),
   .usi2_wic_intr         (usi2_wic_intr        ),
   .wdt_pmu_rst_b         (wdt_pmu_rst_b        ),
-  .wdt_wic_intr          (wdt_wic_intr         )
+  .wdt_wic_intr          (wdt_wic_intr         ),
+  .ws28xx_o              (PAD_WS2812           )
 );
 core_top #(
   .IBUS_BASE(16'h0000),
