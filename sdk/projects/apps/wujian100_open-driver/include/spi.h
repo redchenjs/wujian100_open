@@ -11,7 +11,8 @@
 #include <stdint.h>
 
 extern void spi_init(void);
+extern void spi_deinit(void);
 
-extern int32_t spi_flash_read(uint32_t addr, void *data, uint32_t len);
+extern int32_t spi_flash_read(uint8_t flash_cs, uint32_t addr, void *data, uint32_t len);
 
 #endif /* INC_DRIVER_SPI_H_ */

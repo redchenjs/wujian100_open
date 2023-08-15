@@ -1,7 +1,7 @@
 {
   "design": {
     "design_info": {
-      "boundary_crc": "0x9D3A5169F2D6C956",
+      "boundary_crc": "0xFBC2BF8CA31AF7BA",
       "device": "xc7z020clg400-3",
       "gen_directory": "../../../../wujian100_open.gen/sources_1/bd/design_1",
       "name": "design_1",
@@ -360,10 +360,10 @@
         "direction": "O"
       },
       "EXT_SW_0": {
-        "direction": "I"
+        "direction": "IO"
       },
       "EXT_SW_1": {
-        "direction": "I"
+        "direction": "IO"
       }
     },
     "components": {
@@ -2053,6 +2053,18 @@
         "ports": [
           "EXT_LCD_CS",
           "wujian100_open_top_0/PAD_GPIO_5"
+        ]
+      },
+      "Net20": {
+        "ports": [
+          "EXT_SW_0",
+          "wujian100_open_top_0/PAD_GPIO_8"
+        ]
+      },
+      "Net21": {
+        "ports": [
+          "EXT_SW_1",
+          "wujian100_open_top_0/PAD_GPIO_9"
         ]
       },
       "PL_CLK_32K_1": {

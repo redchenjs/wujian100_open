@@ -2,8 +2,8 @@
 //Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2023.1.1 (win64) Build 3865809 Sun May  7 15:05:29 MDT 2023
-//Date        : Tue Aug 15 11:34:10 2023
-//Host        : ThinkBook running 64-bit major release  (build 9200)
+//Date        : Tue Aug 15 22:57:07 2023
+//Host        : ThinPC running 64-bit major release  (build 9200)
 //Command     : generate_target design_1_wrapper.bd
 //Design      : design_1_wrapper
 //Purpose     : IP block netlist
@@ -100,8 +100,8 @@ module design_1_wrapper
   inout EXT_SPI_SCK;
   inout EXT_SPI_SDI;
   inout EXT_SPI_SDO;
-  input EXT_SW_0;
-  input EXT_SW_1;
+  inout EXT_SW_0;
+  inout EXT_SW_1;
   inout EXT_UART_RXD_0;
   inout EXT_UART_RXD_1;
   inout EXT_UART_TXD_0;

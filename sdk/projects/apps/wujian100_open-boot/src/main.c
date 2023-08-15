@@ -8,7 +8,11 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
+
+#include "boot.h"
 
 #include "pmu.h"
 #include "spi.h"
@@ -16,8 +20,10 @@
 #include "beep.h"
 #include "gpio.h"
 
+#include "rsa.h"
 #include "sha2.h"
 #include "ws28xx.h"
+#include "ssd1331.h"
 
 #include "drv_usart.h"
 
@@ -49,20 +55,6 @@ const void (*firmware_entry)(void) = (const void (*)())(FIRMWARE_LOAD_APP_0_ADDR
 const char pubkey_n[] = "DC1B56F36E933EC234545C4715370B14CAE00EA9376E9F65DE2C1361F116F05A4C2FF556FF0052F8E2D3434FF5E843A6B246449DE6C8F04C7CA821EFFBAA1DBCC7A1B903A05B7671BB6D0FD8639D492C5B74C2C91510E3B006B227CBF14A694C21A98A4B1A2474613ECD29405863716CF3DF5D3160ED0B992A25B35626E67FF1AA9242ED3A1F7EAD7C638B26DBE3624B6712055E101C07761FA6EFE38D915006F52BB4D76E52F13EAD7D04B046FB4ACFC02A57E02CF28CC1AFC3D22B572669A99EE7D357B840BC8BFA4EB1BBAD287824D93AC259D59EBBAA798ED0F026E5A0E05392683A68B16964160DF9366AF79B0AA8D95FA996E636022E584863A3F4E0D1";
 const char pubkey_e[] = "010001";
 
-uint32_t data_blk_0[16] = {
-    0x0a112001, 0x00000080, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x20000000
-};
-
-uint32_t data_blk_1[16] = {
-    0x0a112001, 0x00000080, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x20020000
-};
-
 // Core Functions
 extern void mdelay(uint32_t ms);
 
@@ -76,7 +68,7 @@ static void board_deinit(void)
 }
 
 // RSA / SHA-256 Signature
-static bool firmware_verify(void *data, uint32_t data_size, uint8_t *sign, uint32_t sign_size)
+static bool firmware_verify_sw(void *data, uint32_t data_size, uint8_t *sign, uint32_t sign_size)
 {
     mbedtls_rsa_context rsa;
     unsigned char hash[32] = {0};
@@ -123,9 +115,48 @@ static bool firmware_verify(void *data, uint32_t data_size, uint8_t *sign, uint3
     return true;
 }
 
-static void led_blink(int ms, int count)
+static bool firmware_verify_hw(void *data, uint32_t data_size, uint8_t *sign, uint32_t sign_size)
+{
+    uint8_t sign_hash[128] = { 0 };
+    uint8_t calc_hash[128] = { 0 };
+
+    // calculate firmware checksum
+    sha2_calc_data(SHA2_MODE_SHA_256, data, data_size, (uint32_t *)calc_hash);
+
+    printf("brom: firmware SHA-256 is ");
+    for (int i = 0; i < SHA2_BYTES_SHA_256; i++) {
+        printf("%08x", ((uint32_t *)calc_hash)[SHA2_BYTES_SHA_256 - 1 - i]);
+    }
+    printf("\n");
+
+    // decrypto signature checksum
+    printf("brom: signature SHA-256 is ");
+    for (int i = 0; i < SHA2_BYTES_SHA_256; i++) {
+        printf("%08x", ((uint32_t *)sign_hash)[SHA2_BYTES_SHA_256 - 1 - i]);
+    }
+    printf("\n");
+
+    if (!memcmp(sign_hash, calc_hash, 128)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+static bool firmware_verify(bool mode, void *data, uint32_t data_size, uint8_t *sign, uint32_t sign_size)
+{
+    if (mode) {
+        return firmware_verify_hw(data, data_size, sign, sign_size);
+    } else {
+        return firmware_verify_sw(data, data_size, sign, sign_size);
+    }
+}
+
+static void display_show(int ms, int count, const uint32_t *pattern)
 {
     if (count < 0) {
+        ws28xx_write_block(pattern);
+
         while (1) {
             pwm_toggle();
             beep_toggle();
@@ -134,6 +165,8 @@ static void led_blink(int ms, int count)
             mdelay(ms);
         }
     } else {
+        ws28xx_write_block(pattern);
+
         for (int i = count; i > 0; i--) {
             pwm_toggle();
             beep_toggle();
@@ -141,81 +174,107 @@ static void led_blink(int ms, int count)
 
             mdelay(ms);
         }
+
+        ws28xx_clear();
     }
 }
 
 int main(void)
 {
+    bool mode_flash  = 0;
+    bool mode_crypto = 0;
+
     uint32_t firmware_app0_size = 0;
     uint32_t firmware_app1_size = 0;
+
     uint8_t firmware_app0_sign[256] = { 0 };
     uint8_t firmware_app1_sign[256] = { 0 };
-	uint8_t result[64] = { 0 };
 
+    boot_init();
+
+    // Boot Mode
+    mode_flash  = boot_get_mode_flash();
+    mode_crypto = boot_get_mode_crypto();
+
+    // Reset Core 1
     pmu_set_reset(0);
 
     spi_init();
     pwm_init();
     beep_init();
     gpio_init();
+
+    rsa_init();
+    sha2_init();
     ws28xx_init();
-
-    ws28xx_write_block(ws28xx_pattern_wait);
-
-	sha2_init();
-
-	sha2_calc_data(SHA2_MODE_SHA_256, (uint8_t *)data_blk_0, 4, (uint32_t *)result);
 
     printf("brom: started.\n");
 
-    // load firmware 0 size and sign
-    spi_flash_read(FIRMWARE_SIZE_APP_0_ADDR, &firmware_app0_size, sizeof(firmware_app0_size));
-    spi_flash_read(FIRMWARE_SIGN_APP_0_ADDR, firmware_app0_sign, sizeof(firmware_app0_sign));
+    if (mode_flash) {
+        printf("brom: using flash chip 1\n");
+    } else {
+        printf("brom: using flash chip 0\n");
+    }
+
+    if (mode_crypto) {
+        printf("brom: using hardware crypto\n");
+    } else {
+        printf("brom: using software crypto\n");
+    }
+
+    // load firmware 0 size and signature
+    spi_flash_read(mode_flash, FIRMWARE_SIZE_APP_0_ADDR, &firmware_app0_size, sizeof(firmware_app0_size));
+    spi_flash_read(mode_flash, FIRMWARE_SIGN_APP_0_ADDR, firmware_app0_sign, sizeof(firmware_app0_sign));
+
+    ws28xx_write_block(ws28xx_pattern_wait);
     // load firmware 0 data
     if (0 < firmware_app0_size && firmware_app0_size <= FIRMWARE_SIZE_APP_0_MAX) {
-        spi_flash_read(FIRMWARE_DATA_APP_0_ADDR, firmware_app0, firmware_app0_size);
+        spi_flash_read(mode_flash, FIRMWARE_DATA_APP_0_ADDR, firmware_app0, firmware_app0_size);
     } else {
         printf("brom: firmware 0 has invalid size: %u\n", firmware_app0_size);
 
-        led_blink(500, -1);
+        display_show(500, -1, ws28xx_pattern_none);
     }
 
     printf("brom: firmware 0 loaded, size: %u\n", firmware_app0_size);
 
-    if (firmware_verify(firmware_app0, firmware_app0_size, firmware_app0_sign, sizeof(firmware_app0_sign))) {
+    // verify firmware 0 signature
+    if (firmware_verify(mode_crypto, firmware_app0, firmware_app0_size, firmware_app0_sign, sizeof(firmware_app0_sign))) {
         printf("brom: firmware 0 is signed.\n");
 
-        // load firmware 1 size and sign
-        spi_flash_read(FIRMWARE_SIZE_APP_1_ADDR, &firmware_app1_size, sizeof(firmware_app1_size));
-        spi_flash_read(FIRMWARE_SIGN_APP_1_ADDR, firmware_app1_sign, sizeof(firmware_app1_sign));
+        // load firmware 1 size and signature
+        spi_flash_read(mode_flash, FIRMWARE_SIZE_APP_1_ADDR, &firmware_app1_size, sizeof(firmware_app1_size));
+        spi_flash_read(mode_flash, FIRMWARE_SIGN_APP_1_ADDR, firmware_app1_sign, sizeof(firmware_app1_sign));
         // load firmware 1 data
         if (0 < firmware_app1_size && firmware_app1_size <= FIRMWARE_SIZE_APP_1_MAX) {
-            spi_flash_read(FIRMWARE_DATA_APP_1_ADDR, firmware_app1, firmware_app1_size);
+            spi_flash_read(mode_flash, FIRMWARE_DATA_APP_1_ADDR, firmware_app1, firmware_app1_size);
         } else {
             printf("brom: firmware 1 has invalid size: %u\n", firmware_app1_size);
 
-            led_blink(500, -1);
+            display_show(500, -1, ws28xx_pattern_none);
         }
 
         printf("brom: firmware 1 loaded, size: %u\n", firmware_app1_size);
 
-        if (firmware_verify(firmware_app0, firmware_app0_size, firmware_app0_sign, sizeof(firmware_app1_sign))) {
+        // verify firmware 1 signature
+        if (firmware_verify(mode_crypto, firmware_app0, firmware_app0_size, firmware_app0_sign, sizeof(firmware_app1_sign))) {
             printf("brom: firmware 1 is signed.\n");
 
-            led_blink(50, 20);
+            display_show(50, 20, ws28xx_pattern_pass);
         } else {
             printf("brom: firmware 1 is not signed.\n");
 
-            led_blink(250, -1);
+            display_show(250, -1, ws28xx_pattern_fail);
         }
     } else {
         printf("brom: firmware 0 is not signed.\n");
 
-        led_blink(250, -1);
+        display_show(250, -1, ws28xx_pattern_fail);
     }
 
     printf("brom: boot from firmware 0...\n");
 
+    spi_deinit();
     pwm_deinit();
     gpio_deinit();
     board_deinit();

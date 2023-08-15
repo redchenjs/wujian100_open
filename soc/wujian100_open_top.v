@@ -1459,20 +1459,20 @@ PAD_DIG_IO  x_PAD_GPIO_7 (
   .OEN                     (pad_gpio_oen[7]        ),
   .PAD                     (PAD_GPIO_7             )
 );
-// PAD_DIG_IO  x_PAD_GPIO_8 (
-//   .ID                      (ioctl_gpio_ext_porta[8]),
-//   .IEN                     (pad_gpio_ien[8]        ),
-//   .OD                      (gpio_ioctl_porta_dr[8] ),
-//   .OEN                     (pad_gpio_oen[8]        ),
-//   .PAD                     (PAD_GPIO_8             )
-// );
-// PAD_DIG_IO  x_PAD_GPIO_9 (
-//   .ID                      (ioctl_gpio_ext_porta[9]),
-//   .IEN                     (pad_gpio_ien[9]        ),
-//   .OD                      (gpio_ioctl_porta_dr[9] ),
-//   .OEN                     (pad_gpio_oen[9]        ),
-//   .PAD                     (PAD_GPIO_9             )
-// );
+ PAD_DIG_IO  x_PAD_GPIO_8 (
+   .ID                      (ioctl_gpio_ext_porta[8]),
+   .IEN                     (pad_gpio_ien[8]        ),
+   .OD                      (gpio_ioctl_porta_dr[8] ),
+   .OEN                     (pad_gpio_oen[8]        ),
+   .PAD                     (PAD_GPIO_8             )
+ );
+ PAD_DIG_IO  x_PAD_GPIO_9 (
+   .ID                      (ioctl_gpio_ext_porta[9]),
+   .IEN                     (pad_gpio_ien[9]        ),
+   .OD                      (gpio_ioctl_porta_dr[9] ),
+   .OEN                     (pad_gpio_oen[9]        ),
+   .PAD                     (PAD_GPIO_9             )
+ );
 // PAD_DIG_IO  x_PAD_GPIO_10 (
 //   .ID                       (ioctl_gpio_ext_porta[10]),
 //   .IEN                      (pad_gpio_ien[10]        ),

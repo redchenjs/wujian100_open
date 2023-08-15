@@ -1053,6 +1053,18 @@
           <File Name="../../wujian100_open-driver/include/ws28xx.h">
             <FileOption/>
           </File>
+          <File Name="../../wujian100_open-driver/include/boot.h">
+            <FileOption/>
+          </File>
+          <File Name="../../wujian100_open-driver/include/rsa.h">
+            <FileOption/>
+          </File>
+          <File Name="../../wujian100_open-driver/include/ssd1331.h">
+            <FileOption/>
+          </File>
+          <File Name="../../wujian100_open-driver/include/fonts.h">
+            <FileOption/>
+          </File>
         </VirtualDirectory>
         <File Name="../../wujian100_open-driver/mbox.c">
           <FileOption/>
@@ -1076,6 +1088,18 @@
           <FileOption/>
         </File>
         <File Name="../../wujian100_open-driver/ws28xx.c">
+          <FileOption/>
+        </File>
+        <File Name="../../wujian100_open-driver/boot.c">
+          <FileOption/>
+        </File>
+        <File Name="../../wujian100_open-driver/rsa.c">
+          <FileOption/>
+        </File>
+        <File Name="../../wujian100_open-driver/ssd1331.c">
+          <FileOption/>
+        </File>
+        <File Name="../../wujian100_open-driver/fonts.c">
           <FileOption/>
         </File>
       </VirtualDirectory>
@@ -1319,7 +1343,7 @@
     </BuildConfig>
   </BuildConfigs>
   <DebugSessions>
-    <watchExpressions>(uint32_t *)temp:1</watchExpressions>
+    <watchExpressions>result[0]:1;firmware_app0_sign:1;firmware_app0_sign[0]:1</watchExpressions>
     <memoryExpressions>0x40200000;0;;</memoryExpressions>
     <statistics>;;32;;MHZ;;up</statistics>
     <peripheralTabs/>
