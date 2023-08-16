@@ -117,7 +117,7 @@ static bool firmware_verify_sw(void *data, uint32_t data_size, uint8_t *sign, ui
 
 static bool firmware_verify_hw(void *data, uint32_t data_size, uint8_t *sign, uint32_t sign_size)
 {
-    uint8_t sign_hash[128] = { 0 };
+    uint8_t sign_hash[256] = { 0 };
     uint8_t calc_hash[128] = { 0 };
 
     // calculate firmware checksum
@@ -130,6 +130,8 @@ static bool firmware_verify_hw(void *data, uint32_t data_size, uint8_t *sign, ui
     printf("\n");
 
     // decrypto signature checksum
+    rsa_calc_data((const uint32_t *)sign, (uint32_t *)sign_hash);
+
     printf("brom: signature SHA-256 is ");
     for (int i = 0; i < SHA2_BYTES_SHA_256; i++) {
         printf("%08x", ((uint32_t *)sign_hash)[SHA2_BYTES_SHA_256 - 1 - i]);

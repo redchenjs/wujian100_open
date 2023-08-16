@@ -13,4 +13,6 @@
 
 extern void rsa_init(void);
 
+extern void rsa_calc_data(const uint32_t *input, uint32_t *result);
+
 #endif /* INC_DRIVER_RSA_H_ */

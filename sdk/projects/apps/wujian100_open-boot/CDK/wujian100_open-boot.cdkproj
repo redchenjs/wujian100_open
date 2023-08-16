@@ -1118,17 +1118,6 @@
     <DebugLaunch>40</DebugLaunch>
   </MonitorProgress>
   <Dependencies Name="BuildSet"/>
-  <DebugSessions>
-    <watchExpressions>result[0]:1;firmware_app0_sign:1;firmware_app0_sign[0]:1</watchExpressions>
-    <memoryExpressions>0x40200000;0;;</memoryExpressions>
-    <statistics>;;32;;MHZ;;up</statistics>
-    <peripheralTabs/>
-    <WatchDisplayFormat>1</WatchDisplayFormat>
-    <LocalDisplayFormat>1</LocalDisplayFormat>
-    <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-    <QuickWatchDisplayFormat>1</QuickWatchDisplayFormat>
-  </DebugSessions>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -1346,4 +1335,15 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
+  <DebugSessions>
+    <watchExpressions>result[0]:1;firmware_app0_sign:1;firmware_app0_sign[0]:1</watchExpressions>
+    <memoryExpressions>0x40200000;0;;</memoryExpressions>
+    <statistics>;;32;;MHZ;;up</statistics>
+    <peripheralTabs/>
+    <WatchDisplayFormat>1</WatchDisplayFormat>
+    <LocalDisplayFormat>1</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+    <QuickWatchDisplayFormat>1</QuickWatchDisplayFormat>
+  </DebugSessions>
 </Project>

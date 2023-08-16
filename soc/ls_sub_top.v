@@ -368,19 +368,35 @@ ahb_dummy_top  x_lsbus_dummy_top2 (
   .hwrite                 (lsbus_dummy2_s4_hwrite),
   .intr                   (lsbus_dummy2_intr     )
 );
-ahb_dummy_top  x_lsbus_dummy_top3 (
-  .haddr                  (lsbus_dummy3_s5_haddr ),
-  .hclk                   (pmu_dummy3_s3clk      ),
-  .hprot                  (lsbus_dummy3_s5_hprot ),
-  .hrdata                 (dummy3_lsbus_s5_hrdata),
-  .hready                 (dummy3_lsbus_s5_hready),
-  .hresp                  (dummy3_lsbus_s5_hresp ),
-  .hrst_b                 (pmu_dummy3_s3rst_b    ),
-  .hsel                   (lsbus_dummy3_s5_hsel  ),
-  .hsize                  (lsbus_dummy3_s5_hsize ),
-  .htrans                 (lsbus_dummy3_s5_htrans),
-  .hwdata                 (lsbus_dummy3_s5_hwdata),
-  .hwrite                 (lsbus_dummy3_s5_hwrite),
-  .intr                   (lsbus_dummy3_intr     )
+// ahb_dummy_top  x_lsbus_dummy_top3 (
+//   .haddr                  (lsbus_dummy3_s5_haddr ),
+//   .hclk                   (pmu_dummy3_s3clk      ),
+//   .hprot                  (lsbus_dummy3_s5_hprot ),
+//   .hrdata                 (dummy3_lsbus_s5_hrdata),
+//   .hready                 (dummy3_lsbus_s5_hready),
+//   .hresp                  (dummy3_lsbus_s5_hresp ),
+//   .hrst_b                 (pmu_dummy3_s3rst_b    ),
+//   .hsel                   (lsbus_dummy3_s5_hsel  ),
+//   .hsize                  (lsbus_dummy3_s5_hsize ),
+//   .htrans                 (lsbus_dummy3_s5_htrans),
+//   .hwdata                 (lsbus_dummy3_s5_hwdata),
+//   .hwrite                 (lsbus_dummy3_s5_hwrite),
+//   .intr                   (lsbus_dummy3_intr     )
+// );
+ahb_rsa2048 ahb_rsa2048_0(
+    .HRESETn       (pmu_dummy3_s3rst_b     ),
+    .HCLK          (pmu_dummy3_s3clk       ),
+    .sHSEL         (lsbus_dummy3_s5_hsel   ),
+    .sHADDR        (lsbus_dummy3_s5_haddr  ),
+    .sHTRANS       (lsbus_dummy3_s5_htrans ),
+    .sHWRITE       (lsbus_dummy3_s5_hwrite ),
+    .sHSIZE        (lsbus_dummy3_s5_hsize  ),
+    .sHBURST       ('b0                    ),
+    .sHWDATA       (lsbus_dummy3_s5_hwdata ),
+    .sHRDATA       (dummy3_lsbus_s5_hrdata ),
+    .sHRESP        (dummy3_lsbus_s5_hresp  ),
+    .sHREADYin     ('b1                    ),
+    .sHREADYout    (dummy3_lsbus_s5_hready )
 );
+
 endmodule
