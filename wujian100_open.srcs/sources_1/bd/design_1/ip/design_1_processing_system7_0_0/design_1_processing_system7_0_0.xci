@@ -832,7 +832,7 @@
         "PCW_MIO_53_IOTYPE": [ { "value": "<Select>", "resolve_type": "user", "enabled": false, "usage": "all" } ],
         "PCW_MIO_53_DIRECTION": [ { "value": "<Select>", "resolve_type": "user", "enabled": false, "usage": "all" } ],
         "PCW_MIO_53_SLEW": [ { "value": "<Select>", "resolve_type": "user", "enabled": false, "usage": "all" } ],
-        "preset": [ { "value": "None", "resolve_type": "user", "usage": "all" } ],
+        "preset": [ { "value": "None", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
         "PCW_UIPARAM_GENERATE_SUMMARY": [ { "value": "NA", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
         "PCW_MIO_TREE_PERIPHERALS": [ { "value": "unassigned#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#UART 1#UART 1#unassigned#unassigned#unassigned#unassigned", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
         "PCW_MIO_TREE_SIGNALS": [ { "value": "unassigned#qspi0_ss_b#qspi0_io[0]#qspi0_io[1]#qspi0_io[2]#qspi0_io[3]/HOLD_B#qspi0_sclk#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#unassigned#tx#rx#unassigned#unassigned#unassigned#unassigned", "value_src": "user", "resolve_type": "user", "usage": "all" } ],
@@ -967,7 +967,7 @@
         "OUTPUTDIR": [ { "value": "../../../../../../wujian100_open.gen/sources_1/bd/design_1/ip/design_1_processing_system7_0_0" } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
         "SHAREDDIR": [ { "value": "../../ipshared" } ],
-        "SWVERSION": [ { "value": "2023.1.1" } ],
+        "SWVERSION": [ { "value": "2023.1" } ],
         "SYNTHESISFLOW": [ { "value": "OUT_OF_CONTEXT" } ]
       }
     },

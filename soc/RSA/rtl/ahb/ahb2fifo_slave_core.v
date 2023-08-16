@@ -19,24 +19,26 @@
 `timescale 1ns/1ns
 
 module ahb2fifo_slave_core#(
-    parameter FIFO_AW=5,
-    parameter ADDR_BASE = 32'h78000000
+        parameter FIFO_AW=5
+    ,   parameter ADDR_BASE = 32'h78000000
+    ,   parameter K = 128
+    ,   parameter N = 16
 )(
    //----------------------------------------------------
    // AHB slave port
-     (* MARK_DEBUG="true" *)input    wire              HRESETn
-   , (* MARK_DEBUG="true" *)input    wire              HCLK
-   , (* MARK_DEBUG="true" *)input    wire              HSEL
-   , (* MARK_DEBUG="true" *)input    wire [31  :0]     HADDR
-   , (* MARK_DEBUG="true" *)input    wire [1   :0]     HTRANS
-   , (* MARK_DEBUG="true" *)input    wire              HWRITE
-   , (* MARK_DEBUG="true" *)input    wire [2   :0]     HSIZE
-   , (* MARK_DEBUG="true" *)input    wire [2   :0]     HBURST
-   , (* MARK_DEBUG="true" *)input    wire [31  :0]     HWDATA  
-   , (* MARK_DEBUG="true" *)output   reg  [31  :0]     HRDATA
-   , (* MARK_DEBUG="true" *)output   reg  [1   :0]     HRESP
-   , (* MARK_DEBUG="true" *)input    wire              HREADYin
-   , (* MARK_DEBUG="true" *)output   reg               HREADYout
+     input    wire              HRESETn
+   , input    wire              HCLK
+   , input    wire              HSEL
+   , input    wire [31  :0]     HADDR
+   , input    wire [1   :0]     HTRANS
+   , input    wire              HWRITE
+   , input    wire [2   :0]     HSIZE
+   , input    wire [2   :0]     HBURST
+   , input    wire [31  :0]     HWDATA  
+   , output   reg  [31  :0]     HRDATA
+   , output   reg  [1   :0]     HRESP
+   , input    wire              HREADYin
+   , output   reg               HREADYout
    //----------------------------------------------------
    // FIFO forward: address related
    , output  wire               fwr_clk  
@@ -61,7 +63,7 @@ module ahb2fifo_slave_core#(
     //----------------------------------------------------
     assign fwr_clk   = HCLK;
     assign brd_clk   = HCLK;
-    assign rsa_start = (REG_STATE[0] != 0) & (fwr_cnt==128);
+    assign rsa_start = (REG_STATE[0] != 0) & (fwr_cnt==(K*N/32));
     //----------------------------------------------------
     reg [31:0]  T_ADDR;
     reg         T_WRITE;

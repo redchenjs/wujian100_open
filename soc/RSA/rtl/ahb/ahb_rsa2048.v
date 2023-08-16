@@ -40,7 +40,10 @@ module ahb_rsa2048 (
      , output  wire        sHREADYout
 );
    //--------------------------------------------------------
-   localparam FIFO_AW=8;
+   localparam FIFO_AW     = 7           ;//memory size = 2*(K*N/32)
+   localparam K           = 128         ;
+   localparam N           = 16          ;
+    localparam ADDR_BASE  = 32'h78000000;
    //--------------------------------------------------------
    wire             fwd_wr_rdy;
    wire             fwd_wr_vld;
@@ -70,42 +73,45 @@ module ahb_rsa2048 (
    // slave write to register 1 to indicate the rsa2048 module is done, default: 0x0000_0000
 
 
-   //----------------------------------------------------
-   // It handles AHB transaction as a slave.
-   // It pushes request information to the forward FIFO.
-   // It pops response information from the backwoard FIFO.
-  ahb2fifo_slave_core #(  
-    .FIFO_AW(FIFO_AW)
-  )Uslave (
-      .HRESETn   (HRESETn   )
-    , .HCLK      (HCLK      )
-    , .HSEL      (sHSEL     )
-    , .HADDR     (sHADDR    )
-    , .HTRANS    (sHTRANS   )
-    , .HWRITE    (sHWRITE   )
-    , .HSIZE     (sHSIZE    )
-    , .HBURST    (sHBURST   )
-    , .HWDATA    (sHWDATA   )
-    , .HRDATA    (sHRDATA   )
-    , .HRESP     (sHRESP    )
-    , .HREADYin  (sHREADYin )
-    , .HREADYout (sHREADYout)
-    , .fwr_clk   (          ) // output: should be HCLK
-    , .fwr_rdy   (fwd_wr_rdy)
-    , .fwr_vld   (fwd_wr_vld)
-    , .fwr_dat   (fwd_wr_dat)
-    , .fwr_full  (fwd_full  )
-    , .fwr_cnt   (fwd_cnt_wr) // how many rooms available
-    , .brd_clk   (          ) // output: should be HCLK
-    , .brd_rdy   (bwd_rd_rdy)
-    , .brd_vld   (bwd_rd_vld)
-    , .brd_dat   (bwd_rd_dat)
-    , .brd_empty (bwd_empty )
-    , .brd_cnt   (bwd_cnt_rd) // how many items avilable
-    , .rsa_start (rsa_start )
-    , .rsa_finish(bwd_cnt_rd == 64)
-  );
-  
+  //----------------------------------------------------
+  // It handles AHB transaction as a slave.
+  // It pushes request information to the forward FIFO.
+  // It pops response information from the backwoard FIFO.
+ahb2fifo_slave_core #(  
+    .FIFO_AW    (FIFO_AW)
+  , .ADDR_BASE  (ADDR_BASE)
+  , .K          ( K )
+  , .N          ( N )
+)Uslave (
+    .HRESETn    (HRESETn   )
+  , .HCLK       (HCLK      )
+  , .HSEL       (sHSEL     )
+  , .HADDR      (sHADDR    )
+  , .HTRANS     (sHTRANS   )
+  , .HWRITE     (sHWRITE   )
+  , .HSIZE      (sHSIZE    )
+  , .HBURST     (sHBURST   )
+  , .HWDATA     (sHWDATA   )
+  , .HRDATA     (sHRDATA   )
+  , .HRESP      (sHRESP    )
+  , .HREADYin   (sHREADYin )
+  , .HREADYout  (sHREADYout)
+  , .fwr_clk    (          ) // output: should be HCLK
+  , .fwr_rdy    (fwd_wr_rdy)
+  , .fwr_vld    (fwd_wr_vld)
+  , .fwr_dat    (fwd_wr_dat)
+  , .fwr_full   (fwd_full  )
+  , .fwr_cnt    (fwd_cnt_wr) // how many rooms available
+  , .brd_clk    (          ) // output: should be HCLK
+  , .brd_rdy    (bwd_rd_rdy)
+  , .brd_vld    (bwd_rd_vld)
+  , .brd_dat    (bwd_rd_dat)
+  , .brd_empty  (bwd_empty )
+  , .brd_cnt    (bwd_cnt_rd) // how many items avilable
+  , .rsa_start  (rsa_start )
+  , .rsa_finish (bwd_cnt_rd == (K*N/32))
+);
+
   //---------------------------------------------------
   // read from slave, write to master
   // control read salve fifo, write master fifo
@@ -116,7 +122,7 @@ fifo_rsa2048_ctrl #(
       .rst      (~HRESETn   ) // asynchronous reset (active high)
     , .clr      (1'b0       ) // synchronous reset (active high)
     , .clk      (HCLK       )
-    , .rd_start (rsa_start & (fwd_cnt_rd == 128))
+    , .rd_start (rsa_start & (fwd_cnt_rd == (K*N/32)))
     , .rd_rdy   (fwd_rd_rdy )
     , .rd_vld   (fwd_rd_vld )
     , .rd_din   (fwd_rd_dat )

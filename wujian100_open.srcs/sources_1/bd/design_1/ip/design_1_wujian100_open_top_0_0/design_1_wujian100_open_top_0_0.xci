@@ -32,7 +32,7 @@
         "OUTPUTDIR": [ { "value": "../../../../../../wujian100_open.gen/sources_1/bd/design_1/ip/design_1_wujian100_open_top_0_0" } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],
         "SHAREDDIR": [ { "value": "../../ipshared" } ],
-        "SWVERSION": [ { "value": "2023.1.1" } ],
+        "SWVERSION": [ { "value": "2023.1" } ],
         "SYNTHESISFLOW": [ { "value": "OOC_HIERARCHICAL" } ]
       }
     },

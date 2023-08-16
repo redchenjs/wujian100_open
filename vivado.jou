@@ -1,0 +1,42 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:05:29 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Wed Aug 16 16:18:39 2023
+# Process ID: 5776
+# Current directory: E:/github/school/wujian100/wujian100
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent9624 E:\github\school\wujian100\wujian100\wujian100_open.xpr
+# Log file: E:/github/school/wujian100/wujian100/vivado.log
+# Journal file: E:/github/school/wujian100/wujian100\vivado.jou
+# Running On: y7000pr, OS: Windows, CPU Frequency: 3110 MHz, CPU Physical cores: 12, Host memory: 42732 MB
+#-----------------------------------------------------------
+start_gui
+open_project E:/github/school/wujian100/wujian100/wujian100_open.xpr
+update_compile_order -fileset sources_1
+add_files -norecurse -scan_for_includes {E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/x.mem E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/y.mem E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/m.mem E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/a0.mem}
+add_files -norecurse -scan_for_includes {E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/mm_iddmm_sub.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/r2mm/mm_r2mm.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/ahb/ahb_fifo.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/mmp_iddmm_top.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/ahb/ahb_rsa2048.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/mmp_iddmm_pe.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/mmp_iddmm_addend.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/mmp_iddmm_mul128.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/mmp_iddmm_sp.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/r2mm/mm_r2mm_2n.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/mmp_iddmm_addfirst.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/mmp_iddmm_shift.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/r2mm/me_top.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/ahb/ahb2fifo_slave_core.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/ahb/fifo_rsa2048_ctrl.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/me_iddmm_top.sv E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/mmp_iddmm_ctrl.v}
+update_compile_order -fileset sources_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+add_files -fileset sim_1 -norecurse -scan_for_includes {E:/github/school/wujian100/wujian100/soc/RSA/tb/me_top_tb.v E:/github/school/wujian100/wujian100/soc/RSA/tb/ahb_rsa2048_tb.v E:/github/school/wujian100/wujian100/soc/RSA/tb/bfm_ahb.v E:/github/school/wujian100/wujian100/soc/RSA/tb/bfm_ahb_tasks.v E:/github/school/wujian100/wujian100/soc/RSA/tb/mmp_iddmm_sp_tb.v E:/github/school/wujian100/wujian100/soc/RSA/tb/me_iddmm_top_tb.v}
+update_compile_order -fileset sim_1
+update_module_reference design_1_wujian100_open_top_0_0
+regenerate_bd_layout
+validate_bd_design
+save_bd_design
+regenerate_bd_layout
+close_bd_design [get_bd_designs design_1]
+add_files -norecurse -scan_for_includes {E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/common/simple_ram.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/common/simple_vedic_4bit.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/common/simple_vedic_128bit.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/common/mult.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/common/simple_vedic_8bit.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/common/simple_vedic_32bit.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/common/simple_p12adder256_3_2.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/common/simple_vedic_16bit.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/common/simple_vedic_64bit.v E:/github/school/wujian100/wujian100/soc/RSA/rtl/iddmm/common/simple_p1adder129.v}
+update_compile_order -fileset sources_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top wujian100_open_top [current_fileset]
+set_property top_lib xil_defaultlib [current_fileset]
+set_property top_file E:/github/school/wujian100/wujian100/soc/wujian100_open_top.v [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset sources_1
+reset_run design_1_processing_system7_0_0_synth_1
+launch_runs design_1_processing_system7_0_0_synth_1
+wait_on_run design_1_processing_system7_0_0_synth_1
+synth_design -dataflow -name dfv_1
