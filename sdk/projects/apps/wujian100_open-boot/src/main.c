@@ -228,17 +228,17 @@ int main(void)
         printf("brom: using software crypto\n");
     }
 
+    ws28xx_write_block(ws28xx_pattern_wait);
+
     // load firmware 0 size and signature
     spi_flash_read(mode_flash, FIRMWARE_SIZE_APP_0_ADDR, &firmware_app0_size, sizeof(firmware_app0_size));
     spi_flash_read(mode_flash, FIRMWARE_SIGN_APP_0_ADDR, firmware_app0_sign, sizeof(firmware_app0_sign));
 
-    ws28xx_write_block(ws28xx_pattern_wait);
     // load firmware 0 data
     if (0 < firmware_app0_size && firmware_app0_size <= FIRMWARE_SIZE_APP_0_MAX) {
         spi_flash_read(mode_flash, FIRMWARE_DATA_APP_0_ADDR, firmware_app0, firmware_app0_size);
     } else {
         printf("brom: firmware 0 has invalid size: %u\n", firmware_app0_size);
-
         display_show(500, -1, ws28xx_pattern_none);
     }
 
@@ -251,30 +251,27 @@ int main(void)
         // load firmware 1 size and signature
         spi_flash_read(mode_flash, FIRMWARE_SIZE_APP_1_ADDR, &firmware_app1_size, sizeof(firmware_app1_size));
         spi_flash_read(mode_flash, FIRMWARE_SIGN_APP_1_ADDR, firmware_app1_sign, sizeof(firmware_app1_sign));
+
         // load firmware 1 data
         if (0 < firmware_app1_size && firmware_app1_size <= FIRMWARE_SIZE_APP_1_MAX) {
             spi_flash_read(mode_flash, FIRMWARE_DATA_APP_1_ADDR, firmware_app1, firmware_app1_size);
         } else {
             printf("brom: firmware 1 has invalid size: %u\n", firmware_app1_size);
-
             display_show(500, -1, ws28xx_pattern_none);
         }
 
         printf("brom: firmware 1 loaded, size: %u\n", firmware_app1_size);
 
         // verify firmware 1 signature
-        if (firmware_verify(mode_crypto, firmware_app0, firmware_app0_size, firmware_app0_sign, sizeof(firmware_app1_sign))) {
+        if (firmware_verify(mode_crypto, firmware_app1, firmware_app1_size, firmware_app1_sign, sizeof(firmware_app1_sign))) {
             printf("brom: firmware 1 is signed.\n");
-
             display_show(50, 20, ws28xx_pattern_pass);
         } else {
             printf("brom: firmware 1 is not signed.\n");
-
             display_show(250, -1, ws28xx_pattern_fail);
         }
     } else {
         printf("brom: firmware 0 is not signed.\n");
-
         display_show(250, -1, ws28xx_pattern_fail);
     }
 

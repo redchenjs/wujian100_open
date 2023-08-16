@@ -172,8 +172,10 @@ SECTIONS
         . += __min_heap_size;
         . = ALIGN(0x4) ;
         __heap_end = .;
+        . = ALIGN(0x4) ;
         __stack_bottom = .;
         . += __min_stack_size;
+        . = ALIGN(0x4) ;
         __stack_top = .;
     } > REGION_BSS AT > REGION_BSS
 }
