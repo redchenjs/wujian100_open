@@ -43,6 +43,7 @@ wire    [K*N-1 : 0]     me_y          ;
 wire    [K-1   : 0]     me_m1         ;
 reg     [K-1  : 0]      rou [N-1:0]   ;
 reg     [K-1  : 0]      result [N-1:0];
+reg     [K-1  : 0]      result_backup [N-1:0];
 
 generate
 if(data_test == 1)begin:virtual_value
@@ -75,6 +76,27 @@ if(data_test == 1)begin:virtual_value
 
   initial begin
     result = '{
+      128'h2d84060fe1d56fe246a87860ba0968cc, 
+      128'hf2de5def6a25b0582c5548abab57160f, 
+      128'hb15ace131cb0f3c4561fd14d8270f24, 
+      128'h1871121b537bf9e4110e9d2ff4aa3f22, 
+      128'h88d2d70dc166b76655e64641584ed57f, 
+      128'hd85cd56de6f5c9cf1db6abb98ab77ede, 
+      128'ha9a5dcab7032c90ac7d11466c24631c0, 
+      128'had90df54caa17d269c2a6abe43ee9e1d, 
+      128'hee5fc1c4c8da9f7bf3a81ed42d0bf153, 
+      128'ha00313fe4c0f83c873f59f48b41084a8, 
+      128'hd89b3775b06749e0573326fa50518861, 
+      128'h9e6cc87cfb2714e896a318e5e8c53c21, 
+      128'heed8e8ac3b724a7ab91a5066e83e3144, 
+      128'h5a44e50c031c206ae93f36a3643eb449, 
+      128'ha2e3acf873f937e53f0c12f279cbd9f1, 
+      128'hb84087f30b0b669f7b208cd6cae6bbe9 
+    };//1*2^(K) mod m
+  end
+
+  initial begin
+    result_backup = '{
       128'h2d84060fe1d56fe246a87860ba0968cc, 
       128'hf2de5def6a25b0582c5548abab57160f, 
       128'hb15ace131cb0f3c4561fd14d8270f24, 
@@ -143,6 +165,27 @@ else begin:real_value
 
   initial begin
     result = '{
+      128'h23e4a90c916cc13dcbaba3b8eac8f4eb, 
+      128'h351ff156c891609a21d3ec9e0ee90fa5, 
+      128'hb3d00aa900ffad071d2cbcb00a17bc59, 
+      128'h4db9bb6219370fb38357de100455e243, 
+      128'h385e46fc5fa4898e4492f0279c62b6d3, 
+      128'ha48b3d36eaef1c4ff94dd8340eb596b3, 
+      128'hde5675b4e5db8b9ec132d6bfa79c8e93, 
+      128'hc20a2ce9f12f466d5da4ca9d919800e, 
+      128'h556dbd12c5e08152839c74d9241c9db4, 
+      128'h98edfaa1efe3f889e059101c726eaff9, 
+      128'had44b2891ad0ec15282fb4fb904b530, 
+      128'h3fd5a81fd30d733e503c2dd4a8d99656, 
+      128'h61182ca847bf437405b14e4452d787db, 
+      128'h26c53da62a61445586712f0fd91a5f1f, 
+      128'hac6d97c5974e969be9f206c9950864f5,
+      128'h5726a0566919c9fdd1a7b79c5c0b1f2f
+    };//1*2^(K) mod m
+  end
+  
+  initial begin
+    result_backup = '{
       128'h23e4a90c916cc13dcbaba3b8eac8f4eb, 
       128'h351ff156c891609a21d3ec9e0ee90fa5, 
       128'hb3d00aa900ffad071d2cbcb00a17bc59, 
@@ -366,7 +409,7 @@ always@(posedge clk or negedge rst_n)begin
               end
               if(task_req & task_grant)begin
                 wr_addr           <=  wr_addr + 1;
-                result[wr_addr]   <=  task_res;
+                result[wr_addr]   <=  result_backup[wr_addr];
                 result_out        <=  task_res;
                 result_valid      <=  1;  
               end

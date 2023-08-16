@@ -87,11 +87,14 @@ module ahb2fifo_slave_core#(
                     STH_WRITE1  = 'h9;
 
    always @ (posedge HCLK or negedge HRESETn) begin
-        if(HRESETn==0)begin
-           REG_STATE[1] <=  0;
+        if(!HRESETn)begin
+            REG_STATE[1] <=  0;
         end
+        // else if(rsa_start)begin
+        //     REG_STATE[1] <=  0;
+        // end
         else if(rsa_finish)begin
-           REG_STATE[1] <=  1;
+            REG_STATE[1] <=  1;
         end
    end
 

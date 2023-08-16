@@ -4161,3 +4161,5 @@ synth_design completed successfully
 synth_design: Time (s): cpu = 00:00:08 ; elapsed = 00:00:31 . Memory (MB): peak = 3092.977 ; gain = 884.699
 INFO: [Common 17-600] The following parameters have non-default value.
 general.maxThreads
+exit
+INFO: [Common 17-206] Exiting Vivado at Wed Aug 16 16:39:20 2023...

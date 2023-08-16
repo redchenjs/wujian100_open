@@ -18,7 +18,7 @@ module mm_iddmm_sub
     parameter K  = 128,             //K<=128 and 2**?==K
     parameter N  = 32 ,             //N<=32  and 2**??==N 
     parameter ADDR_W = $clog2(N),
-    parameter DEBUG  = 1'b1
+    parameter DEBUG  = 1'b0
 )
 (
     input       wire                    clk         ,
