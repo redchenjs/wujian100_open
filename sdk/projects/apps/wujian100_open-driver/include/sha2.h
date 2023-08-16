@@ -18,10 +18,10 @@ typedef enum {
 } sha2_mode_t;
 
 typedef enum {
-    SHA2_BYTES_SHA_224 = 7,
-    SHA2_BYTES_SHA_256 = 8,
-    SHA2_BYTES_SHA_384 = 12,
-    SHA2_BYTES_SHA_512 = 16
+    SHA2_WORDS_SHA_224 = 7,
+    SHA2_WORDS_SHA_256 = 8,
+    SHA2_WORDS_SHA_384 = 12,
+    SHA2_WORDS_SHA_512 = 16
 } sha2_bytes_t;
 
 extern void sha2_init(void);

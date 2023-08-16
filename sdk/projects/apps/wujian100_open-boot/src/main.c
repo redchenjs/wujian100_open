@@ -124,21 +124,25 @@ static bool firmware_verify_hw(void *data, uint32_t data_size, uint8_t *sign, ui
     sha2_calc_data(SHA2_MODE_SHA_256, data, data_size, (uint32_t *)calc_hash);
 
     printf("brom: firmware SHA-256 is ");
-    for (int i = 0; i < SHA2_BYTES_SHA_256; i++) {
-        printf("%08x", ((uint32_t *)calc_hash)[SHA2_BYTES_SHA_256 - 1 - i]);
+    for (int i = 0; i < SHA2_WORDS_SHA_256; i++) {
+        printf("%08x", ((uint32_t *)calc_hash)[SHA2_WORDS_SHA_256 - 1 - i]);
     }
     printf("\n");
 
     // decrypto signature checksum
-    rsa_calc_data((const uint32_t *)sign, (uint32_t *)sign_hash);
+    for (int i = 0; i < 256; i++) {
+        sign_hash[i] = sign[255 - i];
+    }
+
+    rsa_calc_data((const uint32_t *)sign_hash, (uint32_t *)sign_hash);
 
     printf("brom: signature SHA-256 is ");
-    for (int i = 0; i < SHA2_BYTES_SHA_256; i++) {
-        printf("%08x", ((uint32_t *)sign_hash)[SHA2_BYTES_SHA_256 - 1 - i]);
+    for (int i = 0; i < SHA2_WORDS_SHA_256; i++) {
+        printf("%08x", ((uint32_t *)sign_hash)[SHA2_WORDS_SHA_256 - 1 - i]);
     }
     printf("\n");
 
-    if (!memcmp(sign_hash, calc_hash, 128)) {
+    if (!memcmp(sign_hash, calc_hash, SHA2_WORDS_SHA_256 * 4)) {
         return true;
     } else {
         return false;
