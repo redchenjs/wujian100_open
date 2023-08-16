@@ -1,5 +1,5 @@
 OBJDIR = $(shell pwd)/obj
-SRCDIR = $(shell pwd)/../wujian100_open-boot/src/mbedtls
+SRCDIR = $(shell pwd)/../wujian100_open-library/mbedtls
 
 INC = \
         -I$(shell pwd) \
