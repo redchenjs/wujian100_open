@@ -301,13 +301,7 @@
         <FileOption/>
       </File>
       <VirtualDirectory Name="driver">
-        <File Name="../../wujian100_open-driver/gpio.c">
-          <FileOption/>
-        </File>
         <VirtualDirectory Name="include">
-          <File Name="../../wujian100_open-driver/include/gpio.h">
-            <FileOption/>
-          </File>
           <File Name="../../wujian100_open-driver/include/mbox.h">
             <FileOption/>
           </File>
@@ -318,9 +312,6 @@
             <FileOption/>
           </File>
           <File Name="../../wujian100_open-driver/include/pwm.h">
-            <FileOption/>
-          </File>
-          <File Name="../../wujian100_open-driver/include/spi.h">
             <FileOption/>
           </File>
           <File Name="../../wujian100_open-driver/include/fonts.h">
@@ -340,9 +331,6 @@
           <FileOption/>
         </File>
         <File Name="../../wujian100_open-driver/pwm.c">
-          <FileOption/>
-        </File>
-        <File Name="../../wujian100_open-driver/spi.c">
           <FileOption/>
         </File>
         <File Name="../../wujian100_open-driver/fonts.c">
@@ -393,17 +381,6 @@
       </File>
     </VirtualDirectory>
   </VirtualDirectory>
-  <DebugSessions>
-    <watchExpressions/>
-    <memoryExpressions>0x10000000;;;</memoryExpressions>
-    <statistics>;;32;;MHZ;;up</statistics>
-    <peripheralTabs/>
-    <WatchDisplayFormat>1</WatchDisplayFormat>
-    <LocalDisplayFormat>1</LocalDisplayFormat>
-    <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-    <QuickWatchDisplayFormat>1</QuickWatchDisplayFormat>
-  </DebugSessions>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -621,4 +598,15 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
+  <DebugSessions>
+    <watchExpressions/>
+    <memoryExpressions>0x10000000;;;</memoryExpressions>
+    <statistics>;;32;;MHZ;;up</statistics>
+    <peripheralTabs/>
+    <WatchDisplayFormat>1</WatchDisplayFormat>
+    <LocalDisplayFormat>1</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+    <QuickWatchDisplayFormat>1</QuickWatchDisplayFormat>
+  </DebugSessions>
 </Project>

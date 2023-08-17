@@ -42,6 +42,7 @@ int main(void)
     mbox_init(0);
 
     ssd1331_init();
+    ssd1331_show_rainbow();
 
     printf("app0: started.\n");
 
@@ -59,8 +60,6 @@ int main(void)
         send_msg_id = loop;
         send_msg = true;
     }
-
-    ssd1331_show_rainbow();
 
     do {
         printf("app0: loop count: %d\n", loop++);

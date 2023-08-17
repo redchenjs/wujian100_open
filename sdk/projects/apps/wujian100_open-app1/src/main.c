@@ -27,7 +27,7 @@ int main(void)
     uint8_t send_msg_id = 0;
     uint8_t send_ack_id = 0;
 
-    uint8_t loop = 200;
+    uint8_t loop = 197;
     uint8_t mail_id = 0;
     int16_t mail_len = 0;
     uint8_t mail_buff[1024] = {0};
@@ -53,8 +53,8 @@ int main(void)
 
         gpio_toggle();
 
-        if (loop % 2) {
-            ws28xx_write_block(ws28xx_pattern_pass);
+        if (loop % 6) {
+            ws28xx_write_block(ws28xx_pattern_show[loop % 6 - 1]);
         } else {
             ws28xx_clear();
         }

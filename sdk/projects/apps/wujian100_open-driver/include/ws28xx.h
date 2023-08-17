@@ -11,10 +11,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-extern const uint32_t ws28xx_pattern_wait[];
-extern const uint32_t ws28xx_pattern_pass[];
-extern const uint32_t ws28xx_pattern_fail[];
-extern const uint32_t ws28xx_pattern_none[];
+extern const uint32_t ws28xx_pattern_wait[25];
+extern const uint32_t ws28xx_pattern_pass[25];
+extern const uint32_t ws28xx_pattern_fail[25];
+extern const uint32_t ws28xx_pattern_none[25];
+extern const uint32_t ws28xx_pattern_show[5][25];
 
 extern void ws28xx_init(void);
 

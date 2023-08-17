@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CDK_Workspace Name="wujian100_open" Database="LanguageSever">
   <DefaultPackPath>$(CDKWS)\__workspace_pack__</DefaultPackPath>
-  <Project Name="wujian100_open-boot" Path="sdk/projects/apps/wujian100_open-boot/CDK/wujian100_open-boot.cdkproj" RootPath="" Active="No"/>
+  <Project Name="wujian100_open-boot" Path="sdk/projects/apps/wujian100_open-boot/CDK/wujian100_open-boot.cdkproj" RootPath="" Active="Yes"/>
   <Project Name="wujian100_open-app0" Path="sdk/projects/apps/wujian100_open-app0/CDK/wujian100_open-app0.cdkproj" RootPath="" Active="No"/>
-  <Project Name="wujian100_open-app1" Path="sdk/projects/apps/wujian100_open-app1/CDK/wujian100_open-app1.cdkproj" RootPath="" Active="Yes"/>
+  <Project Name="wujian100_open-app1" Path="sdk/projects/apps/wujian100_open-app1/CDK/wujian100_open-app1.cdkproj" RootPath="" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>

@@ -311,35 +311,11 @@
           <File Name="../../wujian100_open-driver/include/mbox.h">
             <FileOption/>
           </File>
-          <File Name="../../wujian100_open-driver/include/pmp.h">
-            <FileOption/>
-          </File>
-          <File Name="../../wujian100_open-driver/include/pmu.h">
-            <FileOption/>
-          </File>
-          <File Name="../../wujian100_open-driver/include/pwm.h">
-            <FileOption/>
-          </File>
-          <File Name="../../wujian100_open-driver/include/spi.h">
-            <FileOption/>
-          </File>
           <File Name="../../wujian100_open-driver/include/ws28xx.h">
             <FileOption/>
           </File>
         </VirtualDirectory>
         <File Name="../../wujian100_open-driver/mbox.c">
-          <FileOption/>
-        </File>
-        <File Name="../../wujian100_open-driver/pmp.c">
-          <FileOption/>
-        </File>
-        <File Name="../../wujian100_open-driver/pmu.c">
-          <FileOption/>
-        </File>
-        <File Name="../../wujian100_open-driver/pwm.c">
-          <FileOption/>
-        </File>
-        <File Name="../../wujian100_open-driver/spi.c">
           <FileOption/>
         </File>
         <File Name="../../wujian100_open-driver/ws28xx.c">
@@ -387,17 +363,6 @@
       </File>
     </VirtualDirectory>
   </VirtualDirectory>
-  <DebugSessions>
-    <watchExpressions/>
-    <memoryExpressions>0x20000000;;;</memoryExpressions>
-    <statistics>;;32;;MHZ;;up</statistics>
-    <peripheralTabs/>
-    <WatchDisplayFormat>1</WatchDisplayFormat>
-    <LocalDisplayFormat>1</LocalDisplayFormat>
-    <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-    <QuickWatchDisplayFormat>1</QuickWatchDisplayFormat>
-  </DebugSessions>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -615,4 +580,15 @@
       </Flash>
     </BuildConfig>
   </BuildConfigs>
+  <DebugSessions>
+    <watchExpressions/>
+    <memoryExpressions>0x20000000;;;</memoryExpressions>
+    <statistics>;;32;;MHZ;;up</statistics>
+    <peripheralTabs/>
+    <WatchDisplayFormat>1</WatchDisplayFormat>
+    <LocalDisplayFormat>1</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+    <QuickWatchDisplayFormat>1</QuickWatchDisplayFormat>
+  </DebugSessions>
 </Project>

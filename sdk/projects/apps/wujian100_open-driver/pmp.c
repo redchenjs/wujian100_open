@@ -132,7 +132,7 @@ void pmp_init(void)
     PMP_CONF_1_7_MASK_REG = 0x00000000;
 
     PMP_CTRL_0_REG = 0x01;
-    PMP_CTRL_1_REG = 0x3f;
+    PMP_CTRL_1_REG = 0x7f;
 }
 
 bool pmp_get_err(uint8_t idx)
