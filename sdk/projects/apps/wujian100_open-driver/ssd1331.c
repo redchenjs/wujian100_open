@@ -315,8 +315,6 @@ void ssd1331_fill_rect(unsigned char chXpos, unsigned char chYpos, unsigned char
     ssd1331_write_byte(hwColor >> 10, SSD1331_CMD);
     ssd1331_write_byte(hwColor >> 5, SSD1331_CMD);
     ssd1331_write_byte(hwColor << 1, SSD1331_CMD);
-
-//    SSD1331_DELAY_US(chWidth * chHeight / 8);
 }
 
 void ssd1331_fill_gram(unsigned int hwColor)
@@ -335,8 +333,6 @@ void ssd1331_clear_rect(unsigned char chXpos, unsigned char chYpos, unsigned cha
     ssd1331_write_byte(chYpos, SSD1331_CMD);
     ssd1331_write_byte(chXpos + chWidth - 1, SSD1331_CMD);
     ssd1331_write_byte(chYpos + chHeight - 1, SSD1331_CMD);
-
-//    SSD1331_DELAY_US(chWidth * chHeight / 8);
 }
 
 void ssd1331_clear_gram(void)
@@ -366,9 +362,6 @@ void ssd1331_display_char(unsigned char chXpos, unsigned char chYpos, unsigned c
                 break;
             case FONT_1608:
                 chTemp = c_chFont1608[chChr - ' '][i];
-                break;
-            case FONT_1616:
-                chTemp = c_chFont1616[chChr - ' '][i];
                 break;
             case FONT_3216:
                 chTemp = c_chFont3216[chChr - ' '][i];
@@ -622,7 +615,7 @@ void ssd1331_init(void)
     // init spi device
     spi_handle = csi_spi_initialize(SPI_DEV_IDX, NULL);
 
-    csi_spi_config(spi_handle, 1000000, SPI_MODE_MASTER, SPI_FORMAT_CPOL0_CPHA0, SPI_ORDER_MSB2LSB, SPI_SS_MASTER_SW, 8);
+    csi_spi_config(spi_handle, 20000000, SPI_MODE_MASTER, SPI_FORMAT_CPOL0_CPHA0, SPI_ORDER_MSB2LSB, SPI_SS_MASTER_SW, 8);
     csi_spi_config_block_mode(spi_handle, 1);
 
     SSD1331_PIN_SET();
@@ -670,8 +663,6 @@ void ssd1331_init(void)
     ssd1331_write_byte(0x50, SSD1331_CMD);                      // 80 0x50
     ssd1331_write_byte(SET_CONTRAST_C, SSD1331_CMD);            // Set Contrast Current for Color C
     ssd1331_write_byte(0x7D, SSD1331_CMD);                      // 125 0x7D
-
-//    ssd1331_set_gray_scale_table();                             // Set Pulse Width for Gray Scale Table
 
     ssd1331_clear_gram();
 

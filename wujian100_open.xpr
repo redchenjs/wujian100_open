@@ -1051,14 +1051,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/soc/rsa2048/testbench/me_iddmm_top_tb.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/soc/rsa2048/testbench/me_top_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -1068,6 +1060,14 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/soc/rsa2048/testbench/mmp_iddmm_sp_tb.v">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/soc/rsa2048/testbench/me_iddmm_top_tb.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>

@@ -16,6 +16,7 @@
 #include "pwm.h"
 #include "mbox.h"
 
+#include "fonts.h"
 #include "ssd1331.h"
 
 // Core Functions
@@ -41,16 +42,17 @@ int main(void)
     mbox_init(0);
 
     ssd1331_init();
-    ssd1331_show_rainbow();
 
     printf("app0: started.\n");
 
+    // Release Core 1 Reset
     pmu_set_reset(1);
 
     printf("app0: start core 1...\n");
 
     snprintf((char *)mail_buff, sizeof(mail_buff), "Hello from core 0! The message id is %u", loop);
 
+    // Send Mail to Core 1
     if (mbox_send_message(loop, mail_buff, strlen((char *)mail_buff)) >= 0) {
         printf("app0: mail %u is sent to remote core\n", loop);
     } else {
@@ -58,11 +60,14 @@ int main(void)
         send_msg = true;
     }
 
+    ssd1331_show_rainbow();
+
     do {
         printf("app0: loop count: %d\n", loop++);
 
         pwm_toggle();
 
+        // Check for Mail Response
         if (mbox_check_acked()) {
             mbox_read_ack(&mail_id);
 
@@ -72,6 +77,7 @@ int main(void)
             send_msg = true;
         }
 
+        // Send Mail
         if (send_msg) {
             snprintf((char *)mail_buff, sizeof(mail_buff), "Hello from core 0! The message id is %u", send_msg_id);
 
@@ -82,6 +88,7 @@ int main(void)
             }
         }
 
+        // Check for Pending Mail
         if (mbox_check_pending()) {
             if ((mail_len = mbox_read_message(&mail_id, mail_buff, sizeof(mail_buff))) >= 0) {
                 mail_buff[mail_len] = 0x00;
@@ -93,6 +100,7 @@ int main(void)
             }
         }
 
+        // Send Mail Response
         if (send_ack) {
             if (mbox_send_ack(send_ack_id) >= 0) {
                 printf("app0: mail %u is acked\n", send_ack_id);
@@ -101,11 +109,13 @@ int main(void)
             }
         }
 
+        // Check IOPMP Error (IBUS)
         if (pmp_get_err(0)) {
             printf("app0: iopmp port 0 hit: 0x%02x\n", pmp_get_hit(0));
             printf("app0: iopmp port 0 err: 0x%08x\n", pmp_get_dump(0));
         }
 
+        // Check IOPMP Error (DBUS)
         if (pmp_get_err(1)) {
             printf("app0: iopmp port 1 hit: 0x%02x\n", pmp_get_hit(1));
             printf("app0: iopmp port 1 err: 0x%08x\n", pmp_get_dump(1));

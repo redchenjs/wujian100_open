@@ -380,6 +380,30 @@
     <DebugLaunch>40</DebugLaunch>
   </MonitorProgress>
   <Dependencies Name="BuildSet"/>
+  <VirtualDirectory Name="csi_core">
+    <VirtualDirectory Name="include">
+      <File Name="../../../../csi_core/include/core_rv32.h">
+        <FileOption/>
+      </File>
+      <File Name="../../../../csi_core/include/csi_core.h">
+        <FileOption/>
+      </File>
+      <File Name="../../../../csi_core/include/csi_rv32_gcc.h">
+        <FileOption/>
+      </File>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <DebugSessions>
+    <watchExpressions/>
+    <memoryExpressions>0x10000000;;;</memoryExpressions>
+    <statistics>;;32;;MHZ;;up</statistics>
+    <peripheralTabs/>
+    <WatchDisplayFormat>1</WatchDisplayFormat>
+    <LocalDisplayFormat>1</LocalDisplayFormat>
+    <debugLayout/>
+    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
+    <QuickWatchDisplayFormat>1</QuickWatchDisplayFormat>
+  </DebugSessions>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -464,14 +488,17 @@
         <BeforeCompile>
           <RunUserProg>no</RunUserProg>
           <UserProgName/>
+          <IsBatchScript>no</IsBatchScript>
         </BeforeCompile>
         <BeforeMake>
           <RunUserProg>no</RunUserProg>
           <UserProgName/>
+          <IsBatchScript>no</IsBatchScript>
         </BeforeMake>
         <AfterMake>
           <RunUserProg>yes</RunUserProg>
           <UserProgName>"$(ProjectPath)/../../../../utilities//aft_build.sh"</UserProgName>
+          <IsBatchScript>no</IsBatchScript>
         </AfterMake>
         <Tools/>
       </User>
@@ -480,7 +507,7 @@
         <Undefine/>
         <Optim>Optimize size (-Os)</Optim>
         <DebugLevel>Maximum (-g3)</DebugLevel>
-        <IncludePath>;$(ProjectPath);$(ProjectPath)/../../../../csi_core/include;$(ProjectPath)/../../../../csi_driver/include;$(ProjectPath)/../../../../csi_driver/wujian100_open/include;$(ProjectPath)/../../../../csi_kernel/include;$(ProjectPath)/../../../../libs/include;$(ProjectPath)/../../../../projects/tests/driver/configs;$(ProjectPath)/../../../../projects/tests/driver/include;$(ProjectPath)/../../../../projects/tests/dtest/include;$(ProjectPath)/../../wujian100_open-app1/configs;$(ProjectPath)/../../wujian100_open-app1/src;$(ProjectPath)/../../wujian100_open-driver/include;$(ProjectPath)/../board/include;$(ProjectPath)/../configs</IncludePath>
+        <IncludePath>$(ProjectPath);$(ProjectPath)/../../../../libs/include;$(ProjectPath)/../../../../csi_core/include;$(ProjectPath)/../../../../csi_driver/include;$(ProjectPath)/../../../../csi_driver/wujian100_open/include;$(ProjectPath)/../../wujian100_open-driver/include;$(ProjectPath)/../board/include;$(ProjectPath)/../configs</IncludePath>
         <OtherFlags>-ffunction-sections -fdata-sections</OtherFlags>
         <Verbose>no</Verbose>
         <Ansi>no</Ansi>
@@ -497,7 +524,7 @@
       <Asm>
         <Define/>
         <Undefine/>
-        <IncludePath>;$(ProjectPath);$(ProjectPath)/../../../../projects/tests/driver/configs;$(ProjectPath)/../../wujian100_open-app1/configs;$(ProjectPath)/../../wujian100_open-app1/src;$(ProjectPath)/../../wujian100_open-driver/include;$(ProjectPath)/../board/include;$(ProjectPath)/../configs</IncludePath>
+        <IncludePath>$(ProjectPath);$(ProjectPath)/../../../../libs/include;$(ProjectPath)/../../../../csi_core/include;$(ProjectPath)/../../../../csi_driver/include;$(ProjectPath)/../../../../csi_driver/wujian100_open/include;$(ProjectPath)/../../wujian100_open-driver/include;$(ProjectPath)/../board/include;$(ProjectPath)/../configs</IncludePath>
         <OtherFlags/>
         <DebugLevel>gdwarf2</DebugLevel>
       </Asm>
@@ -527,6 +554,7 @@
         <AfterResetFile/>
         <Dumpcore>no</Dumpcore>
         <DumpcoreText/>
+        <SVCFile/>
         <ConfigICE>
           <IP>localhost</IP>
           <PORT>1025</PORT>
@@ -585,21 +613,12 @@
         <ResetAndRun>no</ResetAndRun>
         <ResetType/>
         <SoftResetVal/>
+        <FlashIndex>no</FlashIndex>
+        <FlashIndexVal>0</FlashIndexVal>
         <External>no</External>
         <Command/>
         <Arguments/>
       </Flash>
     </BuildConfig>
   </BuildConfigs>
-  <DebugSessions>
-    <watchExpressions/>
-    <memoryExpressions>0x10000000;;;</memoryExpressions>
-    <statistics>;;32;;MHZ;;up</statistics>
-    <peripheralTabs/>
-    <WatchDisplayFormat>1</WatchDisplayFormat>
-    <LocalDisplayFormat>1</LocalDisplayFormat>
-    <debugLayout/>
-    <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-    <QuickWatchDisplayFormat>1</QuickWatchDisplayFormat>
-  </DebugSessions>
 </Project>

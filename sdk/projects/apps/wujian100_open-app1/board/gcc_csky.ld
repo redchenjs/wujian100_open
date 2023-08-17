@@ -19,9 +19,8 @@ MEMORY
     SRAM-APP1 : ORIGIN = 0x20020000,  LENGTH = 0x00010000   /* SRAM-APP1 64KB */
 }
 
-__min_heap_size = 0x200;
-PROVIDE (__ram_end  = 0x20030000);
-PROVIDE (__heap_end = __ram_end);
+__min_heap_size  = 0x8000;
+__min_stack_size = 0x0400;
 
 REGION_ALIAS("REGION_TEXT",   IRAM-APP1);
 REGION_ALIAS("REGION_RODATA", IRAM-APP1);
@@ -159,10 +158,16 @@ SECTIONS
         end = . ;
     } > REGION_BSS AT > REGION_BSS
 
-    ._user_heap : {
+    ._user_heap_stack : {
         . = ALIGN(0x4) ;
         __heap_start = .;
         . += __min_heap_size;
         . = ALIGN(0x4) ;
+        __heap_end = .;
+        . = ALIGN(0x4) ;
+        __stack_bottom = .;
+        . += __min_stack_size;
+        . = ALIGN(0x4) ;
+        __stack_top = .;
     } > REGION_BSS AT > REGION_BSS
 }

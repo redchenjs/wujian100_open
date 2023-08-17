@@ -797,7 +797,7 @@ int32_t drv_usi_usart_flush(usart_handle_t handle, usart_flush_type_e type)
   \param[in]   flag 0-OFF, 1-ON.
   \return      error code
 */
-int32_t drv_usi_usart_set_interrupt(usart_handle_t handle, usart_intr_type_e type, int flag)
+int32_t drv_usi_usart_set_interrupt(usart_handle_t handle, usart_intr_type_e type, int32_t flag)
 {
     USART_NULL_PARAM_CHK(handle);
 

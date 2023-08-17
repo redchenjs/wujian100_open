@@ -14,6 +14,8 @@
 #include "gpio.h"
 #include "mbox.h"
 
+#include "ws28xx.h"
+
 // Core Functions
 extern void mdelay(uint32_t ms);
 
@@ -33,6 +35,8 @@ int main(void)
     gpio_init();
     mbox_init(1);
 
+    ws28xx_init();
+
     printf("app1: started.\n");
 
     snprintf((char *)mail_buff, sizeof(mail_buff), "Hello from core 1! The message id is %u", loop);
@@ -48,6 +52,12 @@ int main(void)
         printf("app1: loop count: %d\n", loop++);
 
         gpio_toggle();
+
+        if (loop % 2) {
+            ws28xx_write_block(ws28xx_pattern_pass);
+        } else {
+            ws28xx_clear();
+        }
 
         if (mbox_check_acked()) {
             mbox_read_ack(&mail_id);
