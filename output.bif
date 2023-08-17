@@ -1,6 +1,6 @@
-//arch = zynq; split = false; format = BIN
+//arch = zynqmp; split = false; format = BIN
 the_ROM_image:
 {
-	[bootloader]D:\Works\Xilinx\wujian100_platform\export\wujian100_platform\sw\wujian100_platform\boot\fsbl.elf
-	D:\Works\Xilinx\wujian100_open\wujian100_open.runs\impl_1\design_1_wrapper.bit
+	[bootloader, destination_cpu = a53-0]D:\Works\wujian100\wujian100_platform\export\wujian100_platform\sw\wujian100_platform\boot\fsbl.elf
+	[destination_device = pl]D:\Works\Xilinx\wujian100_open_zcu\wujian100_open.runs\impl_1\design_1_wrapper.bit
 }
