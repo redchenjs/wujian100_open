@@ -66,6 +66,16 @@ int main(void)
 
         pwm_toggle();
 
+        // TX Mail ID
+        snprintf((char *)mail_buff, sizeof(mail_buff), "%03u", send_msg_id);
+
+        ssd1331_display_string(0, 0, (char *)mail_buff, FONT_3216, Lime, Black);
+
+        // RX Mail ID
+        snprintf((char *)mail_buff, sizeof(mail_buff), "%03u", send_ack_id);
+
+        ssd1331_display_string(48, 32, (char *)mail_buff, FONT_3216, Yellow, Black);
+
         // Check for Mail Response
         if (mbox_check_acked()) {
             mbox_read_ack(&mail_id);
@@ -108,16 +118,24 @@ int main(void)
             }
         }
 
-        // Check IOPMP Error (IBUS)
-        if (pmp_get_err(0)) {
-            printf("app0: iopmp port 0 hit: 0x%02x\n", pmp_get_hit(0));
-            printf("app0: iopmp port 0 err: 0x%08x\n", pmp_get_dump(0));
+        // Check IOPMP WR Error (IBUS)
+        if (pmp_get_err_wr(0)) {
+            printf("app0: iopmp port 0 wr hit: 0x%02x, addr: 0x%08x\n", pmp_get_hit_wr(0), pmp_get_dump_wr(0));
         }
 
-        // Check IOPMP Error (DBUS)
-        if (pmp_get_err(1)) {
-            printf("app0: iopmp port 1 hit: 0x%02x\n", pmp_get_hit(1));
-            printf("app0: iopmp port 1 err: 0x%08x\n", pmp_get_dump(1));
+        // Check IOPMP RD Error (IBUS)
+        if (pmp_get_err_rd(0)) {
+            printf("app0: iopmp port 0 rd hit: 0x%02x, addr: 0x%08x\n", pmp_get_hit_rd(0), pmp_get_dump_rd(0));
+        }
+
+        // Check IOPMP WR Error (DBUS)
+        if (pmp_get_err_wr(1)) {
+            printf("app0: iopmp port 1 wr hit: 0x%02x, addr: 0x%08x\n", pmp_get_hit_wr(1), pmp_get_dump_wr(1));
+        }
+
+        // Check IOPMP RD Error (DBUS)
+        if (pmp_get_err_rd(1)) {
+            printf("app0: iopmp port 1 rd hit: 0x%02x, addr: 0x%08x\n", pmp_get_hit_rd(1), pmp_get_dump_rd(1));
         }
 
         mdelay(1000);

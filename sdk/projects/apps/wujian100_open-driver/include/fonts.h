@@ -149,17 +149,19 @@ enum color_table {
     Black                   = RGB(  0,  0,  0)
 };
 
-enum fonts_size {
+enum c_chFontSize {
     FONT_1206 = 0,
     FONT_1608 = 1,
-    FONT_3216 = 2
+    FONT_1616 = 2,
+    FONT_3216 = 3
 };
 
-extern const unsigned char fonts_height[];
-extern const unsigned char fonts_width[];
+extern const unsigned char c_chFontHeight[];
+extern const unsigned char c_chFontWidth[];
 
 extern const unsigned char c_chFont1206[95][12];
 extern const unsigned char c_chFont1608[95][16];
+extern const unsigned char c_chFont1616[95][32];
 extern const unsigned char c_chFont3216[95][64];
 
 #endif /* INC_CORE_FONTS_H_ */

@@ -1024,7 +1024,6 @@
         </FileInfo>
       </File>
       <Config>
-        <Option Name="TargetConstrsFile" Val="$PPRDIR/fpga/xdc/ZYNQ_PI_EXT.xdc"/>
         <Option Name="ConstrsType" Val="XDC"/>
       </Config>
     </FileSet>
@@ -1128,8 +1127,8 @@
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design">
           <Option Id="ReTiming">1</Option>
-          <Option Id="GatedClockConversion">2</Option>
           <Option Id="KeepEquivalentRegisters">1</Option>
+          <Option Id="GatedClockConversion">2</Option>
         </Step>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>

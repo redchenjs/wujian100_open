@@ -41,6 +41,7 @@ int main(void)
 
     snprintf((char *)mail_buff, sizeof(mail_buff), "Hello from core 1! The message id is %u", loop);
 
+    // Send Mail to Core 0
     if (mbox_send_message(loop, mail_buff, strlen((char *)mail_buff)) >= 0) {
         printf("app1: mail %u is sent to remote core\n", loop);
     } else {
@@ -59,6 +60,7 @@ int main(void)
             ws28xx_clear();
         }
 
+        // Check for Mail Response
         if (mbox_check_acked()) {
             mbox_read_ack(&mail_id);
 
@@ -68,6 +70,7 @@ int main(void)
             send_msg = true;
         }
 
+        // Send Mail
         if (send_msg) {
             snprintf((char *)mail_buff, sizeof(mail_buff), "Hello from core 1! The message id is %u", send_msg_id);
 
@@ -78,6 +81,7 @@ int main(void)
             }
         }
 
+        // Check for Pending Mail
         if (mbox_check_pending()) {
             if ((mail_len = mbox_read_message(&mail_id, mail_buff, sizeof(mail_buff))) >= 0) {
                 mail_buff[mail_len] = 0x00;
@@ -89,6 +93,7 @@ int main(void)
             }
         }
 
+        // Send Mail Response
         if (send_ack) {
             if (mbox_send_ack(send_ack_id) >= 0) {
                 printf("app1: mail %u is acked\n", send_ack_id);

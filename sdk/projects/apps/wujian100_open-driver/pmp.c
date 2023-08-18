@@ -9,54 +9,68 @@
 #include <stdbool.h>
 
 // IOPMP Functions
-#define PMP_ERROR_BIT              (0x00000200)
-#define PMP_RESET_BIT              (0x00000100)
+#define PMP_RESET_BIT              (0x00000001)
+
+#define PMP_ERR_W_BIT              (0x00000002)
+#define PMP_ERR_R_BIT              (0x00000001)
 
 #define PMP_CTRL_0_REG_BASE        (0x40100000UL)
 #define PMP_CTRL_1_REG_BASE        (0x40100004UL)
 
-#define PMP_DUMP_0_REG_BASE        (0x40100008UL)
-#define PMP_DUMP_1_REG_BASE        (0x4010000CUL)
+#define PMP_STAT_0_REG_BASE        (0x40100008UL)
+#define PMP_STAT_1_REG_BASE        (0x4010000CUL)
 
-#define PMP_CONF_0_0_BASE_REG_BASE (0x40100010UL)
-#define PMP_CONF_0_0_MASK_REG_BASE (0x40100014UL)
-#define PMP_CONF_0_1_BASE_REG_BASE (0x40100018UL)
-#define PMP_CONF_0_1_MASK_REG_BASE (0x4010001CUL)
-#define PMP_CONF_0_2_BASE_REG_BASE (0x40100020UL)
-#define PMP_CONF_0_2_MASK_REG_BASE (0x40100024UL)
-#define PMP_CONF_0_3_BASE_REG_BASE (0x40100028UL)
-#define PMP_CONF_0_3_MASK_REG_BASE (0x4010002CUL)
-#define PMP_CONF_0_4_BASE_REG_BASE (0x40100030UL)
-#define PMP_CONF_0_4_MASK_REG_BASE (0x40100034UL)
-#define PMP_CONF_0_5_BASE_REG_BASE (0x40100038UL)
-#define PMP_CONF_0_5_MASK_REG_BASE (0x4010003CUL)
-#define PMP_CONF_0_6_BASE_REG_BASE (0x40100040UL)
-#define PMP_CONF_0_6_MASK_REG_BASE (0x40100044UL)
-#define PMP_CONF_0_7_BASE_REG_BASE (0x40100048UL)
-#define PMP_CONF_0_7_MASK_REG_BASE (0x4010004CUL)
+#define PMP_DUMP_0_W_REG_BASE      (0x40100010UL)
+#define PMP_DUMP_0_R_REG_BASE      (0x40100014UL)
 
-#define PMP_CONF_1_0_BASE_REG_BASE (0x40100050UL)
-#define PMP_CONF_1_0_MASK_REG_BASE (0x40100054UL)
-#define PMP_CONF_1_1_BASE_REG_BASE (0x40100058UL)
-#define PMP_CONF_1_1_MASK_REG_BASE (0x4010005CUL)
-#define PMP_CONF_1_2_BASE_REG_BASE (0x40100060UL)
-#define PMP_CONF_1_2_MASK_REG_BASE (0x40100064UL)
-#define PMP_CONF_1_3_BASE_REG_BASE (0x40100068UL)
-#define PMP_CONF_1_3_MASK_REG_BASE (0x4010006CUL)
-#define PMP_CONF_1_4_BASE_REG_BASE (0x40100070UL)
-#define PMP_CONF_1_4_MASK_REG_BASE (0x40100074UL)
-#define PMP_CONF_1_5_BASE_REG_BASE (0x40100078UL)
-#define PMP_CONF_1_5_MASK_REG_BASE (0x4010007CUL)
-#define PMP_CONF_1_6_BASE_REG_BASE (0x40100080UL)
-#define PMP_CONF_1_6_MASK_REG_BASE (0x40100084UL)
-#define PMP_CONF_1_7_BASE_REG_BASE (0x40100088UL)
-#define PMP_CONF_1_7_MASK_REG_BASE (0x4010008CUL)
+#define PMP_DUMP_1_W_REG_BASE      (0x40100018UL)
+#define PMP_DUMP_1_R_REG_BASE      (0x4010001CUL)
+
+#define PMP_CONF_0_0_BASE_REG_BASE (0x40100020UL)
+#define PMP_CONF_0_0_MASK_REG_BASE (0x40100024UL)
+#define PMP_CONF_0_1_BASE_REG_BASE (0x40100028UL)
+#define PMP_CONF_0_1_MASK_REG_BASE (0x4010002CUL)
+#define PMP_CONF_0_2_BASE_REG_BASE (0x40100030UL)
+#define PMP_CONF_0_2_MASK_REG_BASE (0x40100034UL)
+#define PMP_CONF_0_3_BASE_REG_BASE (0x40100038UL)
+#define PMP_CONF_0_3_MASK_REG_BASE (0x4010003CUL)
+#define PMP_CONF_0_4_BASE_REG_BASE (0x40100040UL)
+#define PMP_CONF_0_4_MASK_REG_BASE (0x40100044UL)
+#define PMP_CONF_0_5_BASE_REG_BASE (0x40100048UL)
+#define PMP_CONF_0_5_MASK_REG_BASE (0x4010004CUL)
+#define PMP_CONF_0_6_BASE_REG_BASE (0x40100050UL)
+#define PMP_CONF_0_6_MASK_REG_BASE (0x40100054UL)
+#define PMP_CONF_0_7_BASE_REG_BASE (0x40100058UL)
+#define PMP_CONF_0_7_MASK_REG_BASE (0x4010005CUL)
+
+#define PMP_CONF_1_0_BASE_REG_BASE (0x40100060UL)
+#define PMP_CONF_1_0_MASK_REG_BASE (0x40100064UL)
+#define PMP_CONF_1_1_BASE_REG_BASE (0x40100068UL)
+#define PMP_CONF_1_1_MASK_REG_BASE (0x4010006CUL)
+#define PMP_CONF_1_2_BASE_REG_BASE (0x40100070UL)
+#define PMP_CONF_1_2_MASK_REG_BASE (0x40100074UL)
+#define PMP_CONF_1_3_BASE_REG_BASE (0x40100078UL)
+#define PMP_CONF_1_3_MASK_REG_BASE (0x4010007CUL)
+#define PMP_CONF_1_4_BASE_REG_BASE (0x40100080UL)
+#define PMP_CONF_1_4_MASK_REG_BASE (0x40100084UL)
+#define PMP_CONF_1_5_BASE_REG_BASE (0x40100088UL)
+#define PMP_CONF_1_5_MASK_REG_BASE (0x4010008CUL)
+#define PMP_CONF_1_6_BASE_REG_BASE (0x40100090UL)
+#define PMP_CONF_1_6_MASK_REG_BASE (0x40100094UL)
+#define PMP_CONF_1_7_BASE_REG_BASE (0x40100098UL)
+#define PMP_CONF_1_7_MASK_REG_BASE (0x4010009CUL)
 
 #define PMP_CTRL_0_REG  (*(volatile uint32_t *)PMP_CTRL_0_REG_BASE)
 #define PMP_CTRL_1_REG  (*(volatile uint32_t *)PMP_CTRL_1_REG_BASE)
 
-#define PMP_DUMP_0_REG  (*(volatile uint32_t *)PMP_DUMP_0_REG_BASE)
-#define PMP_DUMP_1_REG  (*(volatile uint32_t *)PMP_DUMP_1_REG_BASE)
+#define PMP_STAT_0_REG  (*(volatile uint32_t *)PMP_STAT_0_REG_BASE)
+#define PMP_STAT_1_REG  (*(volatile uint32_t *)PMP_STAT_1_REG_BASE)
+
+#define PMP_DUMP_0_W_REG  (*(volatile uint32_t *)PMP_DUMP_0_W_REG_BASE)
+#define PMP_DUMP_0_R_REG  (*(volatile uint32_t *)PMP_DUMP_0_R_REG_BASE)
+
+#define PMP_DUMP_1_W_REG  (*(volatile uint32_t *)PMP_DUMP_1_W_REG_BASE)
+#define PMP_DUMP_1_R_REG  (*(volatile uint32_t *)PMP_DUMP_1_R_REG_BASE)
 
 #define PMP_CONF_0_0_BASE_REG (*(volatile uint32_t *)PMP_CONF_0_0_BASE_REG_BASE)
 #define PMP_CONF_0_0_MASK_REG (*(volatile uint32_t *)PMP_CONF_0_0_MASK_REG_BASE)
@@ -131,33 +145,60 @@ void pmp_init(void)
     PMP_CONF_1_7_BASE_REG = 0x00000000;
     PMP_CONF_1_7_MASK_REG = 0x00000000;
 
-    PMP_CTRL_0_REG = 0x01;
-    PMP_CTRL_1_REG = 0x7f;
+    PMP_CTRL_0_REG = 0x01010000;
+    PMP_CTRL_1_REG = 0x7f7f0000;
 }
 
-bool pmp_get_err(uint8_t idx)
+bool pmp_get_err_wr(uint8_t idx)
 {
     if (idx) {
-        return PMP_CTRL_1_REG & PMP_ERROR_BIT;
+        return PMP_STAT_1_REG & PMP_ERR_W_BIT;
     } else {
-        return PMP_CTRL_0_REG & PMP_ERROR_BIT;
+        return PMP_STAT_0_REG & PMP_ERR_W_BIT;
     }
 }
 
-uint8_t pmp_get_hit(uint8_t idx)
+bool pmp_get_err_rd(uint8_t idx)
 {
     if (idx) {
-        return PMP_CTRL_1_REG >> 16;
+        return PMP_STAT_1_REG & PMP_ERR_R_BIT;
     } else {
-        return PMP_CTRL_0_REG >> 16;
+        return PMP_STAT_0_REG & PMP_ERR_R_BIT;
     }
 }
 
-uint32_t pmp_get_dump(uint8_t idx)
+uint8_t pmp_get_hit_wr(uint8_t idx)
 {
     if (idx) {
-        return PMP_DUMP_1_REG;
+        return PMP_STAT_1_REG >> 24;
     } else {
-        return PMP_DUMP_0_REG;
+        return PMP_STAT_0_REG >> 24;
+    }
+}
+
+uint8_t pmp_get_hit_rd(uint8_t idx)
+{
+    if (idx) {
+        return PMP_STAT_1_REG >> 16;
+    } else {
+        return PMP_STAT_0_REG >> 16;
+    }
+}
+
+uint32_t pmp_get_dump_wr(uint8_t idx)
+{
+    if (idx) {
+        return PMP_DUMP_1_W_REG;
+    } else {
+        return PMP_DUMP_0_W_REG;
+    }
+}
+
+uint32_t pmp_get_dump_rd(uint8_t idx)
+{
+    if (idx) {
+        return PMP_DUMP_1_R_REG;
+    } else {
+        return PMP_DUMP_0_R_REG;
     }
 }

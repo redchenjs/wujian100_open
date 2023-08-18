@@ -355,13 +355,16 @@ void ssd1331_display_char(unsigned char chXpos, unsigned char chYpos, unsigned c
         return;
     }
 
-    for (i = 0; i < fonts_width[chFontIndex] * ((fonts_height[chFontIndex] + 7) / 8); i++) {
+    for (i = 0; i < c_chFontWidth[chFontIndex] * ((c_chFontHeight[chFontIndex] + 7) / 8); i++) {
         switch (chFontIndex) {
             case FONT_1206:
                 chTemp = c_chFont1206[chChr - ' '][i];
                 break;
             case FONT_1608:
                 chTemp = c_chFont1608[chChr - ' '][i];
+                break;
+            case FONT_1616:
+                chTemp = c_chFont1616[chChr - ' '][i];
                 break;
             case FONT_3216:
                 chTemp = c_chFont3216[chChr - ' '][i];
@@ -380,7 +383,7 @@ void ssd1331_display_char(unsigned char chXpos, unsigned char chYpos, unsigned c
             chTemp <<= 1;
             chYpos++;
 
-            if ((chYpos - chYpos0) == fonts_height[chFontIndex]) {
+            if ((chYpos - chYpos0) == c_chFontHeight[chFontIndex]) {
                 chYpos = chYpos0;
                 chXpos++;
                 break;
@@ -410,13 +413,13 @@ void ssd1331_display_num(unsigned char chXpos, unsigned char chYpos, unsigned lo
         chTemp = (chNum / _pow(10, chLen - i - 1)) % 10;
         if (chShow == 0 && i < (chLen - 1)) {
             if(chTemp == 0) {
-                ssd1331_display_char(chXpos + fonts_width[chFontIndex] * i, chYpos, ' ', chFontIndex, hwForeColor, hwBackColor);
+                ssd1331_display_char(chXpos + c_chFontWidth[chFontIndex] * i, chYpos, ' ', chFontIndex, hwForeColor, hwBackColor);
                 continue;
             } else {
                 chShow = 1;
             }
         }
-        ssd1331_display_char(chXpos + fonts_width[chFontIndex] * i, chYpos, chTemp + '0', chFontIndex, hwForeColor, hwBackColor);
+        ssd1331_display_char(chXpos + c_chFontWidth[chFontIndex] * i, chYpos, chTemp + '0', chFontIndex, hwForeColor, hwBackColor);
     }
 }
 
@@ -427,17 +430,17 @@ void ssd1331_display_string(unsigned char chXpos, unsigned char chYpos, const ch
     }
 
     while (*pchString != '\0') {
-        if (chXpos > (SSD1331_WIDTH - fonts_width[chFontIndex])) {
+        if (chXpos > (SSD1331_WIDTH - c_chFontWidth[chFontIndex])) {
             chXpos = 0;
-            chYpos += fonts_height[chFontIndex];
-            if (chYpos > (SSD1331_HEIGHT - fonts_height[chFontIndex])) {
+            chYpos += c_chFontHeight[chFontIndex];
+            if (chYpos > (SSD1331_HEIGHT - c_chFontHeight[chFontIndex])) {
                 chYpos = chXpos = 0;
                 ssd1331_clear_gram();
             }
         }
 
         ssd1331_display_char(chXpos, chYpos, *pchString, chFontIndex, hwForeColor, hwBackColor);
-        chXpos += fonts_width[chFontIndex];
+        chXpos += c_chFontWidth[chFontIndex];
         pchString++;
     }
 }
