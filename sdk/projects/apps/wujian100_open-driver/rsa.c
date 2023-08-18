@@ -14,10 +14,7 @@
 #define RSA_FINISH_REG  (*(volatile uint32_t *)0x78000004UL)
 #define RSA_DATA_REG 	(*(volatile uint32_t *)0x78000010UL)
 
-void rsa_init(void)
-{
-
-}
+void rsa_init(void) { }
 
 void rsa_calc_data(const uint32_t *input, uint32_t *result)
 {

@@ -23,7 +23,6 @@
 #include "rsa.h"
 #include "sha2.h"
 #include "ws28xx.h"
-#include "ssd1331.h"
 
 #include "drv_usart.h"
 

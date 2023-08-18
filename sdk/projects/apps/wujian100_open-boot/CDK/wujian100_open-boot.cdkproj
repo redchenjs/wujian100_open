@@ -329,19 +329,16 @@
           <File Name="../../wujian100_open-driver/include/sha2.h">
             <FileOption/>
           </File>
-          <File Name="../../wujian100_open-driver/include/ws28xx.h">
-            <FileOption/>
-          </File>
           <File Name="../../wujian100_open-driver/include/boot.h">
             <FileOption/>
           </File>
           <File Name="../../wujian100_open-driver/include/rsa.h">
             <FileOption/>
           </File>
-          <File Name="../../wujian100_open-driver/include/ssd1331.h">
+          <File Name="../../wujian100_open-driver/include/fonts.h">
             <FileOption/>
           </File>
-          <File Name="../../wujian100_open-driver/include/fonts.h">
+          <File Name="../../wujian100_open-driver/include/ws28xx.h">
             <FileOption/>
           </File>
         </VirtualDirectory>
@@ -366,19 +363,16 @@
         <File Name="../../wujian100_open-driver/sha2.c">
           <FileOption/>
         </File>
-        <File Name="../../wujian100_open-driver/ws28xx.c">
-          <FileOption/>
-        </File>
         <File Name="../../wujian100_open-driver/boot.c">
           <FileOption/>
         </File>
         <File Name="../../wujian100_open-driver/rsa.c">
           <FileOption/>
         </File>
-        <File Name="../../wujian100_open-driver/ssd1331.c">
+        <File Name="../../wujian100_open-driver/fonts.c">
           <FileOption/>
         </File>
-        <File Name="../../wujian100_open-driver/fonts.c">
+        <File Name="../../wujian100_open-driver/ws28xx.c">
           <FileOption/>
         </File>
       </VirtualDirectory>

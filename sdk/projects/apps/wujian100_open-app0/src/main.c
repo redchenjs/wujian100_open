@@ -118,24 +118,24 @@ int main(void)
             }
         }
 
-        // Check IOPMP WR Error (IBUS)
-        if (pmp_get_err_wr(0)) {
-            printf("app0: iopmp port 0 wr hit: 0x%02x, addr: 0x%08x\n", pmp_get_hit_wr(0), pmp_get_dump_wr(0));
-        }
-
-        // Check IOPMP RD Error (IBUS)
+        // Check IOPMP read violation (I-BUS)
         if (pmp_get_err_rd(0)) {
-            printf("app0: iopmp port 0 rd hit: 0x%02x, addr: 0x%08x\n", pmp_get_hit_rd(0), pmp_get_dump_rd(0));
+            printf("app0: iopmp port 0 access violation reading address 0x%08x\n", pmp_get_dump_rd(0));
         }
 
-        // Check IOPMP WR Error (DBUS)
-        if (pmp_get_err_wr(1)) {
-            printf("app0: iopmp port 1 wr hit: 0x%02x, addr: 0x%08x\n", pmp_get_hit_wr(1), pmp_get_dump_wr(1));
+        // Check IOPMP write violation (I-BUS)
+        if (pmp_get_err_wr(0)) {
+            printf("app0: iopmp port 0 access violation writing address 0x%08x\n", pmp_get_dump_wr(0));
         }
 
-        // Check IOPMP RD Error (DBUS)
+        // Check IOPMP read violation (D-BUS)
         if (pmp_get_err_rd(1)) {
-            printf("app0: iopmp port 1 rd hit: 0x%02x, addr: 0x%08x\n", pmp_get_hit_rd(1), pmp_get_dump_rd(1));
+            printf("app0: iopmp port 1 access violation reading address 0x%08x\n", pmp_get_dump_rd(1));
+        }
+
+        // Check IOPMP write violation (D-BUS)
+        if (pmp_get_err_wr(1)) {
+            printf("app0: iopmp port 1 access violation writing address 0x%08x\n", pmp_get_dump_wr(1));
         }
 
         mdelay(1000);
