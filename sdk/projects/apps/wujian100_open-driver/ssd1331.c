@@ -618,7 +618,7 @@ void ssd1331_init(void)
     // init spi device
     spi_handle = csi_spi_initialize(SPI_DEV_IDX, NULL);
 
-    csi_spi_config(spi_handle, 20000000, SPI_MODE_MASTER, SPI_FORMAT_CPOL0_CPHA0, SPI_ORDER_MSB2LSB, SPI_SS_MASTER_SW, 8);
+    csi_spi_config(spi_handle, 10000000, SPI_MODE_MASTER, SPI_FORMAT_CPOL0_CPHA0, SPI_ORDER_MSB2LSB, SPI_SS_MASTER_SW, 8);
     csi_spi_config_block_mode(spi_handle, 1);
 
     SSD1331_PIN_SET();

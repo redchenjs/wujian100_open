@@ -60,17 +60,17 @@
 #define PMP_CONF_1_7_BASE_REG_BASE (0x40100098UL)
 #define PMP_CONF_1_7_MASK_REG_BASE (0x4010009CUL)
 
-#define PMP_CTRL_0_REG  (*(volatile uint32_t *)PMP_CTRL_0_REG_BASE)
-#define PMP_CTRL_1_REG  (*(volatile uint32_t *)PMP_CTRL_1_REG_BASE)
+#define PMP_CTRL_0_REG        (*(volatile uint32_t *)PMP_CTRL_0_REG_BASE)
+#define PMP_CTRL_1_REG        (*(volatile uint32_t *)PMP_CTRL_1_REG_BASE)
 
-#define PMP_STAT_0_REG  (*(volatile uint32_t *)PMP_STAT_0_REG_BASE)
-#define PMP_STAT_1_REG  (*(volatile uint32_t *)PMP_STAT_1_REG_BASE)
+#define PMP_STAT_0_REG        (*(volatile uint32_t *)PMP_STAT_0_REG_BASE)
+#define PMP_STAT_1_REG        (*(volatile uint32_t *)PMP_STAT_1_REG_BASE)
 
-#define PMP_DUMP_0_W_REG  (*(volatile uint32_t *)PMP_DUMP_0_W_REG_BASE)
-#define PMP_DUMP_0_R_REG  (*(volatile uint32_t *)PMP_DUMP_0_R_REG_BASE)
+#define PMP_DUMP_0_W_REG      (*(volatile uint32_t *)PMP_DUMP_0_W_REG_BASE)
+#define PMP_DUMP_0_R_REG      (*(volatile uint32_t *)PMP_DUMP_0_R_REG_BASE)
 
-#define PMP_DUMP_1_W_REG  (*(volatile uint32_t *)PMP_DUMP_1_W_REG_BASE)
-#define PMP_DUMP_1_R_REG  (*(volatile uint32_t *)PMP_DUMP_1_R_REG_BASE)
+#define PMP_DUMP_1_W_REG      (*(volatile uint32_t *)PMP_DUMP_1_W_REG_BASE)
+#define PMP_DUMP_1_R_REG      (*(volatile uint32_t *)PMP_DUMP_1_R_REG_BASE)
 
 #define PMP_CONF_0_0_BASE_REG (*(volatile uint32_t *)PMP_CONF_0_0_BASE_REG_BASE)
 #define PMP_CONF_0_0_MASK_REG (*(volatile uint32_t *)PMP_CONF_0_0_MASK_REG_BASE)
